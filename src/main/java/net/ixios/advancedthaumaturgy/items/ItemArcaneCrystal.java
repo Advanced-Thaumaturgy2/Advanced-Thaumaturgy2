@@ -171,10 +171,11 @@ public class ItemArcaneCrystal extends Item
 															 ConfigItems.WAND_ROD_QUARTZ.getItem(), ConfigItems.WAND_ROD_REED.getItem() });
 
 		 NBTTagInt tag = new NBTTagInt( Upgrades.Recharge.getFlag());
-		 InfusionRecipe upgrade = ThaumcraftApi.addInfusionCraftingRecipe("UPGRADERECHARGE", tag, 4, 
-				 new AspectList().add(Aspect.MAGIC, 8), ItemMercurialWand.AnyWand, 
-				 new ItemStack[] { new ItemStack(this, 1, 1) });
-		 ConfigResearch.recipes.put("WANDUPGRADEREHARGE", recipe);
+
+		 //InfusionRecipe upgrade = ThaumcraftApi.addInfusionCraftingRecipe("UPGRADERECHARGE", tag, 4,
+		//		 new AspectList().add(Aspect.MAGIC, 8), ItemMercurialWand.AnyWand,
+		//		 new ItemStack[] { new ItemStack(this, 1, 1) });
+		// ConfigResearch.recipes.put("WANDUPGRADEREHARGE", recipe);
 		 
 		ATResearchItem ri = new ATResearchItem("UPGRADERECHARGE", "ADVTHAUM",
 					new AspectList().add(Aspect.AIR, 20).add(Aspect.FIRE, 20).add(Aspect.WATER, 20).add(Aspect.EARTH, 20).add(Aspect.ORDER, 20).add(Aspect.ENTROPY, 20),
@@ -184,7 +185,7 @@ public class ItemArcaneCrystal extends Item
 		 ri.setTitle("item.at.arcanecrystal.1.name");
 		 ri.setInfo("at.research.rechargeupgrade.desc");
 		 
-		 ri.setPages(new ResearchPage("at.research.rechargeupgrade.pg1"), new ResearchPage(recipe), new ResearchPage(upgrade));
+		 ri.setPages(new ResearchPage("at.research.rechargeupgrade.pg1"), new ResearchPage(recipe));//, new ResearchPage(upgrade));
 		 
 		 ri.setParents("ARCANECRYSTAL", "INFUSION", "ROD_reed", "ROD_blaze", "ROD_obsidian", "ROD_ice", "ROD_quartz", "ROD_bone");
 		 		 
@@ -219,7 +220,7 @@ public class ItemArcaneCrystal extends Item
 		 
 		 ri.setParents("ARCANECRYSTAL", "INFUSION", "DISTILESSENTIA");
 		 
-		 ri.setPages(new ResearchPage("at.research.upgradedrain.pg1"), new ResearchPage(recipe), new ResearchPage(upgrade));
+		 ri.setPages(new ResearchPage("at.research.upgradedrain.pg1"), new ResearchPage(recipe));//, new ResearchPage(upgrade));
 		 
 		 ri.setStub();
 		 ri.setSecondary();
@@ -266,7 +267,7 @@ public class ItemArcaneCrystal extends Item
 		 
 		 ri.setParents("ARCANECRYSTAL", "INFUSION");
 		 
-		 ri.setPages(new ResearchPage("at.research.upgradecompound.pg1"), new ResearchPage(recipe), new ResearchPage(upgrade));
+		 ri.setPages(new ResearchPage("at.research.upgradecompound.pg1"), new ResearchPage(recipe));//, new ResearchPage(upgrade));
 		 
 		 ri.setStub();
 		 ri.setSecondary();
@@ -301,7 +302,7 @@ public class ItemArcaneCrystal extends Item
 		
 		ri.setParents("ARCANECRYSTAL", "INFUSION", "ENCHFABRIC");
 		
-		ri.setPages(new ResearchPage("at.research.upgradediscount.pg1"), new ResearchPage(recipe), new ResearchPage(upgrade));
+		ri.setPages(new ResearchPage("at.research.upgradediscount.pg1"), new ResearchPage(recipe));//, new ResearchPage(upgrade));
 		
 		ri.setStub();
 		ri.setSecondary();
@@ -335,7 +336,7 @@ public class ItemArcaneCrystal extends Item
 		 
 		 ri.setParents("ARCANECRYSTAL", "INFUSION");
 		 
-		 ri.setPages(new ResearchPage("at.research.upgradestabilizer.pg1"), new ResearchPage(recipe), new ResearchPage(upgrade));
+		 ri.setPages(new ResearchPage("at.research.upgradestabilizer.pg1"), new ResearchPage(recipe));//, new ResearchPage(upgrade));
 		 
 		 ri.setStub();
 		 ri.setSecondary();
@@ -368,7 +369,7 @@ public class ItemArcaneCrystal extends Item
 		 
 		 ri.setParents("ARCANECRYSTAL", "INFUSION");
 		 
-		 ri.setPages(new ResearchPage("at.research.upgradepotency.pg1"), new ResearchPage(recipe), new ResearchPage(upgrade));
+		 ri.setPages(new ResearchPage("at.research.upgradepotency.pg1"), new ResearchPage(recipe));//, new ResearchPage(upgrade));
 		 
 		 ri.setStub();
 		 ri.setSecondary();

@@ -10,7 +10,7 @@ public class ModelFertilizer implements IModelContainer
 {
 
 	private ResourceLocation texture = new ResourceLocation("advthaum", "textures/models/thaum_sprinkler_tex.png");
-	private WavefrontObject model = (WavefrontObject)AdvancedModelLoader.loadModel("/assets/advthaum/models/thaum_sprinkler.obj");
+	private WavefrontObject model = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation("advthaum","models/thaum_sprinkler.obj"));
 
 	@Override
 	public void render(TileEntity te)

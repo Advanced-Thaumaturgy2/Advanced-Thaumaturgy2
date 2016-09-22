@@ -1,6 +1,8 @@
 package net.ixios.advancedthaumaturgy.fx;
 
 import java.util.Random;
+
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityFX;
@@ -53,7 +55,7 @@ public class ColorableSparkleFX extends EntityFX
 
     public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
     {
-    	boolean wasdrawing = tessellator.isDrawing;
+    	boolean wasdrawing = ReflectionHelper.getPrivateValue(Tessellator.class,tessellator,new String[]{"isDrawing","field_78415_z","x"});
     	
     	if (wasdrawing)
     	{
@@ -139,12 +141,12 @@ public class ColorableSparkleFX extends EntityFX
         double var14 = par5 - (double)var9;
         if(!super.worldObj.isAirBlock(var7, var8, var9))
         {
-            boolean var16 = !super.worldObj.isBlockNormalCube(var7 - 1, var8, var9);
-            boolean var17 = !super.worldObj.isBlockNormalCube(var7 + 1, var8, var9);
-            boolean var18 = !super.worldObj.isBlockNormalCube(var7, var8 - 1, var9);
-            boolean var19 = !super.worldObj.isBlockNormalCube(var7, var8 + 1, var9);
-            boolean var20 = !super.worldObj.isBlockNormalCube(var7, var8, var9 - 1);
-            boolean var21 = !super.worldObj.isBlockNormalCube(var7, var8, var9 + 1);
+            boolean var16 = !super.worldObj.isBlockNormalCubeDefault(var7 - 1, var8, var9,true);
+            boolean var17 = !super.worldObj.isBlockNormalCubeDefault(var7 + 1, var8, var9,true);
+            boolean var18 = !super.worldObj.isBlockNormalCubeDefault(var7, var8 - 1, var9,true);
+            boolean var19 = !super.worldObj.isBlockNormalCubeDefault(var7, var8 + 1, var9,true);
+            boolean var20 = !super.worldObj.isBlockNormalCubeDefault(var7, var8, var9 - 1,true);
+            boolean var21 = !super.worldObj.isBlockNormalCubeDefault(var7, var8, var9 + 1,true);
             byte var22 = -1;
             double var23 = 9999D;
             if(var16 && var10 < var23)

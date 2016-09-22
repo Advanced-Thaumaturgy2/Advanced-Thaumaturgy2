@@ -11,17 +11,16 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.client.FMLClientHandler;
+import org.lwjgl.opengl.GL11;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.client.renderers.tile.ModelJar;
+import thaumcraft.client.renderers.models.ModelJar;
 import thaumcraft.common.blocks.BlockJar;
 import thaumcraft.common.blocks.ItemJarFilled;
 import thaumcraft.common.config.Config;
@@ -44,14 +43,14 @@ public class BlockEtherealJarRenderer extends TileEntitySpecialRenderer
     {
     	TileEtherealJar tile= (TileEtherealJar)te;
     	
-        float wobble = Math.max(Math.abs(tile.wobblex), Math.abs(tile.wobblez)) / 150F;
+        float wobble = 0f;
      
         GL11.glPushMatrix();
         GL11.glDisable(2884);
         GL11.glTranslatef((float)x + 0.5F, (float)y + 0.01F + wobble, (float)z + 0.5F);
         GL11.glRotatef(180F, 1.0F, 0.0F, 0.0F);
-        GL11.glRotatef(tile.wobblex, 0.0F, 0.0F, 1.0F);
-        GL11.glRotatef(tile.wobblez, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(0f, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(0f, 1.0F, 0.0F, 0.0F);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         if (tile.amount > 0)
@@ -101,8 +100,6 @@ public class BlockEtherealJarRenderer extends TileEntitySpecialRenderer
 
     public void renderLiquid(TileEtherealJar te, double x, double y, double z, float f)
     {
-        if (super.tileEntityRenderer.renderEngine == null)
-            return;
         
         GL11.glPushMatrix();
         GL11.glRotatef(180F, 1.0F, 0.0F, 0.0F);
@@ -119,14 +116,15 @@ public class BlockEtherealJarRenderer extends TileEntitySpecialRenderer
         
         int bright = 200;
         
-        if (te.worldObj != null)
-            bright = Math.max(200, Block.blocksList[Config.blockJarId].getMixedBrightnessForBlock(te.worldObj, te.xCoord, te.yCoord, te.zCoord));
+        if (te.getWorldObj()!= null)
+            bright = Math.max(200, ConfigBlocks.blockJar.getMixedBrightnessForBlock(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord));
         
         t.setBrightness(bright);
         
-        Icon icon = ((BlockJar)Block.blocksList[Config.blockJarId]).iconLiquid;
-        
-        tileEntityRenderer.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+        IIcon icon = ((BlockJar)ConfigBlocks.blockJar).iconLiquid;
+
+        this.bindTexture(TextureMap.locationBlocksTexture);
+
         
         Block jar = AdvThaum.EtherealJar;
         

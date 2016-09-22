@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import thaumcraft.common.items.wands.foci.ItemFocusShock;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
 
-public class ArcingDamageManager implements ITickHandler
+public class ArcingDamageManager
 {
 
 	private static ArrayList<ArcData> instances = new ArrayList<ArcData>();
@@ -23,27 +23,14 @@ public class ArcingDamageManager implements ITickHandler
 		instances.add(ad);
 	}
 
-	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) { }
-
-	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData) 
+	@SubscribeEvent
+	public void tickHandler(TickEvent.WorldTickEvent event)
 	{
-		update();		
+		if(event.phase== TickEvent.Phase.END)
+		{
+			update();
+		}
 	}
-
-	@Override
-	public EnumSet<TickType> ticks()
-	{
-		return EnumSet.of(TickType.WORLD);
-	}
-
-	@Override
-	public String getLabel() 
-	{
-		return "ArcDataManager";
-	}
-	
 	private static void update()
 	{
 		for(Iterator<ArcData> i = instances.iterator(); i.hasNext();)

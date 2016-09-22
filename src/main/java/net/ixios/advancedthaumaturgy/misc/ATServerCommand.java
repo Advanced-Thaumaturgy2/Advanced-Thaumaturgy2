@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
@@ -19,8 +21,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatMessageComponent;
 
 public class ATServerCommand implements ICommand
 {
@@ -75,7 +75,7 @@ public class ATServerCommand implements ICommand
 	{
 		if (!(sender instanceof EntityPlayer))
 		{
-			sender.sendChatToPlayer(new ChatMessageComponent().addText("This command is only available to players."));
+			sender.addChatMessage(new ChatComponentTranslation("command.unavailable"));
 			return;
 		}
 		
@@ -86,13 +86,13 @@ public class ATServerCommand implements ICommand
 		if (cmd.equals("debug"))
 		{
 			AdvThaum.debug = !AdvThaum.debug;
-			player.addChatMessage("Debug mode is now: " + AdvThaum.debug);
+			player.addChatMessage(new ChatComponentTranslation("command.debug", AdvThaum.debug));
 		}
 		else if (cmd.equals("test"))
 		{
 			ResearchItem ri = Utilities.findResearch("ESSENTIAENGINE");
 			if (ri != null)
-				player.addChatMessage(ri.displayColumn + ":" + ri.displayRow);
+				player.addChatMessage(new ChatComponentText(ri.displayColumn + ":" + ri.displayRow));
 		}
 		else if (cmd.equals("research"))
 		{
@@ -110,20 +110,20 @@ public class ATServerCommand implements ICommand
 				for (String categorykey : ResearchCategories.researchCategories.keySet())
                 {
                     ResearchCategoryList cat = ResearchCategories.researchCategories.get(categorykey);
-                    player.addChatMessage("Searching: " + categorykey);
+                    player.addChatMessage(new ChatComponentTranslation("command.searching" , categorykey));
                     
                     for (ResearchItem ri : cat.research.values())
                     {       
                     	if (!ri.key.equalsIgnoreCase(which))
                     		continue;
                     	
-	                    if(!ResearchManager.isResearchComplete(player.username, ri.key))
+	                    if(!ResearchManager.isResearchComplete(player.getDisplayName(), ri.key))
 	                    {
 	                        Thaumcraft.proxy.getResearchManager().completeResearch(player, ri.key);
-	                        player.addChatMessage("Added research: " + ri.getName());
+	                        player.addChatMessage(new ChatComponentTranslation("command.addresearch",ri.getName()));
 	                    }
 	                    else
-	                        player.addChatMessage("Research already complete: " + ri.key);
+	                        player.addChatMessage(new ChatComponentTranslation("command.researchcomplete",ri.key));
                     }
                 }
 	                
@@ -131,9 +131,9 @@ public class ATServerCommand implements ICommand
 			else if (option.equals("remove"))
 			{
 				if (Utilities.removeResearch(player, which))
-					player.addChatMessage("Research removal complete.");
+					player.addChatMessage(new ChatComponentTranslation("command.researchremoved"));
 				else
-					player.addChatMessage("Research '" + which + "' not found.");
+					player.addChatMessage(new ChatComponentTranslation("command.researchnotfound", which ));
 			}
 			else
 			{
@@ -144,7 +144,6 @@ public class ATServerCommand implements ICommand
 
 	private static void showHelp(ICommandSender sender)
 	{
-		sender.sendChatToPlayer(ChatMessageComponent.createFromText("Usage:  /at <command> <option> <parameters>"));
-		sender.sendChatToPlayer(ChatMessageComponent.createFromText("     :  /at research add|remove ResearchKey"));
+		sender.addChatMessage(new ChatComponentTranslation("command.help"));
 	}
 }

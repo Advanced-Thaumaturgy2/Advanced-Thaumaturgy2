@@ -8,7 +8,7 @@ remotebuild.py
 /.gradle
 /build
 /libs
-
+/eclipse
 
 ## ForgeGradle
 /run

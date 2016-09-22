@@ -62,7 +62,7 @@ public class CustomParticleFX extends EntityFX
 	public void renderParticle(Tessellator tessellator, float partialTicks, float rotationX, float rotationXZ, 
 			float rotationZ, float rotationYZ, float rotationXY)
 	{
-		boolean wasdrawing = tessellator.isDrawing;
+		boolean wasdrawing = ReflectionHelper.getPrivateValue(Tessellator.class,tessellator,new String[]{"isDrawing","field_78415_z","x"});
 		
 		if (wasdrawing)
 			tessellator.draw();

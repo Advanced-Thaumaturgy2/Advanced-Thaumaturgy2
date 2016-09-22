@@ -7,11 +7,11 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.Resource;
-import net.minecraft.util.Icon;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
-public class CustomIcon implements Icon
+public class CustomIcon implements IIcon
 {
 
 	ResourceLocation location;
@@ -23,7 +23,7 @@ public class CustomIcon implements Icon
 		name = reslocation;
 		location = new ResourceLocation("advancedthaumaturgy", reslocation);
 		
-		Resource resource = Minecraft.getMinecraft().getResourceManager().getResource(location);
+		IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(location);
         InputStream inputstream = resource.getInputStream();
         
         BufferedImage bufferedimage;

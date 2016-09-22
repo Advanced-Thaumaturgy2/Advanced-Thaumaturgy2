@@ -10,7 +10,7 @@ public class ModelNodeModifier implements IModelContainer
 {
 
 	public static final ResourceLocation texture = new ResourceLocation("advthaum", "textures/models/thaum_node_modifier_tex.png");
-	public static final WavefrontObject model = (WavefrontObject)AdvancedModelLoader.loadModel("/assets/advthaum/models/thaum_node_modifier_2.obj");
+	public static final WavefrontObject model = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation("advthaum","models/thaum_node_modifier_2.obj"));
 	
 	@Override
 	public void render(TileEntity te)

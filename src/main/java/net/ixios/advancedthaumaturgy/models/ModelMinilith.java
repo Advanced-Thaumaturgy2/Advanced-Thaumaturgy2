@@ -15,7 +15,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 public class ModelMinilith implements IModelContainer
 {
 	private ResourceLocation texture = new ResourceLocation("minecraft", "textures/blocks/obsidian.png");
-	private WavefrontObject model = (WavefrontObject)AdvancedModelLoader.loadModel("/assets/advthaum/models/minilith.obj");
+	private WavefrontObject model = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation("advthaum","models/minilith.obj"));
 	
 	@Override
 	public void render(TileEntity te)

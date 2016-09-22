@@ -8,13 +8,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.mojang.authlib.GameProfile;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.util.ChatComponentText;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.wands.IWandFocus;
-import thaumcraft.client.fx.FXScorch;
+import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.research.ResearchManager;
@@ -72,7 +75,7 @@ public class Utilities
             {
                 for (int cz = srcz - (zrange / 2); cz < srcz + (zrange / 2); cz++)
                 {
-                    TileEntity te = world.getBlockTileEntity(cx,  cy,  cz);
+                    TileEntity te = world.getTileEntity(cx,  cy,  cz);
                     if ((te instanceof TileJarFillable))
                     {
                         TileJarFillable jar = (TileJarFillable)te;
@@ -99,14 +102,14 @@ public class Utilities
         return findEssentiaJar(world, aspect, src.xCoord, src.yCoord, src.zCoord, xrange, yrange, zrange);
     }
    
-	public static IWandFocus getEquippedFocus(ItemStack stack)
+	public static ItemFocusBasic getEquippedFocus(ItemStack stack)
 	{
 		 if ((stack == null) || !(stack.getItem() instanceof ItemWandCasting))
 			 return null;
 	 
 		 ItemWandCasting wand = (ItemWandCasting)stack.getItem();
-	 
-		IWandFocus focus = wand.getFocus(stack);
+
+		ItemFocusBasic focus = wand.getFocus(stack);
 	 
 		return focus;
 	  
@@ -114,7 +117,12 @@ public class Utilities
 	
 	public static boolean isOp(String name)
 	{
-		return MinecraftServer.getServer().getConfigurationManager().getOps().contains(name);
+		EntityPlayer player=FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().func_152612_a(name);
+
+		if(player!=null)
+			return FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().func_152596_g(player.getGameProfile());
+
+		return true;
 	}
 	
 	 @SuppressWarnings("unchecked")
@@ -130,13 +138,13 @@ public class Utilities
 	     
 	     for (int t = 0; t < players.size(); t++)
 	     {
-	         players.get(t).addChatMessage(text);
+	         players.get(t).addChatMessage(new ChatComponentText(text));
 	     }
 	 }
 	 
 	 public static boolean removeResearch(EntityPlayer player, String research)
 	 {
-		 ArrayList<String> list = (ArrayList<String>) ResearchManager.getResearchForPlayer(player.username);
+		 ArrayList<String> list = (ArrayList<String>) ResearchManager.getResearchForPlayer(player.getCommandSenderName());
 		 for (Iterator<String>it = list.iterator(); it.hasNext();)
 		 {
 			 String current = (String)it.next();

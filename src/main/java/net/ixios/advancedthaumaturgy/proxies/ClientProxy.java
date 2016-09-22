@@ -7,13 +7,11 @@ import java.io.IOException;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
-import thaumcraft.client.fx.FXEssentiaTrail;
-import thaumcraft.client.fx.FXScorch;
-import thaumcraft.client.fx.FXSparkle;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.client.fx.particles.FXEssentiaTrail;
+import thaumcraft.client.fx.particles.FXScorch;
 import thaumcraft.client.renderers.item.ItemWandRenderer;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.tiles.TileInfusionMatrix;
@@ -59,15 +57,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityAuraFX;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.MinecraftForge;
-
 public class ClientProxy extends CommonProxy
 {
 	
@@ -77,30 +71,30 @@ public class ClientProxy extends CommonProxy
 		super.register();
 		
 		GenericRenderer renderer = new GenericRenderer(new ModelFertilizer());
-        MinecraftForgeClient.registerItemRenderer(BlockThaumicFertilizer.blockID, renderer);
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.ThaumicFertilizer), renderer);
         ClientRegistry.bindTileEntitySpecialRenderer(TileThaumicFertilizer.class, renderer);
 
         renderer = new GenericRenderer(new ModelNodeModifier(), 1F, -0.2F, 1.1F, .4F);
         renderer.setScale(0.3F);
-		MinecraftForgeClient.registerItemRenderer(BlockNodeModifier.blockID, renderer);
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.NodeModifier), renderer);
         ClientRegistry.bindTileEntitySpecialRenderer(TileNodeModifier.class, renderer);
      
 		renderer = new GenericRenderer(new ModelVulcanizer());
-		MinecraftForgeClient.registerItemRenderer(BlockThaumicVulcanizer.blockID, renderer);
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.ThaumicVulcanizer), renderer);
         ClientRegistry.bindTileEntitySpecialRenderer(TileVulcanizer.class, renderer);
 
     	renderer = new GenericRenderer(null);
-		MinecraftForgeClient.registerItemRenderer(BlockPlaceholder.blockID, renderer);
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.Placeholder), renderer);
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePlaceholder.class, renderer);
         
         renderer = new GenericRenderer(new ModelMinilith());
-        MinecraftForgeClient.registerItemRenderer(BlockMicrolith.blockID, renderer);
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.Microlith), renderer);
         ClientRegistry.bindTileEntitySpecialRenderer(TileMicrolithBase.class, renderer);
         
 		if (EnergyCompatBase.isPresent())
 		{
 			renderer = new GenericRenderer(new ModelEngine());
-			MinecraftForgeClient.registerItemRenderer(BlockEssentiaEngine.blockID, renderer);
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.EssentiaEngine), renderer);
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEssentiaEngine.class, renderer);	
 		}
 		
@@ -108,21 +102,21 @@ public class ClientProxy extends CommonProxy
 
         if (AdvThaum.itemEtherealJar != null)
         {
-        	MinecraftForgeClient.registerItemRenderer(AdvThaum.itemEtherealJar.itemID, new ItemEtherealJarRenderer((BlockEtherealJarRenderer)special));
+        	MinecraftForgeClient.registerItemRenderer(AdvThaum.itemEtherealJar, new ItemEtherealJarRenderer((BlockEtherealJarRenderer)special));
         	ClientRegistry.bindTileEntitySpecialRenderer(TileEtherealJar.class, special);
         }
         
     	if (AdvThaum.MercurialWand != null)
-			MinecraftForgeClient.registerItemRenderer(AdvThaum.MercurialWand.itemID, new ItemWandRenderer());
-    
-        MinecraftForgeClient.registerItemRenderer(BlockCreativeNode.blockID, new ItemNodeRenderer());
+			MinecraftForgeClient.registerItemRenderer(AdvThaum.MercurialWand, new ItemWandRenderer());
+
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.CreativeNode), new ItemNodeRenderer());
         
 	}
 	
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z)
 	{
-		TileEntity te = world.getBlockTileEntity(x,  y,  z);
+		TileEntity te = world.getTileEntity(x,  y,  z);
 		switch (ID)
 		{
 			case GuiNodeModifier.id:
@@ -149,7 +143,7 @@ public class ClientProxy extends CommonProxy
 	
 	public void createParticle(TileEntity src, float dstx, float dsty, float dstz, int color)
 	{
-		createParticle(src.worldObj, src.xCoord, src.yCoord, src.zCoord, dstx, dsty, dstz, color);
+		createParticle(src.getWorldObj(), src.xCoord, src.yCoord, src.zCoord, dstx, dsty, dstz, color);
 	}
 	
     @Override
@@ -170,7 +164,7 @@ public class ClientProxy extends CommonProxy
     }
     
     @Override
-    public void createEngineParticle(World world, int x, int y, int z, ForgeDirection dir, int color) 
+    public void createEngineParticle(World world, int x, int y, int z, ForgeDirection dir, int color)
     {
     	CustomParticleFX fx = new CustomParticleFX(world, x + 0.5F, y + 0.5F, z + 0.5F, dir.offsetX / 50D, dir.offsetY / 50D, dir.offsetZ / 50D);
     	fx.noClip = true;
@@ -232,32 +226,12 @@ public class ClientProxy extends CommonProxy
             Minecraft.getMinecraft().effectRenderer.addEffect(fx);
         }
     }
-      
+
+    // todo Node modification packet
     @Override
     public void startModification(TileNodeModifier nm, Operation op)
     {
-    	super.startModification(nm, op);
-    	
-    	ByteArrayOutputStream b = new ByteArrayOutputStream();
-    	DataOutputStream out = new DataOutputStream (b);
-    	
-    	try
-    	{
-	    	out.writeByte(1);
-	    	out.writeInt(nm.xCoord);
-	    	out.writeInt(nm.yCoord);
-	    	out.writeInt(nm.zCoord);
-	    	out.writeByte(op.getId());
-	    	
-	    	Packet250CustomPayload pkt = new Packet250CustomPayload();
-	    	pkt.channel = "AdvThaum";
-	    	pkt.length = out.size();
-	    	pkt.data = b.toByteArray();
-	    	
-	    	PacketDispatcher.sendPacketToServer(pkt);
 
-    	}
-    	catch (IOException io) { }
     }
 
     @Override
@@ -270,7 +244,7 @@ public class ClientProxy extends CommonProxy
 		
         for(int q = 0; q < 3; q++)
         {
-            FXScorch ef = new FXScorch(world, direction.xCoord, direction.yCoord, direction.zCoord, dir, 17);
+            FXScorch ef = new FXScorch(world, direction.xCoord, direction.yCoord, direction.zCoord, dir, 17,false);
             ef.posX += direction.xCoord * 0.30000001192092896D;
             ef.posY += direction.yCoord * 0.30000001192092896D;
             ef.posZ += direction.zCoord * 0.30000001192092896D;

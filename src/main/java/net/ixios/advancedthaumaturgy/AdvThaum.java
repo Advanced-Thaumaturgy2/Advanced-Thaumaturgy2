@@ -202,7 +202,7 @@ public class AdvThaum
 	     
 	     MinecraftForge.EVENT_BUS.register(new ATEventHandler());
 	     
-	     TickRegistry.registerTickHandler(new ArcingDamageManager(), Side.SERVER);
+	     MinecraftForge.EVENT_BUS.register(new ArcingDamageManager());
 	     
 	     ForgeChunkManager.setForcedChunkLoadingCallback(instance, new ChunkLoadingClass());
 	    

@@ -115,16 +115,26 @@ public class TileThaumicMender extends TileEntity implements IAspectContainer, I
 	}
 
 	@Override
-	public String getInvName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getInventoryName() {
+		return "ThaumicMender";
 	}
 
 	@Override
-	public boolean isInvNameLocalized() {
-		// TODO Auto-generated method stub
+	public boolean hasCustomInventoryName() {
 		return false;
 	}
+
+	@Override
+	public void openInventory() {
+
+	}
+
+	@Override
+	public void closeInventory() {
+
+	}
+
+
 
 	@Override
 	public int getInventoryStackLimit() {
@@ -138,17 +148,7 @@ public class TileThaumicMender extends TileEntity implements IAspectContainer, I
 		return false;
 	}
 
-	@Override
-	public void openChest() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void closeChest() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {

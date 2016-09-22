@@ -2,6 +2,7 @@ package net.ixios.advancedthaumaturgy.items;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import org.lwjgl.input.Keyboard;
 
 import net.ixios.advancedthaumaturgy.AdvThaum;
@@ -13,9 +14,9 @@ import net.minecraft.util.StatCollector;
 public class ItemFertilizer extends ItemBlock
 {
 
-	public ItemFertilizer()
+	public ItemFertilizer(Block block)
 	{
-		super(AdvThaum.ThaumicFertilizer);
+		super(block);
 		this.setCreativeTab(AdvThaum.tabAdvThaum);
 	}
 

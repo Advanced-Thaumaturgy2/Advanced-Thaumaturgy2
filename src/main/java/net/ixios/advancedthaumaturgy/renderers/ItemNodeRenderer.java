@@ -1,11 +1,13 @@
 package net.ixios.advancedthaumaturgy.renderers;
 
+import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.blocks.BlockCreativeNode;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.IItemRenderer;
@@ -17,6 +19,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.*;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.config.Config;
+import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.tiles.TileNode;
 
 public class ItemNodeRenderer implements IItemRenderer
@@ -37,7 +40,7 @@ public class ItemNodeRenderer implements IItemRenderer
 
     public boolean handleRenderType(ItemStack item, net.minecraftforge.client.IItemRenderer.ItemRenderType type)
     {
-        return item != null && item.getItem().itemID == BlockCreativeNode.blockID && (item.getItemDamage() == 0 || item.getItemDamage() == 5);
+        return item != null && item.getItem() == Item.getItemFromBlock(AdvThaum.CreativeNode) && (item.getItemDamage() == 0 || item.getItemDamage() == 5);
     }
 
     public boolean shouldUseRenderHelper(net.minecraftforge.client.IItemRenderer.ItemRenderType type, ItemStack item, net.minecraftforge.client.IItemRenderer.ItemRendererHelper helper)
@@ -56,7 +59,7 @@ public class ItemNodeRenderer implements IItemRenderer
         TileNode tjf = new TileNode();
         tjf.setAspects(aspects);
         tjf.setNodeType(NodeType.NORMAL);
-        tjf.blockType = Block.blocksList[Config.blockAiryId];
+        tjf.blockType = ConfigBlocks.blockAiry;
         tjf.blockMetadata = 0;
         GL11.glPushMatrix();
         GL11.glTranslated(0.5D, 0.5D, 0.5D);

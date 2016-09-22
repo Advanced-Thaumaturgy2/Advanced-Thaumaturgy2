@@ -1,5 +1,6 @@
 package net.ixios.advancedthaumaturgy.renderers;
 
+import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -17,8 +18,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
 import net.minecraftforge.client.IItemRenderer;
+import thaumcraft.common.config.ConfigBlocks;
 
 public class ItemEtherealJarRenderer implements IItemRenderer
 {
@@ -154,8 +155,8 @@ public class ItemEtherealJarRenderer implements IItemRenderer
 	        
 	        int bright = 200;
 	        t.setBrightness(bright);
-	        
-	        Icon icon = ((BlockJar)Block.blocksList[Config.blockJarId]).iconLiquid;
+
+			IIcon icon = ((BlockJar) ConfigBlocks.blockJar).iconLiquid;
 	        
 	        FMLClientHandler.instance().getClient().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 	        

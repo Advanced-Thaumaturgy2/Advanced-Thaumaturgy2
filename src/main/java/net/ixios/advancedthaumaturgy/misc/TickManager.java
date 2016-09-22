@@ -6,6 +6,8 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.common.tiles.TileInfusionMatrix;
 import net.ixios.advancedthaumaturgy.AdvThaum;
@@ -20,14 +22,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.SideOnly;
 import cpw.mods.fml.relauncher.Side;
 
-public class TickManager implements ITickHandler
+public class TickManager
 {
 	public ArrayList<TileInfusionMatrix> waiting = new ArrayList<TileInfusionMatrix>(); 
 	public HashMap<TileInfusionMatrix, Integer> monitoring = new HashMap<TileInfusionMatrix, Integer>();
@@ -52,7 +51,7 @@ public class TickManager implements ITickHandler
         	int y = tag.getInteger("waitingy_" + i);
         	int z = tag.getInteger("waitingz_" + i);
         	
-        	TileEntity te = world.getBlockTileEntity(x, y, z);
+        	TileEntity te = world.getTileEntity(x, y, z);
         	if (!(te instanceof TileInfusionMatrix))
         		continue;
         	TileInfusionMatrix im = (TileInfusionMatrix)te;
@@ -68,7 +67,7 @@ public class TickManager implements ITickHandler
         	int y = tag.getInteger("monitoringy_" + i);
         	int z = tag.getInteger("monitoringx_" + i);
         	
-        	TileEntity te = world.getBlockTileEntity(x, y, z);
+        	TileEntity te = world.getTileEntity(x, y, z);
         	if (!(te instanceof TileInfusionMatrix))
         		continue;
         	TileInfusionMatrix im = (TileInfusionMatrix)te;
@@ -117,18 +116,15 @@ public class TickManager implements ITickHandler
 	// OVERRIDES
 	////////////////////////////////////////////////////////////////////////////////////////////
 	
-	@Override
-	public String getLabel() 
-	{
-		return "AdvThaum RenderTickManager";
-	}
 
-	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData)
+	@SubscribeEvent
+	public void tickEvent(TickEvent.ServerTickEvent tickEvent)
 	{
-		checkMonitoredInfusionMatrices();
-		checkMonitoredAeroBlocks();
-		
+		if(tickEvent.phase== TickEvent.Phase.END)
+		{
+			checkMonitoredInfusionMatrices();
+			checkMonitoredAeroBlocks();
+		}
 	}
 
 	private void checkMonitoredAeroBlocks()
@@ -186,15 +182,7 @@ public class TickManager implements ITickHandler
 				}
 	}
 	
-	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) { }
 
-	@Override
-	public EnumSet<TickType> ticks() 
-	{
-		return EnumSet.of(TickType.SERVER);
-	}
-	
 	public void beginMonitoring(TileInfusionMatrix im)
 	{
 		waiting.add(im);
@@ -205,9 +193,9 @@ public class TickManager implements ITickHandler
 		if (aeroblocks.containsKey(vec.toString()))
 			return;
 		int meta = plr.worldObj.getBlockMetadata(vec.x,  vec.y,  vec.z);
-		plr.worldObj.setBlock(vec.x, vec.y, vec.z, BlockPlaceholder.blockID, 0, 2);
-		aeroblocks.put(vec.toString(), new AeroData(plr, vec, block.blockID, meta));
-		AdvThaum.log("Put block with ID " + block.blockID + " meta " + meta);
+		plr.worldObj.setBlock(vec.x, vec.y, vec.z, AdvThaum.Placeholder, 0, 2);
+		aeroblocks.put(vec.toString(), new AeroData(plr, vec, block, meta));
+		AdvThaum.log("Put block with ID " + block + " meta " + meta);
 	}
 	
 }

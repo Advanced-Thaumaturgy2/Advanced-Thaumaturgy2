@@ -10,7 +10,7 @@ public class ModelVulcanizer implements IModelContainer
 {
 	private ResourceLocation texturebase = new ResourceLocation("advthaum", "textures/models/thaum_melter2_base_tex.png");
 	private ResourceLocation texturebowl = new ResourceLocation("advthaum", "textures/models/thaum_melter2_bowl_tex.png");
-	private WavefrontObject model = (WavefrontObject)AdvancedModelLoader.loadModel("/assets/advthaum/models/thaum_melter2.obj");
+	private WavefrontObject model = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation("advthaum","models/thaum_melter2.obj"));
 		
 	public ModelVulcanizer()
 	{

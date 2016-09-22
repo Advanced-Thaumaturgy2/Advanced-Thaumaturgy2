@@ -2,6 +2,7 @@ package net.ixios.advancedthaumaturgy.items;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import org.lwjgl.input.Keyboard;
@@ -15,9 +16,9 @@ import net.minecraft.util.StatCollector;
 public class ItemNodeModifier extends ItemBlock
 {
 
-	public ItemNodeModifier()
+	public ItemNodeModifier(Block block)
 	{
-		super(AdvThaum.NodeModifier);
+		super(block);
 		this.setCreativeTab(AdvThaum.tabAdvThaum);
 	}
 
