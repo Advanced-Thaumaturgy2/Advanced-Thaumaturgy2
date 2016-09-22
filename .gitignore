@@ -1,0 +1,48 @@
+*.class
+dist
+download
+push.sh
+remotebuild.py
+
+## gradle
+/.gradle
+/build
+/libs
+
+
+## ForgeGradle
+/run
+/out
+/ForgeModule
+/libs/download
+
+## idea
+*.iml
+*.ipr
+*.iws
+
+## eclipse
+/.settings
+/.metadata
+/.classpath
+/.project
+/bin
+/.idea
+/client/
+/Server/
+/classes/
+## misc
+/libs/Thaumcraft-deobf*.jar*
+/libs/*1.7.10*
+TCDEOBF*
+## Ignore OS cache files
+/src/main/resources/CoFH_at.cfg
+*.DS_Store
+_MACOSX
+Thumbs.db
+/forgelibs
+
+## Ignore unnecessary files
+*.log
+*.lck
+/target/

@@ -1,0 +1,61 @@
+package net.ixios.advancedthaumaturgy.blocks;
+
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.ixios.advancedthaumaturgy.AdvThaum;
+import net.ixios.advancedthaumaturgy.items.ItemCreativeNode;
+import net.ixios.advancedthaumaturgy.tileentities.TileCreativeNode;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import thaumcraft.common.blocks.BlockAiry;
+
+public class BlockCreativeNode extends BlockAiry
+{
+	public static int blockID;
+	public static int renderID;
+	
+	public BlockCreativeNode()
+	{
+		super();
+		this.setBlockName("at.creativenode");
+		this.setCreativeTab(AdvThaum.tabAdvThaum);
+		this.setBlockUnbreakable();
+		renderID = RenderingRegistry.getNextAvailableRenderId();
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerBlockIcons(IIconRegister ir)
+	{
+		blockIcon = ir.registerIcon("advthaum:node");
+	}
+
+
+	@Override
+	public boolean renderAsNormalBlock() 
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isOpaqueCube() 
+	{
+		return false;
+	}
+	
+	@Override
+	public TileEntity createTileEntity(World world, int metadata)
+	{
+		return new TileCreativeNode();
+	}
+	
+		public void register()
+	{
+		GameRegistry.registerBlock(this, ItemCreativeNode.class, "blockCreativeNode");
+		GameRegistry.registerTileEntity(TileCreativeNode.class, "tileentityCreativeNode");
+	}
+	
+}
