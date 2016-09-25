@@ -1,15 +1,18 @@
-AdvancedThaumaturgy
-===================
 
-Addon for Thaumcraft 4
+Addon for Thaumcraft 4 / Thaumcraft 5, Revival of the Original Advanced Thaumaturgy mod by the late LycaonX.
 
-If you have ideas, submit an issue.  If there is a REPRODICIBLE bug, submit an issue with a FULL Forge log and steps to
-reproduce the bug.  I am not going to play 20 questions or hide-and-go-seek to track down some arbitrary bug.  Provide
-details the first time, or don't submit an issue. ;)
+Welcome to the Advanced Thaumaturgy 2 GitHub page! If you have any ideas feel free to submit them through the Minecraft Forum link below:
+http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2728477-advanced-thaumaturgy-2
 
-Personal note:
+Otherwise, if you're here to report a bug, it must be reproducible and you must tell us how to reproduce it, or you will be ignored and the report will be locked.
 
-I am new to java programming.  If you see 'dumb code' PLEASE fork, fix, and submit a PR.  Make sure you comment WHY
-the old code was bad/stupid/inefficient and WHY the new code is better.  I cannot learn if you do not explain the
-purpose of code changes.  If you don't explain, you may as well just listen to some retard on Youtube 'teaching' people
-to code by just vocalizing what he is typing.
+Any questions or comments should also be left on the forum page and not here!
+
+Official Team/Contributors:
+
+Nekosune,
+MonzterAssassin,
+Zia Avenicia,
+Flaxbeard,
+Spanner_Man,
+Jackiecrazy
