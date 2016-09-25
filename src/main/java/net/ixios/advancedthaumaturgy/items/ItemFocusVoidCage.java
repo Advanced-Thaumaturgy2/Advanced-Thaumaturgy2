@@ -1,35 +1,27 @@
 package net.ixios.advancedthaumaturgy.items;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
-import java.util.List;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagDouble;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.FocusUpgradeType;
-import thaumcraft.api.wands.IWandFocus;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.utils.EntityUtils;
-import thaumcraft.common.lib.utils.Utils;
 
 public class ItemFocusVoidCage extends ItemFocusBasic
 {
@@ -80,10 +72,10 @@ public class ItemFocusVoidCage extends ItemFocusBasic
 					pointedEntity.writeToNBT(tag);
 					tag.setString("classname", pointedEntity.getClass().getCanonicalName());
 					world.removeEntity(pointedEntity);
-					NBTTagCompound pos = tag.getCompoundTag("Pos");
-					float x = (float)pos.getDouble("x");
-					float y = (float)pos.getDouble("y");
-					float z = (float)pos.getDouble("z");
+					NBTTagList pos = tag.getTagList("Pos",Constants.NBT.TAG_DOUBLE);
+					float x = (float)pos.func_150309_d(0);
+					float y = (float)pos.func_150309_d(1);
+					float z = (float)pos.func_150309_d(2);
 					AdvThaum.proxy.createSparkleBurst(world, x + 0.5F, y + 1, z + 0.5F, 15, 0xFFFF00FF);
 	    		}
 				else
@@ -112,16 +104,15 @@ public class ItemFocusVoidCage extends ItemFocusBasic
 				Constructor<? extends EntityLivingBase> constructor = c.getConstructor(World.class);
 				entity = constructor.newInstance(world);
 
-				NBTTagCompound newpos=new NBTTagCompound();
-				newpos.setDouble("x", mop.blockX + fd.getFrontOffsetX());
-				newpos.setDouble("y",mop.blockY + fd.getFrontOffsetY());
-				newpos.setDouble("z",mop.blockZ + fd.getFrontOffsetZ());
+				NBTTagList newpos=new NBTTagList();
+                newpos.appendTag(new NBTTagDouble(mop.blockX + fd.getFrontOffsetX()));
+                newpos.appendTag(new NBTTagDouble(mop.blockY + fd.getFrontOffsetY()));
+                newpos.appendTag(new NBTTagDouble(mop.blockZ + fd.getFrontOffsetZ()));
 
-				NBTTagCompound motion = new NBTTagCompound();
-				motion.setDouble("x", 0D);
-				motion.setDouble("y", 0D);
-				motion.setDouble("z", 0D);
-				
+                NBTTagList motion=new NBTTagList();
+                motion.appendTag(new NBTTagDouble(0.0));
+                motion.appendTag(new NBTTagDouble(0.0));
+                motion.appendTag(new NBTTagDouble(0.0));
 				tag.removeTag("Pos");
 				tag.removeTag("Motion");
 				
