@@ -1,40 +1,18 @@
 package net.ixios.advancedthaumaturgy.proxies;
 
 import java.awt.Color;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.relauncher.Side;
-import net.minecraft.item.Item;
-import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.client.fx.particles.FXEssentiaTrail;
-import thaumcraft.client.fx.particles.FXScorch;
-import thaumcraft.client.renderers.item.ItemWandRenderer;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.tiles.TileInfusionMatrix;
 import net.ixios.advancedthaumaturgy.AdvThaum;
-import net.ixios.advancedthaumaturgy.blocks.BlockCreativeNode;
-import net.ixios.advancedthaumaturgy.blocks.BlockEssentiaEngine;
-import net.ixios.advancedthaumaturgy.blocks.BlockEtherealJar;
-import net.ixios.advancedthaumaturgy.blocks.BlockMicrolith;
-import net.ixios.advancedthaumaturgy.blocks.BlockNodeModifier;
-import net.ixios.advancedthaumaturgy.blocks.BlockPlaceholder;
-import net.ixios.advancedthaumaturgy.blocks.BlockThaumicFertilizer;
-import net.ixios.advancedthaumaturgy.blocks.BlockThaumicVulcanizer;
 import net.ixios.advancedthaumaturgy.compat.energy.EnergyCompatBase;
 import net.ixios.advancedthaumaturgy.fx.ColorableSparkleFX;
 import net.ixios.advancedthaumaturgy.fx.CustomParticleFX;
 import net.ixios.advancedthaumaturgy.fx.EntityOrbiterFX;
 import net.ixios.advancedthaumaturgy.fx.FloatyLineFX;
 import net.ixios.advancedthaumaturgy.gui.GuiNodeModifier;
-import net.ixios.advancedthaumaturgy.items.ItemEtherealJar;
-import net.ixios.advancedthaumaturgy.misc.Vector3;
 import net.ixios.advancedthaumaturgy.misc.Vector3F;
 import net.ixios.advancedthaumaturgy.models.ModelEngine;
-import net.ixios.advancedthaumaturgy.models.ModelEtherealJar;
 import net.ixios.advancedthaumaturgy.models.ModelFertilizer;
 import net.ixios.advancedthaumaturgy.models.ModelMinilith;
 import net.ixios.advancedthaumaturgy.models.ModelNodeModifier;
@@ -43,25 +21,28 @@ import net.ixios.advancedthaumaturgy.renderers.BlockEtherealJarRenderer;
 import net.ixios.advancedthaumaturgy.renderers.GenericRenderer;
 import net.ixios.advancedthaumaturgy.renderers.ItemEtherealJarRenderer;
 import net.ixios.advancedthaumaturgy.renderers.ItemNodeRenderer;
+import net.ixios.advancedthaumaturgy.tileentities.TileCreativeNode;
+import net.ixios.advancedthaumaturgy.tileentities.TileEssentiaEngine;
 import net.ixios.advancedthaumaturgy.tileentities.TileEtherealJar;
-import net.ixios.advancedthaumaturgy.tileentities.TileFluxDissipator;
 import net.ixios.advancedthaumaturgy.tileentities.TileMicrolithBase;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier.Operation;
 import net.ixios.advancedthaumaturgy.tileentities.TilePlaceholder;
 import net.ixios.advancedthaumaturgy.tileentities.TileThaumicFertilizer;
-import net.ixios.advancedthaumaturgy.tileentities.TileEssentiaEngine;
 import net.ixios.advancedthaumaturgy.tileentities.TileVulcanizer;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityAuraFX;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.client.fx.particles.FXEssentiaTrail;
+import thaumcraft.client.fx.particles.FXScorch;
+import thaumcraft.client.renderers.item.ItemWandRenderer;
+import thaumcraft.common.Thaumcraft;
 public class ClientProxy extends CommonProxy
 {
 	
@@ -109,7 +90,7 @@ public class ClientProxy extends CommonProxy
     	if (AdvThaum.MercurialWand != null)
 			MinecraftForgeClient.registerItemRenderer(AdvThaum.MercurialWand, new ItemWandRenderer());
 
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.CreativeNode), new ItemNodeRenderer());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.CreativeNode), new ItemNodeRenderer(TileCreativeNode.aspects));
         
 	}
 	

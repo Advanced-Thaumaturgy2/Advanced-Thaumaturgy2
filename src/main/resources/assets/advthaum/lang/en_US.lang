@@ -1,4 +1,6 @@
 # block names
+tile.blockAltarDeployer.name=Altar Deployer
+
 tile.at.modifier.name=Node Modifier
 tile.at.modifier.desc=Allows you to slowly modify jarred|nodes using various essentia types.
 

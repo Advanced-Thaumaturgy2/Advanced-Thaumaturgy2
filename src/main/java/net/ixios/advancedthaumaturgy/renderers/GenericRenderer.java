@@ -65,8 +65,9 @@ public class GenericRenderer extends TileEntitySpecialRenderer implements IItemR
         	}
           
         	case EQUIPPED:
+        	case EQUIPPED_FIRST_PERSON:
         	{
-        		renderHWB(0.0F, 0.0F, 1.0F, scaleAll);
+        		renderHWB(1.0F, 0.5F, 1.0F, scaleAll);
                 return;
         	}
           

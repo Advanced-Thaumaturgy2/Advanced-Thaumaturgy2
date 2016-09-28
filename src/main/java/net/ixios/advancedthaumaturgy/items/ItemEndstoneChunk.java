@@ -3,6 +3,7 @@ package net.ixios.advancedthaumaturgy.items;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -15,7 +16,14 @@ public class ItemEndstoneChunk extends Item
     {
 	    super();
 	    setUnlocalizedName("at.endstonechunk");
+	    setTextureName("endstonechunk");
     }
+	
+	@Override
+	public void registerIcons(IIconRegister ir)
+	{
+	    itemIcon = ir.registerIcon("advthaum:endstonechunk");
+	}
 
 	public void register()
 	{

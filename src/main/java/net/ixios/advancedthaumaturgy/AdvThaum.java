@@ -195,7 +195,6 @@ public class AdvThaum
 		 if (config.get("Feature Control", "force_enable_essentia_engine", false).getBoolean(false))
 			 EnergyCompatBase.forceEnable();
 	
-	     proxy.register();
 	  
 	     LanguageRegistry.instance().addStringLocalization("itemGroup.advthaum", "en_US", "Advanced Thaumaturgy");
 	     LanguageRegistry.instance().addStringLocalization("tc.research_category.ADVTHAUM", "en_US", "Advanced Thaumaturgy");
@@ -268,6 +267,7 @@ public class AdvThaum
 				 new ResourceLocation("thaumcraft", "textures/gui/gui_researchback.png"));
 		 	 
 	     registerStuff();
+	     proxy.register();
 
 	    if (config.get("Feature Control", "enable_mercurial_core", true).getBoolean(true))
 	     {
