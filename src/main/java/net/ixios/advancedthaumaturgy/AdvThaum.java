@@ -266,8 +266,6 @@ public class AdvThaum
 				 new ResourceLocation("thaumcraft", "textures/items/thaumonomiconcheat.png"),
 				 new ResourceLocation("thaumcraft", "textures/gui/gui_researchback.png"));
 		 	 
-	     registerStuff();
-	     proxy.register();
 
 	    if (config.get("Feature Control", "enable_mercurial_core", true).getBoolean(true))
 	     {
@@ -287,6 +285,9 @@ public class AdvThaum
 		
 		 if (MercurialWand != null)
 			 MercurialWand.register();
+
+	     registerStuff();
+	     proxy.register();
 		 
 		 //ThaumicInkwell.register();
 		 //ThaumicVulcanizer.register();
