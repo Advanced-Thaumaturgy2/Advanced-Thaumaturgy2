@@ -2,21 +2,17 @@ package net.ixios.advancedthaumaturgy.gui;
 
 import java.awt.Color;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-
 import org.lwjgl.util.Rectangle;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.items.ItemWispEssence;
-import thaumcraft.common.tiles.TileJarNode;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.blocks.BlockNodeModifier;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier.Operation;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier.Requirements;
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -25,11 +21,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import org.lwjgl.input.Mouse;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.IItemRenderer.ItemRenderType;
+import net.minecraftforge.client.MinecraftForgeClient;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.ItemWispEssence;
+import thaumcraft.common.tiles.TileJarNode;
 
 public class GuiNodeModifier extends GuiContainer
 {
@@ -64,6 +64,10 @@ public class GuiNodeModifier extends GuiContainer
 		if (node == null)
 			node = new ItemStack(AdvThaum.CreativeNode);
 		
+		IItemRenderer r = MinecraftForgeClient.getItemRenderer(node, ItemRenderType.INVENTORY);
+		if (r == null)
+			node = new ItemStack(AdvThaum.ArcaneCrystal);
+		
 		nm = (TileNodeModifier)world.getTileEntity(blockX, blockY, blockZ);
 		
 		BlockNodeModifier.refreshAvailableOperations(world, x, y, z);
@@ -96,7 +100,7 @@ public class GuiNodeModifier extends GuiContainer
 		drawTexture(buttonup, buttonpos.getX(), buttonpos.getY(), 0, 0, 1, 1);
 		drawString(mc.fontRenderer, "Start", buttonpos.getX() +  20, buttonpos.getY() + 4, (selectedop == -1 ? Color.gray.getRGB() : Color.white.getRGB()));
 		
-		itemRenderer.renderItemIntoGUI(super.mc.fontRenderer, super.mc.renderEngine, node, buttonpos.getX() + 5, buttonpos.getY());
+		itemRenderer.renderItemAndEffectIntoGUI(super.mc.fontRenderer, super.mc.renderEngine, node, buttonpos.getX() + 5, buttonpos.getY());
 		
 	}
 	

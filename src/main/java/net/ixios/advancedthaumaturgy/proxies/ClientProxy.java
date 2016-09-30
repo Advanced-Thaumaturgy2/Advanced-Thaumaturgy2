@@ -17,6 +17,7 @@ import net.ixios.advancedthaumaturgy.models.ModelFertilizer;
 import net.ixios.advancedthaumaturgy.models.ModelMinilith;
 import net.ixios.advancedthaumaturgy.models.ModelNodeModifier;
 import net.ixios.advancedthaumaturgy.models.ModelVulcanizer;
+import net.ixios.advancedthaumaturgy.network.PacketStartNodeModification;
 import net.ixios.advancedthaumaturgy.renderers.BlockEtherealJarRenderer;
 import net.ixios.advancedthaumaturgy.renderers.GenericRenderer;
 import net.ixios.advancedthaumaturgy.renderers.ItemEtherealJarRenderer;
@@ -208,11 +209,11 @@ public class ClientProxy extends CommonProxy
         }
     }
 
-    // todo Node modification packet
     @Override
     public void startModification(TileNodeModifier nm, Operation op)
     {
-
+    	super.startModification(nm, op);
+    	AdvThaum.channel.sendToServer(new PacketStartNodeModification(nm.xCoord, nm.yCoord, nm.zCoord, op));
     }
 
     @Override

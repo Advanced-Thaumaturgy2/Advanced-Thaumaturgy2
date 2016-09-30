@@ -22,11 +22,12 @@ public class BlockAltarDeployer extends Block
 	public BlockAltarDeployer()
     {
 	    super(Material.ground);
+	    setBlockName("blockAltarDeployer");
     }
 
 	public void register()
 	{
-		GameRegistry.registerBlock(this, "blockAltarDeployer");
+		GameRegistry.registerBlock(this, getUnlocalizedName());
 		setCreativeTab(AdvThaum.tabAdvThaum);
 	}
 	

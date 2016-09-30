@@ -1,12 +1,21 @@
 package net.ixios.advancedthaumaturgy;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import org.apache.logging.log4j.Logger;
 
-import javax.print.attribute.standard.MediaSize.Engineering;
-
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
 import net.ixios.advancedthaumaturgy.blocks.BlockAltarDeployer;
 import net.ixios.advancedthaumaturgy.blocks.BlockCreativeNode;
 import net.ixios.advancedthaumaturgy.blocks.BlockEssentiaEngine;
@@ -16,8 +25,8 @@ import net.ixios.advancedthaumaturgy.blocks.BlockNodeModifier;
 import net.ixios.advancedthaumaturgy.blocks.BlockPlaceholder;
 import net.ixios.advancedthaumaturgy.blocks.BlockThaumicFertilizer;
 import net.ixios.advancedthaumaturgy.blocks.BlockThaumicVulcanizer;
-import net.ixios.advancedthaumaturgy.compat.energy.EnergyCompatBase;
 import net.ixios.advancedthaumaturgy.compat.energy.BCCompatChecker;
+import net.ixios.advancedthaumaturgy.compat.energy.EnergyCompatBase;
 import net.ixios.advancedthaumaturgy.items.ItemAeroSphere;
 import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal;
 import net.ixios.advancedthaumaturgy.items.ItemEndstoneChunk;
@@ -29,31 +38,20 @@ import net.ixios.advancedthaumaturgy.items.ItemMercurialRodBase;
 import net.ixios.advancedthaumaturgy.items.ItemMercurialWand;
 import net.ixios.advancedthaumaturgy.misc.ATCreativeTab;
 import net.ixios.advancedthaumaturgy.misc.ATEventHandler;
-import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
 import net.ixios.advancedthaumaturgy.misc.ATServerCommand;
 import net.ixios.advancedthaumaturgy.misc.ArcingDamageManager;
 import net.ixios.advancedthaumaturgy.misc.ChunkLoadingClass;
-import net.ixios.advancedthaumaturgy.misc.Utilities;
+import net.ixios.advancedthaumaturgy.network.PacketStartNodeModification;
 import net.ixios.advancedthaumaturgy.proxies.CommonProxy;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntityCommandBlock;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
-import org.apache.logging.log4j.Logger;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
@@ -64,28 +62,12 @@ import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.api.wands.WandTriggerRegistry;
 import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.tiles.TileInfusionMatrix;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.event.FMLServerStoppingEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry.EntityRegistration;
-import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid="AdvancedThaumaturgy", version="2.0", name="Advanced Thaumaturgy",
+@Mod(modid=AdvThaum.MODID, version="2.0", name="Advanced Thaumaturgy",
 	dependencies="required-after:Thaumcraft", acceptedMinecraftVersions="1.7.10")
 public class AdvThaum 
 {
+	public final static String MODID = "AdvancedThaumaturgy";
 
 	@Instance
 	public static AdvThaum instance;
@@ -114,7 +96,6 @@ public class AdvThaum
 	public static BlockNodeModifier NodeModifier;
 	public static BlockThaumicFertilizer ThaumicFertilizer;
 	public static BlockCreativeNode CreativeNode;
-	//public static ItemCreativeNode CreativeNodeItem;
 	public static BlockEssentiaEngine EssentiaEngine;
 	public static BlockThaumicVulcanizer ThaumicVulcanizer;
 	public static BlockPlaceholder Placeholder;
@@ -124,6 +105,8 @@ public class AdvThaum
 	
 	//public static RenderTickManager rendermanager = new RenderTickManager();
 
+	public static SimpleNetworkWrapper channel;
+	
 	private static Logger logger;
 	
 	public static boolean debug = false;
@@ -132,8 +115,10 @@ public class AdvThaum
      public void preInit(FMLPreInitializationEvent event)
 	 {
 	     logger=event.getModLog();
-	     
+
 	     NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+	     channel = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
+	     channel.registerMessage(PacketStartNodeModification.Handler.class, PacketStartNodeModification.class, 1, Side.SERVER);
 
 	     config = new Configuration(event.getSuggestedConfigurationFile());
 	     

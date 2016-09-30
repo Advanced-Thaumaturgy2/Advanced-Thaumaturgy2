@@ -94,7 +94,7 @@ public class CommonProxy implements IGuiHandler
 
 	public void startModification(TileNodeModifier nm, Operation op)
 	{
-		//nm.startProcess(op); 
+		nm.startProcess(op); 
 	}
     
     public static boolean AspectListcontains(AspectList list, Aspect aspect)

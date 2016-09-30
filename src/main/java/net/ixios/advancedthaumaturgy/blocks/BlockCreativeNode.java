@@ -9,12 +9,12 @@ import net.ixios.advancedthaumaturgy.items.ItemCreativeNode;
 import net.ixios.advancedthaumaturgy.tileentities.TileCreativeNode;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import thaumcraft.common.blocks.BlockAiry;
 
 public class BlockCreativeNode extends BlockAiry
 {
-	public static int blockID;
 	public static int renderID;
 	
 	public BlockCreativeNode()
@@ -32,7 +32,13 @@ public class BlockCreativeNode extends BlockAiry
 	{
 		blockIcon = ir.registerIcon("advthaum:node");
 	}
-
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public IIcon getIcon(int par1, int par2) 
+	{
+		return blockIcon;
+	}
 
 	@Override
 	public boolean renderAsNormalBlock() 
@@ -52,9 +58,9 @@ public class BlockCreativeNode extends BlockAiry
 		return new TileCreativeNode();
 	}
 	
-		public void register()
+	public void register()
 	{
-		GameRegistry.registerBlock(this, ItemCreativeNode.class, "blockCreativeNode");
+		GameRegistry.registerBlock(this, ItemCreativeNode.class, getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileCreativeNode.class, "tileentityCreativeNode");
 	}
 	
