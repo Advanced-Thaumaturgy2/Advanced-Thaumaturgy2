@@ -12,7 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.blocks.ItemJarFilled;
@@ -92,7 +94,15 @@ public class ItemEtherealJar extends ItemJarFilled
 		AspectList aspects = ((ItemJarFilled)stack.getItem()).getAspects(stack);
 		
 		if (aspects != null)
-			list.add(aspects.getAspects()[0].getName() + " x " + aspects.getAmount(aspects.getAspects()[0]));
+		{
+			Aspect aspect = aspects.getAspects()[0];
+			String name;
+			if (ThaumcraftApiHelper.hasDiscoveredAspect(player.getCommandSenderName(), aspect))
+				name = aspect.getName();
+			else
+		        name = StatCollector.translateToLocal("tc.aspect.unknown");
+			list.add(name + " x " + aspects.getAmount(aspects.getAspects()[0]));
+		}
 			
 	}
 	
