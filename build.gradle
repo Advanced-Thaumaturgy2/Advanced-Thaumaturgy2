@@ -52,7 +52,7 @@ repositories {
 }
 version = "2.0"
 group= "net.ixios.advancedthaumaturgy" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "AdvancedThurmaturgy"
+archivesBaseName = "AdvancedThaumaturgy"
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"

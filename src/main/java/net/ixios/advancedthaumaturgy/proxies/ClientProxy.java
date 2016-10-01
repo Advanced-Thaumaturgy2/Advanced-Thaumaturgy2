@@ -80,11 +80,11 @@ public class ClientProxy extends CommonProxy
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEssentiaEngine.class, renderer);	
 		}
 		
-        TileEntitySpecialRenderer special = new BlockEtherealJarRenderer();
 
         if (AdvThaum.itemEtherealJar != null)
         {
-        	MinecraftForgeClient.registerItemRenderer(AdvThaum.itemEtherealJar, new ItemEtherealJarRenderer((BlockEtherealJarRenderer)special));
+        	BlockEtherealJarRenderer special = new BlockEtherealJarRenderer();
+        	MinecraftForgeClient.registerItemRenderer(AdvThaum.itemEtherealJar, new ItemEtherealJarRenderer(special));
         	ClientRegistry.bindTileEntitySpecialRenderer(TileEtherealJar.class, special);
         }
         

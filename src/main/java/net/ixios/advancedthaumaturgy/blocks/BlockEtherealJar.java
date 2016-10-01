@@ -2,36 +2,14 @@ package net.ixios.advancedthaumaturgy.blocks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-
-import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.IEssentiaContainerItem;
-import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.crafting.ShapedArcaneRecipe;
-import thaumcraft.api.research.ResearchPage;
-import thaumcraft.common.blocks.BlockJar;
-import thaumcraft.common.blocks.ItemJarFilled;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.config.ConfigResearch;
-import thaumcraft.common.items.ItemEssence;
-import thaumcraft.common.items.ItemResearchNotes;
-import thaumcraft.common.items.ItemResource;
-import thaumcraft.common.tiles.TileJarFillable;
 import net.ixios.advancedthaumaturgy.AdvThaum;
-import net.ixios.advancedthaumaturgy.items.ItemEtherealJar;
 import net.ixios.advancedthaumaturgy.items.TCItems;
 import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
 import net.ixios.advancedthaumaturgy.tileentities.TileEtherealJar;
-import net.ixios.advancedthaumaturgy.tileentities.TileFluxDissipator;
+import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -42,23 +20,34 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.IEssentiaContainerItem;
+import thaumcraft.api.crafting.ShapedArcaneRecipe;
+import thaumcraft.api.research.ResearchPage;
+import thaumcraft.common.blocks.BlockJar;
+import thaumcraft.common.blocks.ItemJarFilled;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.config.ConfigResearch;
+import thaumcraft.common.items.ItemEssence;
+import thaumcraft.common.items.ItemResource;
 
 
 public class BlockEtherealJar extends BlockJar
 {
-    
-	public static int blockID;
-	
     public BlockEtherealJar()
     {
         super();
-        //this.setCreativeTab(AdvThaum.tabAdvThaum);
+        this.setCreativeTab(null);
         this.setBlockName("at.etherealjar");
     }
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		// Dont show in creative
+		par3List.add(new ItemStack(par1, 1, 0));
 	}
 
 	@Override
@@ -67,11 +56,17 @@ public class BlockEtherealJar extends BlockJar
         return new TileEtherealJar();
     }
     
+	@Override
+	public int getRenderType()
+	{
+		return -1;
+	}
+	
     public void register()
     {
-    	GameRegistry.registerBlock(this, "blockEtherealJar");
+    	GameRegistry.registerBlock(this, getUnlocalizedName());
     	GameRegistry.registerTileEntity(TileEtherealJar.class, "tileEtherealJar");
-    	AdvThaum.itemEtherealJar.setCreativeTab(AdvThaum.tabAdvThaum);
+    	GameRegistry.registerItem(AdvThaum.itemEtherealJar, AdvThaum.itemEtherealJar.getUnlocalizedName());
     	
     	// do research
     	ItemStack crystal = new ItemStack(ConfigBlocks.blockCrystal, 1, 32767);
@@ -151,10 +146,11 @@ public class BlockEtherealJar extends BlockJar
     	else if (player.isSneaking())
     	{// shift right clickign a jar, empty it
     		jar.amount = 0;
+    		jar.aspect = null;
     		if (jar.getWorldObj().isRemote)
     		{
     			jar.getWorldObj().playSound(jar.xCoord + 0.5F, jar.yCoord + 0.5F, jar.zCoord + 0.5F, "thaumcraft:jar", 0.4F, 1.0F, false);
-    			jar.getWorldObj().playSound(jar.xCoord + 0.5F, jar.yCoord + 0.5F, jar.zCoord + 0.5F, "liquid.swim", 0.5F, 1.0F + jar.getWorldObj().rand.nextFloat() - jar.getWorldObj().rand.nextFloat() * 0.3F, false);
+    			jar.getWorldObj().playSound(jar.xCoord + 0.5F, jar.yCoord + 0.5F, jar.zCoord + 0.5F, "game.neutral.swim", 0.5F, 1.0F + (jar.getWorldObj().rand.nextFloat() - jar.getWorldObj().rand.nextFloat()) * 0.3F, false);
     		}
     	}
     }
@@ -206,7 +202,7 @@ public class BlockEtherealJar extends BlockJar
        			world.spawnEntityInWorld(new EntityItem(world, jar.xCoord + 0.5f, jar.yCoord + 0.5f, jar.zCoord + 0.5f, phialstack));
        		
        		if (world.isRemote)
-       			world.playSound(jar.xCoord + 0.5F, jar.yCoord + 0.5F, jar.zCoord + 0.5F, "liquid.swim", 0.5F, 1.0F + world.rand.nextFloat() - world.rand.nextFloat() * 0.3F, false);
+       			world.playSound(jar.xCoord + 0.5F, jar.yCoord + 0.5F, jar.zCoord + 0.5F, "game.neutral.swim", 0.2F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F, false);
 
        	}
        	else if (aspects != null && ((jar.amount <= jar.maxAmount - 8 && jar.aspect != null && jar.aspect == aspect) || (jar.amount == 0 && jar.aspect == null)))
@@ -225,7 +221,7 @@ public class BlockEtherealJar extends BlockJar
        			world.spawnEntityInWorld(new EntityItem(world, jar.xCoord + 0.5f, jar.yCoord + 0.5f, jar.zCoord + 0.5f, emptyphial));
        		
        		if (world.isRemote)
-       			world.playSound(jar.xCoord + 0.5F, jar.yCoord + 0.5F, jar.zCoord + 0.5F, "liquid.swim", 0.5F, 1.0F + world.rand.nextFloat() - world.rand.nextFloat() * 0.3F, false);
+       			world.playSound(jar.xCoord + 0.5F, jar.yCoord + 0.5F, jar.zCoord + 0.5F, "game.neutral.swim", 0.2F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F, false);
 
        	}
    	    
@@ -246,10 +242,12 @@ public class BlockEtherealJar extends BlockJar
 
 		if (ej.amount > 0)
 			((ItemJarFilled)drop.getItem()).setAspects(drop, (new AspectList()).add(ej.aspect, ej.amount));
-		if (!drop.hasTagCompound())
-			drop.setTagCompound(new NBTTagCompound());
 		if (ej.aspectFilter != null)
+		{
+			if (!drop.hasTagCompound())
+				drop.setTagCompound(new NBTTagCompound());
 			drop.stackTagCompound.setString("AspectFilter", ej.aspectFilter.getTag());
+		}
 
 		//dropBlockAsItem_do(world, x, y, z, drop);
 		dropBlockAsItem(world,x,y,z,drop);
@@ -276,5 +274,4 @@ public class BlockEtherealJar extends BlockJar
             ej.facing = 4;
 		    	
     }
-    
 }

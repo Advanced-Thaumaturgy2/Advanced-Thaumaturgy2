@@ -2,22 +2,20 @@ package net.ixios.advancedthaumaturgy.items;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.IEssentiaContainerItem;
-import thaumcraft.common.blocks.ItemJarFilled;
 import net.ixios.advancedthaumaturgy.AdvThaum;
-import net.ixios.advancedthaumaturgy.blocks.BlockEtherealJar;
 import net.ixios.advancedthaumaturgy.tileentities.TileEtherealJar;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.blocks.ItemJarFilled;
 
 public class ItemEtherealJar extends ItemJarFilled
 {
@@ -26,6 +24,7 @@ public class ItemEtherealJar extends ItemJarFilled
 		super();
 		this.setMaxStackSize(4);
 		this.setUnlocalizedName("at.etherealjar");
+		setCreativeTab(AdvThaum.tabAdvThaum);
 	}
 
 	@Override
@@ -38,6 +37,18 @@ public class ItemEtherealJar extends ItemJarFilled
 	public IIcon getIcon(ItemStack stack, int pass)
 	{
 		return itemIcon;
+	}
+	
+	@Override
+	public IIcon getIconFromDamage(int dmg)
+	{
+		return itemIcon;
+	}
+	
+	@Override
+	public void getSubItems(Item item, CreativeTabs tabs, List list)
+	{
+		list.add(new ItemStack(item, 1, 0));
 	}
 	
 	@Override

@@ -55,8 +55,9 @@ public class ItemEtherealJarRenderer implements IItemRenderer
         	}
           
         	case EQUIPPED:
+        	case EQUIPPED_FIRST_PERSON:
         	{
-        		renderInventoryItem(item, 0.0F, 0.0F, 1.0F, 0.5F);
+        		renderInventoryItem(item, 0.5F, 0.0F, 0.5F, 0.5F);
                 return;
         	}
           
@@ -64,12 +65,6 @@ public class ItemEtherealJarRenderer implements IItemRenderer
         	{
         		renderInventoryItem(item, 1.5F, 0.85F, 1.5F, 0.5F);
                 return;
-        	}
-        
-        	case EQUIPPED_FIRST_PERSON:
-        	{
-        		renderInventoryItem(item, 0.0F, 0.0F, 0.0F, 0.5F);
-        		return;
         	}
         	
           default:
