@@ -73,7 +73,7 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.Microlith), renderer);
         ClientRegistry.bindTileEntitySpecialRenderer(TileMicrolithBase.class, renderer);
         
-		if (EnergyCompatBase.isPresent())
+		if (AdvThaum.EssentiaEngine != null)
 		{
 			renderer = new GenericRenderer(new ModelEngine());
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.EssentiaEngine), renderer);

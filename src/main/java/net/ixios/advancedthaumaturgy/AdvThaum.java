@@ -84,7 +84,6 @@ public class AdvThaum
 	public static ItemMercurialRodBase MercurialRodBase;
 	public static ItemMercurialWand MercurialWand;
 	public static ItemInfusedThaumium InfusedThaumium;
-	//public static ItemThaumInkwell ThaumicInkwell;
 	
 	public static ItemFocusVoidCage FocusVoidCage;
 	public static ItemEtherealJar itemEtherealJar;
@@ -102,8 +101,6 @@ public class AdvThaum
 	public static BlockEtherealJar EtherealJar;
 	public static BlockMicrolith Microlith;
 	public static BlockAltarDeployer AltarDeployer;
-	
-	//public static RenderTickManager rendermanager = new RenderTickManager();
 
 	public static SimpleNetworkWrapper channel;
 	
@@ -168,9 +165,6 @@ public class AdvThaum
 	    	 ArcaneCrystal = new ItemArcaneCrystal();
 	    	 EndstoneChunk = new ItemEndstoneChunk();
 	     }
-	     	
-	     if (AdvThaum.config.get("Feature Control", "enable_engine", true).getBoolean(true))
-	    	 AdvThaum.EssentiaEngine = new BlockEssentiaEngine( Material.rock);
 		
 	     Placeholder = new BlockPlaceholder(Material.air);
 	  
@@ -179,6 +173,9 @@ public class AdvThaum
 	
 		 if (config.get("Feature Control", "force_enable_essentia_engine", false).getBoolean(false))
 			 EnergyCompatBase.forceEnable();
+		 
+	     if (AdvThaum.config.get("Feature Control", "enable_engine", true).getBoolean(true))
+	    	 AdvThaum.EssentiaEngine = new BlockEssentiaEngine( Material.rock);
 	
 	  
 	     LanguageRegistry.instance().addStringLocalization("itemGroup.advthaum", "en_US", "Advanced Thaumaturgy");
@@ -194,7 +191,7 @@ public class AdvThaum
 	
 	 private void registerStuff()
 	 {
-		if (EnergyCompatBase.isPresent())
+		if (AdvThaum.EssentiaEngine != null)
 			AdvThaum.EssentiaEngine.register();
 			
 		 if (InfusedThaumium != null)
