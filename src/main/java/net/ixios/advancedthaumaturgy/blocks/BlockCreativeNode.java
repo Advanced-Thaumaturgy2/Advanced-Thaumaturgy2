@@ -8,10 +8,15 @@ import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.items.ItemCreativeNode;
 import net.ixios.advancedthaumaturgy.tileentities.TileCreativeNode;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.common.blocks.BlockAiry;
+import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
 public class BlockCreativeNode extends BlockAiry
 {
@@ -63,5 +68,10 @@ public class BlockCreativeNode extends BlockAiry
 		GameRegistry.registerBlock(this, ItemCreativeNode.class, getUnlocalizedName());
 		GameRegistry.registerTileEntity(TileCreativeNode.class, "tileentityCreativeNode");
 	}
-	
+
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
+	{
+		// prevent BlockAiry.onBlockPlacedBy() from creating a random node
+	}
 }
