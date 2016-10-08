@@ -40,7 +40,7 @@ at.microlith.6.name=Packed Ice Sentry [WIP]
 
 
 at.research.microlithflux.pg1=Drawing on the properties of both Entropy and Ordo, you've affixed a crystal that will evaporate nearby flux goo and gas.  When evaporating gas, there is a chance it will recover some of the taint in the form of Vitium.
-at.research.microlithwatcher.pg1=Imuing a crystal with Sensus has created a crystal that will keep an eye on chunks around it, chunkloading them.  It will load a 3x3 area around the chunk it is placed in.  Right click the Microlith to toggle a border outlining the loaded chunks.
+at.research.microlithwatcher.pg1=Imbuing a crystal with Sensus has created a crystal that will keep an eye on chunks around it, chunkloading them.  It will load a 3x3 area around the chunk it is placed in.  Right click the Microlith to toggle a border outlining the loaded chunks.
 
 tile.at.creativenode.name=Creative Node
 tile.at.creativenode.desc=Places a node that contains 100 of each|primal aspect, and never drains.|Creative Only
@@ -101,5 +101,5 @@ at.research.upgradepotency.pg1=Combinng many of the properties of items used in 
 
 at.research.microlith.title=The Microlith
 at.research.microlith.desc=?
-at.research.microlith.pg1=They randomly dot the landscape, a coalesced knot of dark energy tainting the nearby land.  To those who have access to other worlds, they occasionallt loom over the landscape, a much larger version that lacks the corrupt node inside.  Through diligent study and hard work, you have uncovered a way to both purify and harness these malignant energies, and repurpose them for dozens of uses.<LINE>Don't worry.  Many, MANY fun things to come! - Lycaon
+at.research.microlith.pg1=They randomly dot the landscape, a coalesced knot of dark energy tainting the nearby land.  To those who have access to other worlds, they occasionally loom over the landscape, a much larger version that lacks the corrupt node inside.  Through diligent study and hard work, you have uncovered a way to both purify and harness these malignant energies, and repurpose them for dozens of uses.<LINE>Don't worry.  Many, MANY fun things to come! - Lycaon
 at.research.microlith.pg2="They make me sick, and send chills down my spine, but the energy they contain is immense.  Whipping out my trusty Pickaxe of the Core, I harvest the dark totem, careful to jar the node in the top for purification in the Node Modifier.  The totems and tiles... they can be repurposed.  While I cannot directly cleanse their taint, a properly fashioned crystal on the top should replace the old sinister node and redirect some of that awesome power."<BR>"For a while, I debated calling them microliths, but a fellow thaumaturge suggested Microliths, which seems less silly.  I did reply, though, 'You sure know how to kill a joke.'"

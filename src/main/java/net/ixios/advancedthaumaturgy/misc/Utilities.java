@@ -40,6 +40,7 @@ public class Utilities
 			p.comment = comment;
 			cat.put(name, p);
 		}
+		p.comment = comment;
 		return p.getBoolean();
 	}
 	
@@ -52,6 +53,7 @@ public class Utilities
 			p.comment = comment;
 			cat.put(name, p);
 		}
+		p.comment = comment;
 		return p.getInt();
 	}
 	

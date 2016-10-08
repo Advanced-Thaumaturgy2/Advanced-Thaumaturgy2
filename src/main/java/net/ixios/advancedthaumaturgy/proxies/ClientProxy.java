@@ -52,32 +52,44 @@ public class ClientProxy extends CommonProxy
 	{
 		super.register();
 		
-		GenericRenderer renderer = new GenericRenderer(new ModelFertilizer());
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.ThaumicFertilizer), renderer);
-        ClientRegistry.bindTileEntitySpecialRenderer(TileThaumicFertilizer.class, renderer);
-
-        renderer = new GenericRenderer(new ModelNodeModifier(), 1F, -0.2F, 1.1F, .4F);
-        renderer.setScale(0.3F);
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.NodeModifier), renderer);
-        ClientRegistry.bindTileEntitySpecialRenderer(TileNodeModifier.class, renderer);
-     
-		renderer = new GenericRenderer(new ModelVulcanizer());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.ThaumicVulcanizer), renderer);
-        ClientRegistry.bindTileEntitySpecialRenderer(TileVulcanizer.class, renderer);
-
-    	renderer = new GenericRenderer(null);
+		GenericRenderer renderer = new GenericRenderer(null);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.Placeholder), renderer);
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePlaceholder.class, renderer);
-        
-        renderer = new GenericRenderer(new ModelMinilith());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.Microlith), renderer);
-        ClientRegistry.bindTileEntitySpecialRenderer(TileMicrolithBase.class, renderer);
+
+		if (AdvThaum.ThaumicFertilizer != null)
+		{
+			renderer = new GenericRenderer(new ModelFertilizer());
+	        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.ThaumicFertilizer), renderer);
+	        ClientRegistry.bindTileEntitySpecialRenderer(TileThaumicFertilizer.class, renderer);
+		}
+
+		if (AdvThaum.NodeModifier != null)
+		{
+			renderer = new GenericRenderer(new ModelNodeModifier(), 1F, -0.2F, 1.1F, .4F);
+	        renderer.setScale(0.3F);
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.NodeModifier), renderer);
+	        ClientRegistry.bindTileEntitySpecialRenderer(TileNodeModifier.class, renderer);
+		}
+
+		if (AdvThaum.ThaumicVulcanizer != null)
+		{
+			renderer = new GenericRenderer(new ModelVulcanizer());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.ThaumicVulcanizer), renderer);
+	        ClientRegistry.bindTileEntitySpecialRenderer(TileVulcanizer.class, renderer);
+		}
+
+		if (AdvThaum.Microlith != null)
+		{
+			renderer = new GenericRenderer(new ModelMinilith());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.Microlith), renderer);
+	        ClientRegistry.bindTileEntitySpecialRenderer(TileMicrolithBase.class, renderer);
+		}
         
 		if (AdvThaum.EssentiaEngine != null)
 		{
 			renderer = new GenericRenderer(new ModelEngine());
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.EssentiaEngine), renderer);
-			ClientRegistry.bindTileEntitySpecialRenderer(TileEssentiaEngine.class, renderer);	
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEssentiaEngine.class, renderer);
 		}
 		
 
@@ -91,7 +103,8 @@ public class ClientProxy extends CommonProxy
     	if (AdvThaum.MercurialWand != null)
 			MinecraftForgeClient.registerItemRenderer(AdvThaum.MercurialWand, new ItemWandRenderer());
 
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.CreativeNode), new ItemNodeRenderer(TileCreativeNode.aspects));
+    	if (AdvThaum.CreativeNode != null)
+    		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AdvThaum.CreativeNode), new ItemNodeRenderer(TileCreativeNode.aspects));
         
 	}
 	

@@ -107,10 +107,6 @@ public class CommonProxy implements IGuiHandler
     	return false;
     }
 
-    
-
-
-
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
@@ -129,9 +125,6 @@ public class CommonProxy implements IGuiHandler
 		}
 		return null;
 	}
-
-	// TODO: NodeModifier start processor packet handle again
-
 	
 	public float getSymmetry(TileInfusionMatrix im)
 	{

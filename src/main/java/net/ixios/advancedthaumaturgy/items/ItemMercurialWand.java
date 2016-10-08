@@ -86,10 +86,14 @@ public class ItemMercurialWand extends ItemWandCasting
 		 //ShapedArcaneRecipe recipe = new ShapedArcaneRecipe("merc_, result, aspects, recipe)
     
 		 // add research
+    	 ItemStack iconItem = new ItemStack(this);
+         setRod(iconItem, AdvThaum.MercurialRod);
+         setCap(iconItem, ConfigItems.WAND_CAP_THAUMIUM);
+    	 
 		 ATResearchItem ri = new ATResearchItem("MERCURIALWAND", "ADVTHAUM",
 			new AspectList(),
 			0, 2, 5,
-			new ItemStack(this));
+			iconItem);
 			 
 		 ri.setTitle("at.research.mercurialwand.title");
 		 ri.setInfo("at.research.mercurialwand.desc");
@@ -164,12 +168,13 @@ public class ItemMercurialWand extends ItemWandCasting
         ((ItemWandCasting)w2.getItem()).setRod(w2, AdvThaum.MercurialRod);
         ((ItemWandCasting)w2.getItem()).setCap(w2, ConfigItems.WAND_CAP_THAUMIUM);
         
-        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.EARTH, 500, true);
-        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.FIRE, 500, true);
-        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.AIR, 500, true);
-        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.WATER, 500, true);
-        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.ORDER, 500, true);
-        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.ENTROPY, 500, true);
+        int capacity = AdvThaum.MercurialRod.getCapacity();
+        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.EARTH, capacity, true);
+        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.FIRE, capacity, true);
+        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.AIR, capacity, true);
+        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.WATER, capacity, true);
+        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.ORDER, capacity, true);
+        ((ItemWandCasting)w2.getItem()).addVis(w2, Aspect.ENTROPY, capacity, true);
         
         items.add(w2);
                

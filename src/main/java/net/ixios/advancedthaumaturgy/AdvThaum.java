@@ -152,7 +152,7 @@ public class AdvThaum
 	    	 itemEtherealJar = new ItemEtherealJar();
 	     }
 	     
-	     if (config.get("Feature Control", "enable_miniligh", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_minilith", true).getBoolean(true))
 	    	 Microlith = new BlockMicrolith(Material.ground);
 	      
 	     if (config.get("Feature Control", "enable_focus_void_cage", true).getBoolean(true))
