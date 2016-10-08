@@ -81,11 +81,10 @@ public class BlockNodeModifier extends BlockContainer implements IWandable
 		            TCItems.arcanepedestal, empty, empty, TCItems.arcanepedestal, empty, empty }) }));
 		                        
 		 List list = (List)ConfigResearch.recipes.get("NodeSetup");
-		 
-		 ATResearchItem ri = new ATResearchItem("NODEMODIFIER", "BASICS",
-					(new AspectList().add(Aspect.AURA, 16)),
-					-5, 6, 4,
-					new ItemStack(this));
+
+	     ATResearchItem ri = new ATResearchItem("NODEMODIFIER", "BASICS", 
+	    		 new AspectList().add(Aspect.AURA, 16).add(Aspect.METAL, 16), -5, 6, 4, new ItemStack(this));
+	     
 			ri.setTitle("at.research.nodemodifier.title");
 			ri.setInfo("at.research.nodemodifier.desc");
 			ri.setParents("NODEJAR", "INFUSION");

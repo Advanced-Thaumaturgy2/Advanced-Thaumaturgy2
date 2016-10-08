@@ -46,3 +46,4 @@ Thumbs.db
 *.log
 *.lck
 /target/
+.directory
