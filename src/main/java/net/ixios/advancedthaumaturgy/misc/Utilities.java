@@ -8,20 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.mojang.authlib.GameProfile;
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraft.util.ChatComponentText;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.research.ResearchCategories;
-import thaumcraft.api.research.ResearchCategoryList;
-import thaumcraft.api.research.ResearchItem;
-import thaumcraft.api.wands.IWandFocus;
-import thaumcraft.api.wands.ItemFocusBasic;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.items.wands.ItemWandCasting;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.common.tiles.TileJarFillable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -29,11 +16,45 @@ import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
+import net.minecraftforge.common.config.ConfigCategory;
+import net.minecraftforge.common.config.Property;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategoryList;
+import thaumcraft.api.research.ResearchItem;
+import thaumcraft.api.wands.ItemFocusBasic;
+import thaumcraft.common.items.wands.ItemWandCasting;
+import thaumcraft.common.lib.research.ResearchManager;
+import thaumcraft.common.tiles.TileJarFillable;
 
 public class Utilities
 {
+	public static boolean getConfigBoolean(ConfigCategory cat, String name, boolean defaultValue, String comment)
+	{
+		Property p = cat.get(name);
+		if (p == null)
+		{
+			p = new Property(name, String.valueOf(defaultValue), Property.Type.BOOLEAN);
+			p.comment = comment;
+			cat.put(name, p);
+		}
+		return p.getBoolean();
+	}
+	
+	public static int getConfigInteger(ConfigCategory cat, String name, int defaultValue, String comment)
+	{
+		Property p = cat.get(name);
+		if (p == null)
+		{
+			p = new Property(name, String.valueOf(defaultValue), Property.Type.INTEGER);
+			p.comment = comment;
+			cat.put(name, p);
+		}
+		return p.getInt();
+	}
+	
 	// Stolen from Vazkii
 	public static NBTTagCompound getCacheCompound(File cache)
 	{

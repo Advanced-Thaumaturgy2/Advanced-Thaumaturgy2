@@ -31,8 +31,6 @@ import net.minecraft.world.World;
 
 public class BlockEssentiaEngine extends Block implements ITileEntityProvider
 {
-
-	public static int blockID;
 	public static int renderID;
 	
 	public BlockEssentiaEngine(Material material)

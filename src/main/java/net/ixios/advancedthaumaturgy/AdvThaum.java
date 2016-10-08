@@ -43,6 +43,7 @@ import net.ixios.advancedthaumaturgy.misc.ArcingDamageManager;
 import net.ixios.advancedthaumaturgy.misc.ChunkLoadingClass;
 import net.ixios.advancedthaumaturgy.network.PacketStartNodeModification;
 import net.ixios.advancedthaumaturgy.proxies.CommonProxy;
+import net.ixios.advancedthaumaturgy.tileentities.TileEssentiaEngine;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -170,12 +171,12 @@ public class AdvThaum
 	  
 	     // these must be done before proxy.register
 		 new BCCompatChecker().register();
-	
-		 if (config.get("Feature Control", "force_enable_essentia_engine", false).getBoolean(false))
-			 EnergyCompatBase.forceEnable();
 		 
 	     if (AdvThaum.config.get("Feature Control", "enable_engine", true).getBoolean(true))
+	     {
 	    	 AdvThaum.EssentiaEngine = new BlockEssentiaEngine( Material.rock);
+	    	 TileEssentiaEngine.loadConfig();
+	     }
 	
 	  
 	     LanguageRegistry.instance().addStringLocalization("itemGroup.advthaum", "en_US", "Advanced Thaumaturgy");
