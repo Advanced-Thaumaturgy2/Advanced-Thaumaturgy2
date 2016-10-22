@@ -63,7 +63,8 @@ import thaumcraft.api.wands.WandTriggerRegistry;
 import thaumcraft.common.Thaumcraft;
 
 @Mod(modid=AdvThaum.MODID, version="2.0", name="Advanced Thaumaturgy",
-	dependencies="required-after:Thaumcraft", acceptedMinecraftVersions="1.7.10")
+	dependencies="required-after:Thaumcraft;after:ThaumicHorizons;after:ThaumicExploration;after:thaumicbases;after:ForbiddenMagic;after:ThaumicTinkerer",
+	acceptedMinecraftVersions="1.7.10")
 public class AdvThaum 
 {
 	public final static String MODID = "AdvancedThaumaturgy";
@@ -103,7 +104,7 @@ public class AdvThaum
 
 	public static SimpleNetworkWrapper channel;
 	
-	private static Logger logger;
+	public static Logger logger;
 	
 	public static boolean debug = false;
 	

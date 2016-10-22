@@ -123,6 +123,9 @@ public class ItemMercurialWand extends ItemWandCasting
         for (String key : WandCap.caps.keySet())
         {
         	WandCap cap = WandCap.caps.get(key);
+        	if (cap == null || cap.getItem() == null)
+        		break;
+        		
         	ItemStack wand = new ItemStack(AdvThaum.MercurialWand, 1, 0);
         	ItemWandCasting iwc = ((ItemWandCasting)wand.getItem());
         	WandRod rod = AdvThaum.MercurialRod;
