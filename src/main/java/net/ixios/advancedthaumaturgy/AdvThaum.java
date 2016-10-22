@@ -25,8 +25,6 @@ import net.ixios.advancedthaumaturgy.blocks.BlockNodeModifier;
 import net.ixios.advancedthaumaturgy.blocks.BlockPlaceholder;
 import net.ixios.advancedthaumaturgy.blocks.BlockThaumicFertilizer;
 import net.ixios.advancedthaumaturgy.blocks.BlockThaumicVulcanizer;
-import net.ixios.advancedthaumaturgy.compat.energy.BCCompatChecker;
-import net.ixios.advancedthaumaturgy.compat.energy.EnergyCompatBase;
 import net.ixios.advancedthaumaturgy.items.ItemAeroSphere;
 import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal;
 import net.ixios.advancedthaumaturgy.items.ItemEndstoneChunk;
@@ -168,9 +166,6 @@ public class AdvThaum
 	     }
 		
 	     Placeholder = new BlockPlaceholder(Material.air);
-	  
-	     // these must be done before proxy.register
-		 new BCCompatChecker().register();
 		 
 	     if (AdvThaum.config.get("Feature Control", "enable_engine", true).getBoolean(true))
 	     {
