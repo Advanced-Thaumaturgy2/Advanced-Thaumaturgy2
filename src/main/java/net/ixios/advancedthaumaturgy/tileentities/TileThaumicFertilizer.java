@@ -9,6 +9,7 @@ import java.util.UUID;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModClassLoader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.ixios.advancedthaumaturgy.api.ISpecialFertilize;
 import net.ixios.advancedthaumaturgy.compat.botania.BotaniaCompat;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -47,6 +48,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import vazkii.botania.api.subtile.ISpecialFlower;
 
 public class TileThaumicFertilizer extends TileEntity implements IAspectContainer
 {
@@ -290,6 +292,12 @@ public class TileThaumicFertilizer extends TileEntity implements IAspectContaine
 				herbapool -= costperfertilize;
 				Block b = worldObj.getBlock(x, y, z);
 				b.updateTick(worldObj, x, y, z, worldObj.rand);
+				TileEntity te=worldObj.getTileEntity(x,y,z);
+				if(te!=null && te instanceof ISpecialFertilize)
+				{
+
+					((ISpecialFertilize)te).fertilizeBlock(x,y,z);
+				}
 			}
 		}
     }
