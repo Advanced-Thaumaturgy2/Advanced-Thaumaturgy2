@@ -1,12 +1,14 @@
 package net.ixios.advancedthaumaturgy;
 
+import cpw.mods.fml.common.*;
+import net.ixios.advancedthaumaturgy.compat.computercraft.ComputerCraft;
+import net.ixios.advancedthaumaturgy.tileentities.TileWatchfulMicrolith;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import org.apache.logging.log4j.Logger;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -63,7 +65,7 @@ import thaumcraft.api.wands.WandTriggerRegistry;
 import thaumcraft.common.Thaumcraft;
 
 @Mod(modid=AdvThaum.MODID, version="2.0", name="Advanced Thaumaturgy",
-	dependencies="required-after:Thaumcraft;after:ThaumicHorizons;after:ThaumicExploration;after:thaumicbases;after:ForbiddenMagic;after:ThaumicTinkerer",
+	dependencies="required-after:Thaumcraft;after:ThaumicHorizons;after:ThaumicExploration;after:thaumicbases;after:ForbiddenMagic;after:ThaumicTinkerer;after:ComputerCraft",
 	acceptedMinecraftVersions="1.7.10")
 public class AdvThaum 
 {
@@ -234,8 +236,14 @@ public class AdvThaum
 	 @EventHandler
      public void load(FMLInitializationEvent event) 
      {
-		 
+		if(Loader.isModLoaded("ComputerCraft"))
+		{
+			log("Loading Computer craft integration");
+			ComputerCraft.InitCC();
+		}
      }
+
+
     
 	 @EventHandler  
      public void postInit(FMLPostInitializationEvent event) 

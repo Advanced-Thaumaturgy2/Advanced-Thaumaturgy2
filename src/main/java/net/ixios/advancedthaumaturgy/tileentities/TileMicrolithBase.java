@@ -31,5 +31,4 @@ public abstract class TileMicrolithBase extends TileEntity
 	
 	public abstract boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
 	        float hitY, float hitZ);
-	
 }

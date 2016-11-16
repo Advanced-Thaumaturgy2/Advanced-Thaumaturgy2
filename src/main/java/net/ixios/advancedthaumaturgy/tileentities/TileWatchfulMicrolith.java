@@ -2,6 +2,11 @@ package net.ixios.advancedthaumaturgy.tileentities;
 
 import java.awt.Color;
 
+import cpw.mods.fml.common.Optional;
+import dan200.computercraft.api.lua.ILuaContext;
+import dan200.computercraft.api.lua.LuaException;
+import dan200.computercraft.api.peripheral.IComputerAccess;
+import dan200.computercraft.api.peripheral.IPeripheral;
 import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
@@ -11,7 +16,8 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
 
-public class TileWatchfulMicrolith extends TileMicrolithBase
+@Optional.Interface(iface = "dan200.computercraft.api.peripheral.IPeripheral",modid = "ComputerCraft")
+public class TileWatchfulMicrolith extends TileMicrolithBase implements IPeripheral
 {
 
 	Ticket ticket = null;
@@ -60,5 +66,48 @@ public class TileWatchfulMicrolith extends TileMicrolithBase
 	    return true;
     }
 
-	
+
+    @Optional.Method(modid = "ComputerCraft")
+	@Override
+	public String getType() {
+		return "watchfulMicrolith";
+	}
+
+	@Optional.Method(modid = "ComputerCraft")
+	@Override
+	public String[] getMethodNames() {
+		return new String[]{"toggleActive","getActive"};
+	}
+
+	@Optional.Method(modid = "ComputerCraft")
+	@Override
+	public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws LuaException, InterruptedException {
+		switch (method)
+		{
+			case 0:
+				onBlockActivated(worldObj,xCoord,yCoord,zCoord,null,0,0,0,0);
+				return new Object[]{};
+			case 1:
+				return new Object[]{ticket!=null};
+		}
+		return new Object[]{};
+	}
+
+	@Optional.Method(modid = "ComputerCraft")
+	@Override
+	public void attach(IComputerAccess computer) {
+
+	}
+
+	@Optional.Method(modid = "ComputerCraft")
+	@Override
+	public void detach(IComputerAccess computer) {
+
+	}
+
+	@Optional.Method(modid = "ComputerCraft")
+	@Override
+	public boolean equals(IPeripheral other) {
+		return this.equals(other);
+	}
 }
