@@ -108,6 +108,6 @@ public class TileWatchfulMicrolith extends TileMicrolithBase implements IPeriphe
 	@Optional.Method(modid = "ComputerCraft")
 	@Override
 	public boolean equals(IPeripheral other) {
-		return this.equals(other);
+		return super.equals(other);
 	}
 }
