@@ -26,6 +26,20 @@ public class TileExcavator extends TileMicrolithBase
     }
 
 	@Override
+	public String getMicrolithType() {
+		return "excavator";
+	}
+
+	@Override
+	public boolean getActive() {
+		return false;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+	}
+
+	@Override
     public boolean onBlockActivated(World world, int x, int y, int z,
             EntityPlayer player, int side, float hitX, float hitY, float hitZ)
     {

@@ -95,37 +95,18 @@ public class TileFluxDissipator extends TileMicrolithBase implements IAspectCont
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tag)
-	{
-	    super.readFromNBT(tag);
-	    if (aspects != null)
-	    	aspects.readFromNBT(tag);
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-	    super.writeToNBT(tag);
-	    if (aspects != null)
-	    	aspects.writeToNBT(tag);
-	}
-	
-	@Override
-	public Packet getDescriptionPacket()
-	{
-		NBTTagCompound nbt = new NBTTagCompound();
-		writeToNBT(nbt);
-		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
+	public void readExtraNBT(NBTTagCompound tagCompound) {
+		super.readExtraNBT(tagCompound);
+		if (aspects != null)
+			aspects.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		readFromNBT(pkt.func_148857_g());
+	public void writeExtraNBT(NBTTagCompound tagCompound) {
+		super.writeExtraNBT(tagCompound);
+		if (aspects != null)
+			aspects.writeToNBT(tagCompound);
 	}
-
-	
-	
-	
 	
 	@Override
 	public int addToContainer(Aspect aspect, int amount)
@@ -134,6 +115,11 @@ public class TileFluxDissipator extends TileMicrolithBase implements IAspectCont
 			return 0;
 		aspects.add(aspect, amount);
 		return amount;
+	}
+
+	@Override
+	public String getMicrolithType() {
+		return "fluxDissapator";
 	}
 
 	@Override
@@ -191,6 +177,15 @@ public class TileFluxDissipator extends TileMicrolithBase implements IAspectCont
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 		return success;
+	}
+
+	@Override
+	public boolean getActive() {
+		return false;
+	}
+
+	@Override
+	public void setActive(boolean active) {
 	}
 
 	@Override

@@ -2,22 +2,17 @@ package net.ixios.advancedthaumaturgy.tileentities;
 
 import java.awt.Color;
 
-import cpw.mods.fml.common.Optional;
-import dan200.computercraft.api.lua.ILuaContext;
-import dan200.computercraft.api.lua.LuaException;
-import dan200.computercraft.api.peripheral.IComputerAccess;
-import dan200.computercraft.api.peripheral.IPeripheral;
+
 import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
 
-@Optional.Interface(iface = "dan200.computercraft.api.peripheral.IPeripheral",modid = "ComputerCraft")
-public class TileWatchfulMicrolith extends TileMicrolithBase implements IPeripheral
+
+public class TileWatchfulMicrolith extends TileMicrolithBase
 {
 
 	Ticket ticket = null;
@@ -48,66 +43,34 @@ public class TileWatchfulMicrolith extends TileMicrolithBase implements IPeriphe
     public boolean onBlockActivated(World world, int x, int y, int z,
             EntityPlayer player, int side, float hitX, float hitY, float hitZ)
     {
-		ChunkCoordIntPair coords = new ChunkCoordIntPair(xCoord >> 4, zCoord >> 4);
-		
-		if (ticket == null)
-		{
-			ticket = ForgeChunkManager.requestTicket(AdvThaum.instance, worldObj, Type.NORMAL);
-		    if (ticket == null)
-		    	return true;
-		    ForgeChunkManager.forceChunk(ticket, coords);
-		}
-		else
-		{
-			ForgeChunkManager.unforceChunk(ticket, coords);
-			ForgeChunkManager.releaseTicket(ticket);
-			ticket = null;
-		}
-	    return true;
+		setActive(!getActive());
+        return true;
     }
 
 
-    @Optional.Method(modid = "ComputerCraft")
-	@Override
-	public String getType() {
-		return "watchfulMicrolith";
-	}
+    @Override
+    public void setActive(boolean active) {
+        super.setActive(active);
+        ChunkCoordIntPair coords = new ChunkCoordIntPair(xCoord >> 4, zCoord >> 4);
 
-	@Optional.Method(modid = "ComputerCraft")
-	@Override
-	public String[] getMethodNames() {
-		return new String[]{"toggleActive","getActive"};
-	}
+        if (active)
+        {
+            ticket = ForgeChunkManager.requestTicket(AdvThaum.instance, worldObj, Type.NORMAL);
+            if (ticket == null)
+                return ;
+            ForgeChunkManager.forceChunk(ticket, coords);
+        }
+        else
+        {
+            ForgeChunkManager.unforceChunk(ticket, coords);
+            ForgeChunkManager.releaseTicket(ticket);
+            ticket = null;
+        }
+        return;
+    }
 
-	@Optional.Method(modid = "ComputerCraft")
-	@Override
-	public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws LuaException, InterruptedException {
-		switch (method)
-		{
-			case 0:
-				onBlockActivated(worldObj,xCoord,yCoord,zCoord,null,0,0,0,0);
-				return new Object[]{};
-			case 1:
-				return new Object[]{ticket!=null};
-		}
-		return new Object[]{};
-	}
-
-	@Optional.Method(modid = "ComputerCraft")
-	@Override
-	public void attach(IComputerAccess computer) {
-
-	}
-
-	@Optional.Method(modid = "ComputerCraft")
-	@Override
-	public void detach(IComputerAccess computer) {
-
-	}
-
-	@Optional.Method(modid = "ComputerCraft")
-	@Override
-	public boolean equals(IPeripheral other) {
-		return super.equals(other);
-	}
+    @Override
+    public String getMicrolithType() {
+        return "watchfull";
+    }
 }

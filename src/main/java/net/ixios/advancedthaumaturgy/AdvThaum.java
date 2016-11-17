@@ -65,7 +65,7 @@ import thaumcraft.api.wands.WandTriggerRegistry;
 import thaumcraft.common.Thaumcraft;
 
 @Mod(modid=AdvThaum.MODID, version="2.0", name="Advanced Thaumaturgy",
-	dependencies="required-after:Thaumcraft;after:ThaumicHorizons;after:ThaumicExploration;after:thaumicbases;after:ForbiddenMagic;after:ThaumicTinkerer;after:ComputerCraft",
+	dependencies="required-after:Thaumcraft;after:ThaumicHorizons;after:ThaumicExploration;after:thaumicbases;after:ForbiddenMagic;after:ThaumicTinkerer;after:ComputerCraft;after:OpenComputers@[1.2.0,)",
 	acceptedMinecraftVersions="1.7.10")
 public class AdvThaum 
 {
