@@ -1,6 +1,7 @@
 package net.ixios.advancedthaumaturgy;
 
 import cpw.mods.fml.common.*;
+import net.ixios.advancedthaumaturgy.blocks.*;
 import net.ixios.advancedthaumaturgy.compat.computercraft.ComputerCraft;
 import net.ixios.advancedthaumaturgy.tileentities.TileWatchfulMicrolith;
 import net.minecraft.tileentity.TileEntity;
@@ -18,15 +19,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
-import net.ixios.advancedthaumaturgy.blocks.BlockAltarDeployer;
-import net.ixios.advancedthaumaturgy.blocks.BlockCreativeNode;
-import net.ixios.advancedthaumaturgy.blocks.BlockEssentiaEngine;
-import net.ixios.advancedthaumaturgy.blocks.BlockEtherealJar;
-import net.ixios.advancedthaumaturgy.blocks.BlockMicrolith;
-import net.ixios.advancedthaumaturgy.blocks.BlockNodeModifier;
-import net.ixios.advancedthaumaturgy.blocks.BlockPlaceholder;
-import net.ixios.advancedthaumaturgy.blocks.BlockThaumicFertilizer;
-import net.ixios.advancedthaumaturgy.blocks.BlockThaumicVulcanizer;
 import net.ixios.advancedthaumaturgy.items.ItemAeroSphere;
 import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal;
 import net.ixios.advancedthaumaturgy.items.ItemEndstoneChunk;
@@ -125,44 +117,44 @@ public class AdvThaum
 	     
 
 	     
-	     boolean useClassicTooltip = config.get("Feature Control", "classic_wand_tooltip", false).getBoolean(false);
+	     boolean useClassicTooltip = config.get("Feature Control", "classic_wand_tooltip", false,"Use the classic tooltip").getBoolean(false);
 	     
 	     ////////////////////////////////////////////////////////
 	 	     
-	     if (config.get("Feature Control", "enable_altar_deployer", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_altar_deployer", true,"Allow the creative mode altar deployer").getBoolean(true))
 	    	 AltarDeployer = new BlockAltarDeployer();
 	     
-	     if (config.get("Feature Control", "enable_infused_thaumium", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_infused_thaumium", true,"Allows infused Thaumium").getBoolean(true))
 	    	 InfusedThaumium = new ItemInfusedThaumium();
 	     
-	     if (config.get("Feature Control", "enable_node_modifier", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_node_modifier", true,"Allows the Node modifier block").getBoolean(true))
 	    	 NodeModifier = new BlockNodeModifier(Material.ground);
 	     
-	     if (config.get("Feature Control", "enable_fertilizer", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_fertilizer", true, "Allows the Thaumic Fertalizer block").getBoolean(true))
 	    	 ThaumicFertilizer = new BlockThaumicFertilizer(Material.ground);
 	     
-	     if (config.get("Feature Control", "enable_creative_node", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_creative_node", true, "Allows use of the creative node in creative mode").getBoolean(true))
 	    	 CreativeNode = new BlockCreativeNode();
 	     
-	     if (config.get("Feature Control", "enable_vulcanizer", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_vulcanizer", true,"Allows the Vulcanizer").getBoolean(true))
 	    	 ThaumicVulcanizer = new BlockThaumicVulcanizer( Material.ground);
 	     
-	     if (config.get("Feature Control", "enable_ethereal_jar", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_ethereal_jar", true, "Allows use of the ethereal jar").getBoolean(true))
 	     {
 	    	 EtherealJar = new BlockEtherealJar();
 	    	 itemEtherealJar = new ItemEtherealJar();
 	     }
 	     
-	     if (config.get("Feature Control", "enable_minilith", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_minilith", true, "Allows use of the miniliths").getBoolean(true))
 	    	 Microlith = new BlockMicrolith(Material.ground);
 	      
-	     if (config.get("Feature Control", "enable_focus_void_cage", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_focus_void_cage", true, "Allows use of the Void Cage focus").getBoolean(true))
 	    	 FocusVoidCage = new ItemFocusVoidCage();
 	     
-	     if (config.get("Feature Control", "enable_aerosphere", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_aerosphere", true, "Allows use of the Aerosphere").getBoolean(true))
 	    	 AeroSphere = new ItemAeroSphere();
 	     
-	     if (config.get("Feature Control", "enable_wand_upgrades", true).getBoolean(true))
+	     if (config.get("Feature Control", "enable_wand_upgrades", true, "Allows upgrading wands").getBoolean(true))
 	     {
 	    	 ArcaneCrystal = new ItemArcaneCrystal();
 	    	 EndstoneChunk = new ItemEndstoneChunk();
@@ -170,7 +162,7 @@ public class AdvThaum
 		
 	     Placeholder = new BlockPlaceholder(Material.air);
 		 
-	     if (AdvThaum.config.get("Feature Control", "enable_engine", true).getBoolean(true))
+	     if (AdvThaum.config.get("Feature Control", "enable_engine", true, "Allows use of the essentia engine to convert essentia to RF").getBoolean(true))
 	     {
 	    	 AdvThaum.EssentiaEngine = new BlockEssentiaEngine( Material.rock);
 	    	 TileEssentiaEngine.loadConfig();
