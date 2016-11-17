@@ -3,6 +3,7 @@ package net.ixios.advancedthaumaturgy;
 import cpw.mods.fml.common.*;
 import net.ixios.advancedthaumaturgy.blocks.*;
 import net.ixios.advancedthaumaturgy.compat.computercraft.ComputerCraft;
+import net.ixios.advancedthaumaturgy.misc.*;
 import net.ixios.advancedthaumaturgy.tileentities.TileWatchfulMicrolith;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -28,11 +29,6 @@ import net.ixios.advancedthaumaturgy.items.ItemInfusedThaumium;
 import net.ixios.advancedthaumaturgy.items.ItemMercurialRod;
 import net.ixios.advancedthaumaturgy.items.ItemMercurialRodBase;
 import net.ixios.advancedthaumaturgy.items.ItemMercurialWand;
-import net.ixios.advancedthaumaturgy.misc.ATCreativeTab;
-import net.ixios.advancedthaumaturgy.misc.ATEventHandler;
-import net.ixios.advancedthaumaturgy.misc.ATServerCommand;
-import net.ixios.advancedthaumaturgy.misc.ArcingDamageManager;
-import net.ixios.advancedthaumaturgy.misc.ChunkLoadingClass;
 import net.ixios.advancedthaumaturgy.network.PacketStartNodeModification;
 import net.ixios.advancedthaumaturgy.proxies.CommonProxy;
 import net.ixios.advancedthaumaturgy.tileentities.TileEssentiaEngine;
@@ -55,6 +51,7 @@ import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.api.wands.WandTriggerRegistry;
 import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.Config;
 
 @Mod(modid=AdvThaum.MODID, version="2.0", name="Advanced Thaumaturgy",
 	dependencies="required-after:Thaumcraft;after:ThaumicHorizons;after:ThaumicExploration;after:thaumicbases;after:ForbiddenMagic;after:ThaumicTinkerer;after:ComputerCraft;after:OpenComputers@[1.2.0,)",
@@ -112,49 +109,47 @@ public class AdvThaum
 	     channel.registerMessage(PacketStartNodeModification.Handler.class, PacketStartNodeModification.class, 1, Side.SERVER);
 
 	     config = new Configuration(event.getSuggestedConfigurationFile());
-	     
-	     config.load();
+		 ConfigData.loadConfig(config);
+
 	     
 
 	     
-	     boolean useClassicTooltip = config.get("Feature Control", "classic_wand_tooltip", false,"Use the classic tooltip").getBoolean(false);
-	     
 	     ////////////////////////////////////////////////////////
 	 	     
-	     if (config.get("Feature Control", "enable_altar_deployer", true,"Allow the creative mode altar deployer").getBoolean(true))
+	     if (ConfigData.enableAltarDeployer)
 	    	 AltarDeployer = new BlockAltarDeployer();
 	     
-	     if (config.get("Feature Control", "enable_infused_thaumium", true,"Allows infused Thaumium").getBoolean(true))
+	     if (ConfigData.enableInfusedThaumium)
 	    	 InfusedThaumium = new ItemInfusedThaumium();
 	     
-	     if (config.get("Feature Control", "enable_node_modifier", true,"Allows the Node modifier block").getBoolean(true))
+	     if (ConfigData.enableNodeModifier)
 	    	 NodeModifier = new BlockNodeModifier(Material.ground);
 	     
-	     if (config.get("Feature Control", "enable_fertilizer", true, "Allows the Thaumic Fertalizer block").getBoolean(true))
+	     if (ConfigData.enableThaumicFertilizer)
 	    	 ThaumicFertilizer = new BlockThaumicFertilizer(Material.ground);
 	     
-	     if (config.get("Feature Control", "enable_creative_node", true, "Allows use of the creative node in creative mode").getBoolean(true))
+	     if (ConfigData.enableCreativeNode)
 	    	 CreativeNode = new BlockCreativeNode();
 	     
-	     if (config.get("Feature Control", "enable_vulcanizer", true,"Allows the Vulcanizer").getBoolean(true))
+	     if (ConfigData.enableThaumicVulcanizer)
 	    	 ThaumicVulcanizer = new BlockThaumicVulcanizer( Material.ground);
 	     
-	     if (config.get("Feature Control", "enable_ethereal_jar", true, "Allows use of the ethereal jar").getBoolean(true))
+	     if (ConfigData.enableEtherealJar)
 	     {
 	    	 EtherealJar = new BlockEtherealJar();
 	    	 itemEtherealJar = new ItemEtherealJar();
 	     }
 	     
-	     if (config.get("Feature Control", "enable_minilith", true, "Allows use of the miniliths").getBoolean(true))
+	     if (ConfigData.enableMicrolith)
 	    	 Microlith = new BlockMicrolith(Material.ground);
 	      
-	     if (config.get("Feature Control", "enable_focus_void_cage", true, "Allows use of the Void Cage focus").getBoolean(true))
+	     if (ConfigData.enableVoidCage)
 	    	 FocusVoidCage = new ItemFocusVoidCage();
 	     
-	     if (config.get("Feature Control", "enable_aerosphere", true, "Allows use of the Aerosphere").getBoolean(true))
+	     if (ConfigData.enableAeroSphere)
 	    	 AeroSphere = new ItemAeroSphere();
 	     
-	     if (config.get("Feature Control", "enable_wand_upgrades", true, "Allows upgrading wands").getBoolean(true))
+	     if (ConfigData.enableWandUpgrades)
 	     {
 	    	 ArcaneCrystal = new ItemArcaneCrystal();
 	    	 EndstoneChunk = new ItemEndstoneChunk();
@@ -162,7 +157,7 @@ public class AdvThaum
 		
 	     Placeholder = new BlockPlaceholder(Material.air);
 		 
-	     if (AdvThaum.config.get("Feature Control", "enable_engine", true, "Allows use of the essentia engine to convert essentia to RF").getBoolean(true))
+	     if (ConfigData.enableEssentiaEngine)
 	     {
 	    	 AdvThaum.EssentiaEngine = new BlockEssentiaEngine( Material.rock);
 	    	 TileEssentiaEngine.loadConfig();
@@ -246,7 +241,7 @@ public class AdvThaum
 				 new ResourceLocation("thaumcraft", "textures/gui/gui_researchback.png"));
 		 	 
 
-	    if (config.get("Feature Control", "enable_mercurial_core", true).getBoolean(true))
+	    if (ConfigData.enableMercurialCore)
 	     {
 	    	int capacity = 500;
 	    	for (WandRod rod : WandRod.rods.values())
@@ -255,7 +250,7 @@ public class AdvThaum
 	    	 MercurialRodBase = new ItemMercurialRodBase();
 	    	 MercurialRod = new ItemMercurialRod(capacity);
 	    	 
-	    	 if (config.get("Feature Control", "enable_mercurial_wand", true).getBoolean(true))
+	    	 if (ConfigData.enableMercurialWand)
 	    		 MercurialWand = new ItemMercurialWand();
 	     }
 		    
@@ -275,7 +270,7 @@ public class AdvThaum
 		 WandTriggerRegistry.registerWandBlockTrigger(Thaumcraft.proxy.wandManager, 4, Blocks.wooden_slab, -1);
 		 //WandTriggerRegistry.registerWandBlockTrigger(Thaumcraft.proxy.wandManager, 5, Block.obsidian.blockID, -1);
 		 
-		 if (config.get("Feature Control", "add_permutatio_to_eggs", true).getBoolean(true))
+		 if (ConfigData.addExchangeToEggs)
 		 {
 			 AspectList list = ThaumcraftApiHelper.getObjectAspects(new ItemStack(Items.egg));
 			 if (!list.aspects.containsKey(Aspect.EXCHANGE))
@@ -285,7 +280,7 @@ public class AdvThaum
 			 }
 		 }
 		 
-		 if (config.get("Feature Control", "add_exanimus_to_bones", true).getBoolean(true))
+		 if (ConfigData.addUndeadToBones)
 		 {
 			 AspectList list = ThaumcraftApiHelper.getObjectAspects(new ItemStack(Items.bone));
 			 if (!list.aspects.containsKey(Aspect.UNDEAD))
@@ -294,8 +289,6 @@ public class AdvThaum
 				 ThaumcraftApi.registerObjectTag(new ItemStack(Items.bone), new int[]{}, list);
 			 }
 		 }
-			 
-		 config.save();
 		 
 		 LanguageRegistry.instance().addStringLocalization("tc.research_name.TESTBUILD", "en_US",  "Test Build Notes");
 		 ResearchItem ri = new ResearchItem("TESTBUILD", "ADVTHAUM", new AspectList(), 0, -2, 0, new ItemStack(CreativeNode));
