@@ -4,9 +4,6 @@ import cpw.mods.fml.common.*;
 import net.ixios.advancedthaumaturgy.blocks.*;
 import net.ixios.advancedthaumaturgy.compat.computercraft.ComputerCraft;
 import net.ixios.advancedthaumaturgy.misc.*;
-import net.ixios.advancedthaumaturgy.tileentities.TileWatchfulMicrolith;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -51,7 +48,6 @@ import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.api.wands.WandTriggerRegistry;
 import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.config.Config;
 
 @Mod(modid=AdvThaum.MODID, version="2.0", name="Advanced Thaumaturgy",
 	dependencies="required-after:Thaumcraft;after:ThaumicHorizons;after:ThaumicExploration;after:thaumicbases;after:ForbiddenMagic;after:ThaumicTinkerer;after:ComputerCraft;after:OpenComputers@[1.2.0,)",
@@ -92,6 +88,9 @@ public class AdvThaum
 	public static BlockEtherealJar EtherealJar;
 	public static BlockMicrolith Microlith;
 	public static BlockAltarDeployer AltarDeployer;
+	public static BlockCrystalHolder CrystalHolder;
+	public static BlockMicrolithMultiblock MicrolithMultiBlock;
+	public static BlockMicrolithModelMultiblock MicrolithModelMultiBlock;
 
 	public static SimpleNetworkWrapper channel;
 	
@@ -139,9 +138,14 @@ public class AdvThaum
 	    	 EtherealJar = new BlockEtherealJar();
 	    	 itemEtherealJar = new ItemEtherealJar();
 	     }
-	     
+
 	     if (ConfigData.enableMicrolith)
-	    	 Microlith = new BlockMicrolith(Material.ground);
+		 {
+			 Microlith = new BlockMicrolith(Material.ground);
+			 CrystalHolder=new BlockCrystalHolder();
+			 MicrolithMultiBlock=new BlockMicrolithMultiblock();
+			 MicrolithModelMultiBlock=new BlockMicrolithModelMultiblock();
+		 }
 	      
 	     if (ConfigData.enableVoidCage)
 	    	 FocusVoidCage = new ItemFocusVoidCage();
@@ -212,6 +216,14 @@ public class AdvThaum
 
 		 if (AltarDeployer != null)
 			 AltarDeployer.register();
+
+		 if(CrystalHolder!=null)
+		 	CrystalHolder.register();
+
+		 if(MicrolithMultiBlock!=null)
+		 	MicrolithMultiBlock.register();
+		 if(MicrolithModelMultiBlock!=null)
+		 	MicrolithModelMultiBlock.register();
 		 
 	 }
 	 
