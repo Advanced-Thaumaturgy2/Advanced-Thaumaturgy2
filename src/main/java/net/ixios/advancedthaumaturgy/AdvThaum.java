@@ -91,6 +91,7 @@ public class AdvThaum
 	public static BlockCrystalHolder CrystalHolder;
 	public static BlockMicrolithMultiblock MicrolithMultiBlock;
 	public static BlockMicrolithModelMultiblock MicrolithModelMultiBlock;
+	public static BlockWandbench Wandbench;
 
 	public static SimpleNetworkWrapper channel;
 	
@@ -167,6 +168,8 @@ public class AdvThaum
 	    	 TileEssentiaEngine.loadConfig();
 	     }
 	
+	     if (ConfigData.enableWandbench)
+	    	 Wandbench = new BlockWandbench();
 	  
 	     LanguageRegistry.instance().addStringLocalization("itemGroup.advthaum", "en_US", "Advanced Thaumaturgy");
 	     LanguageRegistry.instance().addStringLocalization("tc.research_category.ADVTHAUM", "en_US", "Advanced Thaumaturgy");
@@ -225,6 +228,8 @@ public class AdvThaum
 		 if(MicrolithModelMultiBlock!=null)
 		 	MicrolithModelMultiBlock.register();
 		 
+		 if (Wandbench != null)
+			 Wandbench.register();
 	 }
 	 
 	 public static void log(String text)

@@ -1,11 +1,17 @@
 package net.ixios.advancedthaumaturgy.items;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.ixios.advancedthaumaturgy.AdvThaum;
+import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
-
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.util.StatCollector;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -13,16 +19,6 @@ import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.config.ConfigResearch;
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.ixios.advancedthaumaturgy.AdvThaum;
-import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal.Upgrades;
-import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.util.StatCollector;
-import scala.actors.threadpool.Arrays;
 
 public class ItemArcaneCrystal extends Item
 {
@@ -30,8 +26,8 @@ public class ItemArcaneCrystal extends Item
     public ItemStack recharge 	= new ItemStack(this, 1, 1);
     public ItemStack compound	= new ItemStack(this, 1, 2);
     public ItemStack multiplier = new ItemStack(this, 1, 3);
-    public ItemStack discount	= new ItemStack(this, 1, 4);
-    public ItemStack stabilizer = new ItemStack(this, 1, 5);
+    public ItemStack stabilizer = new ItemStack(this, 1, 4);
+    public ItemStack discount	= new ItemStack(this, 1, 5);
     public ItemStack potency	= new ItemStack(this, 1, 6);
     
     public ItemStack dissipator = new ItemStack(this, 1, 20);
@@ -75,6 +71,19 @@ public class ItemArcaneCrystal extends Item
 	    setHasSubtypes(true);
 	    setUnlocalizedName("at.arcanecrystal");
     }
+	
+	public Upgrades getUpgradeFromStack(ItemStack stack)
+	{
+		int dmg = stack.getItemDamage();
+		if (dmg == 0)
+			return Upgrades.None;
+		return Upgrades.parse(1 << (dmg - 1));
+	}
+	
+	public boolean isWandUpgrade(ItemStack stack)
+	{
+		return stack.getItemDamage() >= 0 && stack.getItemDamage() < 20;
+	}
 
 	public void register()
 	{
@@ -109,6 +118,7 @@ public class ItemArcaneCrystal extends Item
 	}
 
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void getSubItems(Item par1, CreativeTabs tab, List list)
 	{
@@ -200,7 +210,7 @@ public class ItemArcaneCrystal extends Item
 					-2, 3, 5,
 					recharge);
 					 
-		 ri.setTitle("item.at.arcanecrystal.1.name");
+		 ri.setTitle("item.at.arcanecrystal." + recharge.getItemDamage() + ".name");
 		 ri.setInfo("at.research.rechargeupgrade.desc");
 		 
 		 ri.setPages(new ResearchPage("at.research.rechargeupgrade.pg1"), new ResearchPage(recipe), new ResearchPage(upgrade));
@@ -250,7 +260,7 @@ public class ItemArcaneCrystal extends Item
 					-2, 7, 5,
 					multiplier);
 					 
-		 ri.setTitle("item.at.arcanecrystal.3.name");
+		 ri.setTitle("item.at.arcanecrystal." + multiplier.getItemDamage() + ".name");
 		 ri.setInfo("at.research.upgradedrain.desc");
 		 
 		 ri.setParents("ARCANECRYSTAL", "INFUSION", "DISTILESSENTIA");
@@ -267,7 +277,7 @@ public class ItemArcaneCrystal extends Item
 
 	private void registerCompoundDrain()
 	{
-		InfusionRecipe recipe = ThaumcraftApi.addInfusionCraftingRecipe("UPGRADECOMPOUND", multiplier, 5,
+		InfusionRecipe recipe = ThaumcraftApi.addInfusionCraftingRecipe("UPGRADECOMPOUND", compound, 5,
 				new AspectList().add(Aspect.SLIME, 16).add(Aspect.EXCHANGE,  16),
 				base, new ItemStack[] { TCItems.arcanefurance, TCItems.arcanefurance, TCItems.arcanefurance, TCItems.arcanefurance });
 		
@@ -286,7 +296,7 @@ public class ItemArcaneCrystal extends Item
 					-3, 5, 5,
 					compound);
 					 
-		 ri.setTitle("item.at.arcanecrystal.2.name");
+		 ri.setTitle("item.at.arcanecrystal." + compound.getItemDamage() + ".name");
 		 ri.setInfo("at.research.upgradecompound.desc");
 		 
 		 ri.setParents("ARCANECRYSTAL", "INFUSION");
@@ -324,7 +334,7 @@ public class ItemArcaneCrystal extends Item
 					2, 3, 5,
 					discount);
 					 
-		ri.setTitle("item.at.arcanecrystal.4.name");
+		ri.setTitle("item.at.arcanecrystal." + discount.getItemDamage() + ".name");
 		ri.setInfo("at.research.upgradediscount.desc");
 		
 		ri.setParents("ARCANECRYSTAL", "INFUSION", "ENCHFABRIC");
@@ -360,7 +370,7 @@ public class ItemArcaneCrystal extends Item
 					3, 5, 5,
 					stabilizer);
 					 
-		 ri.setTitle("item.at.arcanecrystal.5.name");
+		 ri.setTitle("item.at.arcanecrystal." + stabilizer.getItemDamage() + ".name");
 		 ri.setInfo("at.research.upgradestabilizer.desc");
 		 
 		 ri.setParents("ARCANECRYSTAL", "INFUSION");
@@ -395,7 +405,7 @@ public class ItemArcaneCrystal extends Item
 					2, 7, 5,
 					potency);
 					 
-		 ri.setTitle("item.at.arcanecrystal.6.name");
+		 ri.setTitle("item.at.arcanecrystal." + potency.getItemDamage() + ".name");
 		 ri.setInfo("at.research.upgradepotency.desc");
 		 
 		 ri.setParents("ARCANECRYSTAL", "INFUSION");

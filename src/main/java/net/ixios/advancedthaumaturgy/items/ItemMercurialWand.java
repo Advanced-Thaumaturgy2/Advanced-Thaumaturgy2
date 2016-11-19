@@ -1,15 +1,7 @@
 package net.ixios.advancedthaumaturgy.items;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.Item;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IIcon;
 import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -20,24 +12,22 @@ import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal.Upgrades;
 import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
 import net.ixios.advancedthaumaturgy.misc.Utilities;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.event.terraingen.BiomeEvent.GetWaterColor;
 import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
-import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
@@ -50,10 +40,7 @@ import thaumcraft.common.tiles.TileInfusionMatrix;
 
 public class ItemMercurialWand extends ItemWandCasting
 {
-
-	private DecimalFormat myFormatter;
     private boolean classictooltip = false;
-    private Upgrades upgrades = Upgrades.None;
     
     public static ItemStack BasicWand;
     public static ItemStack AnyWand;
@@ -61,7 +48,6 @@ public class ItemMercurialWand extends ItemWandCasting
     public ItemMercurialWand()
     {
         super();
-        myFormatter = new DecimalFormat("#######.##");
         animation = null;
         super.maxStackSize = 1;
         setMaxDamage(0);
@@ -218,8 +204,6 @@ public class ItemMercurialWand extends ItemWandCasting
     	float discount = 0.0f;
     	if (hasUpgrade(stack, Upgrades.Discount))
     		discount = 0.1f;
-    	float cost = 1f - discount;
-    	float cm = super.getConsumptionModifier(stack, player, aspect,crafting);
     	return (super.getConsumptionModifier(stack, player, aspect,crafting) - discount);
     }
     
@@ -298,7 +282,7 @@ public class ItemMercurialWand extends ItemWandCasting
     	if (tag != null && tag.hasKey("upgrade"))
     	{
     		int upgrade = tag.getInteger("upgrade");
-    		addtUpgrade(stack, Upgrades.parse(upgrade));
+    		addUpgrade(stack, Upgrades.parse(upgrade));
     		tag.removeTag("upgrade");
     	}
     	
@@ -341,7 +325,6 @@ public class ItemMercurialWand extends ItemWandCasting
     		return super.getAspectsWithRoom(stack);
      	
     	AspectList result = new AspectList();
-    	ItemMercurialWand wand = (ItemMercurialWand)stack.getItem();
     	AspectList aspects = super.getAspectsWithRoom(stack);
     	
     	// add any compound aspect that can be broken down into this aspect
@@ -392,21 +375,21 @@ public class ItemMercurialWand extends ItemWandCasting
     	return super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
      
-    private void removeUpgrade(ItemStack stack, Upgrades upgrade)
+    public void removeUpgrade(ItemStack stack, Upgrades upgrade)
     {
     	int dmg = this.getDamage(stack);
     	dmg = (dmg & (~upgrade.getFlag()));
     	this.setDamage(stack, dmg);
     }
     
-    private void addtUpgrade(ItemStack stack, Upgrades upgrade)
+    public void addUpgrade(ItemStack stack, Upgrades upgrade)
     {
     	int dmg = this.getDamage(stack);
     	dmg |= upgrade.getFlag();
     	setDamage(stack,  dmg);
     }
     
-    private boolean hasUpgrade(ItemStack stack, Upgrades upgrade)
+    public boolean hasUpgrade(ItemStack stack, Upgrades upgrade)
     {
     	int dmg = this.getDamage(stack);
     	return ((dmg & upgrade.getFlag()) != 0);

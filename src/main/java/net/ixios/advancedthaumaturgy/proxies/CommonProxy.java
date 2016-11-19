@@ -1,42 +1,34 @@
 package net.ixios.advancedthaumaturgy.proxies;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.relauncher.Side;
-import net.minecraft.init.Blocks;
-import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.IAspectSource;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.items.wands.ItemWandCasting;
-import thaumcraft.common.tiles.TileInfusionMatrix;
-import thaumcraft.common.tiles.TileJarFillable;
-import thaumcraft.common.tiles.TilePedestal;
-import net.ixios.advancedthaumaturgy.AdvThaum;
-import net.ixios.advancedthaumaturgy.blocks.BlockEssentiaEngine;
-import net.ixios.advancedthaumaturgy.compat.energy.EnergyCompatBase;
 import net.ixios.advancedthaumaturgy.gui.ContainerNodeModifier;
+import net.ixios.advancedthaumaturgy.gui.ContainerWandbench;
 import net.ixios.advancedthaumaturgy.gui.GuiNodeModifier;
+import net.ixios.advancedthaumaturgy.gui.GuiWandbench;
 import net.ixios.advancedthaumaturgy.misc.TickManager;
 import net.ixios.advancedthaumaturgy.misc.Vector3;
 import net.ixios.advancedthaumaturgy.misc.Vector3F;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier.Operation;
+import net.ixios.advancedthaumaturgy.tileentities.TileWandbench;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.IAspectSource;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.tiles.TileInfusionMatrix;
+import thaumcraft.common.tiles.TilePedestal;
 
 public class CommonProxy implements IGuiHandler
 {
@@ -113,15 +105,16 @@ public class CommonProxy implements IGuiHandler
 		TileEntity te = world.getTileEntity(x,  y,  z);
 		switch (ID)
 		{
-			case GuiNodeModifier.id:
-			{
-				if (te instanceof TileNodeModifier)
-					return new ContainerNodeModifier(player);
-			}
+		case GuiNodeModifier.id:
+			if (te instanceof TileNodeModifier)
+				return new ContainerNodeModifier(player);
 			break;
-			
-			default:
-				return null;
+		case GuiWandbench.id:
+			if (te instanceof TileWandbench)
+				return new ContainerWandbench(player, (TileWandbench)te);
+			break;
+		default:
+			return null;
 		}
 		return null;
 	}

@@ -1,6 +1,5 @@
 package net.ixios.advancedthaumaturgy.misc;
 
-import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.minecraftforge.common.config.Configuration;
 
 /**
@@ -24,6 +23,7 @@ public class ConfigData {
     public static boolean enableEssentiaEngine;
     public static boolean enableMercurialCore;
     public static boolean enableMercurialWand;
+    public static boolean enableWandbench;
     public static boolean addExchangeToEggs;
     public static boolean addUndeadToBones;
 
@@ -45,6 +45,8 @@ public class ConfigData {
         enableEssentiaEngine= config.get("Feature Control", "enable_engine", true, "Allows use of the essentia engine to convert essentia to RF").getBoolean(true);
         enableMercurialCore=config.get("Feature Control", "enable_mercurial_core", true, "Allows use of the mercurial core").getBoolean(true);
         enableMercurialWand=config.get("Feature Control", "enable_mercurial_wand", true, "Allows use of the mercurial wand").getBoolean(true);
+        enableWandbench = config.get("FeatureControl", "enable_wandbench", true, "Allows use of the wandbench").getBoolean(true);
+        
         addExchangeToEggs=config.get("Feature Control", "add_permutatio_to_eggs", true, "Adds Permutatio to eggs if not there already").getBoolean(true);
         addUndeadToBones=config.get("Feature Control", "add_exanimus_to_bones", true, "Adds Exanimus to bones if not there already").getBoolean(true);
 

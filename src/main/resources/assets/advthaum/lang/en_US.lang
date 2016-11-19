@@ -4,6 +4,8 @@ itemGroup.advthaum=Advanced Thaumaturgy
 # block names
 tile.blockAltarDeployer.name=Altar Deployer
 
+tile.blockWandbench.name=Wandbench
+
 tile.at.modifier.name=Node Modifier
 tile.at.modifier.desc=Allows you to slowly modify jarred|nodes using various essentia types.
 
@@ -25,8 +27,8 @@ item.at.arcanecrystal.0.name=Inert Arcane Crystal
 item.at.arcanecrystal.1.name=Recharge Crystal
 item.at.arcanecrystal.2.name=Compound Drain Crystal
 item.at.arcanecrystal.3.name=Drain Multiplier Crystal
-item.at.arcanecrystal.4.name=Vis Discount Crystal
-item.at.arcanecrystal.5.name=Stabilizer Crystal [WIP]
+item.at.arcanecrystal.4.name=Stabilizer Crystal [WIP]
+item.at.arcanecrystal.5.name=Vis Discount Crystal
 item.at.arcanecrystal.6.name=Potency Crystal
 
 item.at.arcanecrystal.20.name=Flux Dissipation Crystal

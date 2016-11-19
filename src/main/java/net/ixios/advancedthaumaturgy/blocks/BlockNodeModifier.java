@@ -1,30 +1,14 @@
 package net.ixios.advancedthaumaturgy.blocks;
 
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.nodes.NodeModifier;
-import thaumcraft.api.nodes.NodeType;
-import thaumcraft.api.research.ResearchPage;
-import thaumcraft.api.wands.IWandable;
-import thaumcraft.common.blocks.BlockJar;
-import thaumcraft.common.blocks.BlockJarItem;
-import thaumcraft.common.blocks.ItemJarNode;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.config.ConfigResearch;
-import thaumcraft.common.tiles.TileJarNode;
 import net.ixios.advancedthaumaturgy.AdvThaum;
+import net.ixios.advancedthaumaturgy.gui.GuiNodeModifier;
 import net.ixios.advancedthaumaturgy.items.ItemNodeModifier;
 import net.ixios.advancedthaumaturgy.items.TCItems;
 import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
@@ -33,10 +17,25 @@ import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier.Operation;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.nodes.NodeModifier;
+import thaumcraft.api.nodes.NodeType;
+import thaumcraft.api.research.ResearchPage;
+import thaumcraft.api.wands.IWandable;
+import thaumcraft.common.blocks.ItemJarNode;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.config.ConfigResearch;
+import thaumcraft.common.tiles.TileJarNode;
 
 public class BlockNodeModifier extends BlockContainer implements IWandable
 {
@@ -206,7 +205,7 @@ public class BlockNodeModifier extends BlockContainer implements IWandable
 			 }
 			 else
 			 {
-				 player.openGui(AdvThaum.instance, 0, world, x, y, z);
+				 player.openGui(AdvThaum.instance, GuiNodeModifier.id, world, x, y, z);
 			 }
 			 return true;
 		 }
