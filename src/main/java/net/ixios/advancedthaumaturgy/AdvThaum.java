@@ -317,6 +317,8 @@ public class AdvThaum
 		 
 		 ri.registerResearchItem();
 		 
+	     config.save();
+		 
      }
 	 
 	 @EventHandler
