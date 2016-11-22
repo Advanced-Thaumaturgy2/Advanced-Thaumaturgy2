@@ -1,22 +1,18 @@
 package net.ixios.advancedthaumaturgy;
 
-import cpw.mods.fml.common.*;
 import net.ixios.advancedthaumaturgy.blocks.*;
 import net.ixios.advancedthaumaturgy.compat.computercraft.ComputerCraft;
 import net.ixios.advancedthaumaturgy.misc.*;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.LanguageRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
-
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.event.FMLServerStoppingEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
 import net.ixios.advancedthaumaturgy.items.ItemAeroSphere;
 import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal;
 import net.ixios.advancedthaumaturgy.items.ItemEndstoneChunk;
@@ -50,13 +46,12 @@ import thaumcraft.api.wands.WandTriggerRegistry;
 import thaumcraft.common.Thaumcraft;
 
 @Mod(modid=AdvThaum.MODID, version="2.0", name="Advanced Thaumaturgy",
-	dependencies="required-after:Thaumcraft;after:ThaumicHorizons;after:ThaumicExploration;after:thaumicbases;after:ForbiddenMagic;after:ThaumicTinkerer;after:ComputerCraft;after:OpenComputers@[1.2.0,)",
-	acceptedMinecraftVersions="1.7.10")
+	dependencies="required-after:Thaumcraft;after:ThaumicHorizons;after:ThaumicExploration;after:thaumicbases;after:ForbiddenMagic;after:ThaumicTinkerer;after:ComputerCraft;after:OpenComputers@[1.2.0,)")
 public class AdvThaum 
 {
 	public final static String MODID = "AdvancedThaumaturgy";
 
-	@Instance
+	@Mod.Instance
 	public static AdvThaum instance;
 	
 	@SidedProxy(clientSide="net.ixios.advancedthaumaturgy.proxies.ClientProxy",
@@ -99,7 +94,7 @@ public class AdvThaum
 	
 	public static boolean debug = false;
 	
-	 @EventHandler
+	 @Mod.EventHandler
      public void preInit(FMLPreInitializationEvent event)
 	 {
 	     logger=event.getModLog();
@@ -170,7 +165,8 @@ public class AdvThaum
 	
 	     if (ConfigData.enableWandbench)
 	    	 Wandbench = new BlockWandbench();
-	  
+
+		 //todo: remove
 	     LanguageRegistry.instance().addStringLocalization("itemGroup.advthaum", "en_US", "Advanced Thaumaturgy");
 	     LanguageRegistry.instance().addStringLocalization("tc.research_category.ADVTHAUM", "en_US", "Advanced Thaumaturgy");
 	     
@@ -237,8 +233,8 @@ public class AdvThaum
 	     logger.info(FMLCommonHandler.instance().getEffectiveSide().toString() + " " + text);
 	 }
 	 
-	 @EventHandler
-     public void load(FMLInitializationEvent event) 
+	 @Mod.EventHandler
+     public void load(FMLInitializationEvent event)
      {
 		if(Loader.isModLoaded("ComputerCraft"))
 		{
@@ -249,8 +245,8 @@ public class AdvThaum
 
 
     
-	 @EventHandler  
-     public void postInit(FMLPostInitializationEvent event) 
+	 @Mod.EventHandler
+     public void postInit(FMLPostInitializationEvent event)
      {
 		 
 		 ResearchCategories.registerCategory("ADVTHAUM",
@@ -319,19 +315,19 @@ public class AdvThaum
 		 
      }
 	 
-	 @EventHandler
+	 @Mod.EventHandler
 	 public void serverLoad(FMLServerStartingEvent event)
 	 {
 		 event.registerServerCommand(new ATServerCommand());
 	 }
 	 
-	 @EventHandler
+	 @Mod.EventHandler
 	 public void serverStarted(FMLServerStartingEvent event)
 	 {
 		 proxy.loadData();
 	 }
 	 
-	 @EventHandler 
+	 @Mod.EventHandler
 	 public void serverStopping(FMLServerStoppingEvent event)
 	 {
 		 proxy.saveData();	

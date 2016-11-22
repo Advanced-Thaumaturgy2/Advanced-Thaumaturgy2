@@ -1,4 +1,4 @@
-/*package net.ixios.advancedthaumaturgy.tileentities;
+package net.ixios.advancedthaumaturgy.tileentities;/*package net.ixios.advancedthaumaturgy.tileentities;
 
 import java.util.List;
 

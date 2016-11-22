@@ -2,10 +2,8 @@ package net.ixios.advancedthaumaturgy.items;
 
 import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 public class ItemMicrolith extends ItemBlock

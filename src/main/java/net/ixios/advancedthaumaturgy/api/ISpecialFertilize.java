@@ -5,5 +5,5 @@ package net.ixios.advancedthaumaturgy.api;
  */
 public interface ISpecialFertilize {
 
-    void fertilizeBlock(int x,int y,int z);
+    void fertilizeBlock(int x, int y, int z);
 }
