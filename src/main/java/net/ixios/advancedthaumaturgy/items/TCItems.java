@@ -1,11 +1,82 @@
 package net.ixios.advancedthaumaturgy.items;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import thaumcraft.api.wands.WandCap;
+import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
-import net.minecraft.item.ItemStack;
 
 public class TCItems 
 {
+	public static Map<Item, Map<Integer, WandRod>> rodItems;
+	public static Map<Item, Map<Integer, WandCap>> capItems;
+	
+	public static void registerRodItems()
+	{
+		rodItems = new HashMap<Item, Map<Integer, WandRod>>();
+		for (WandRod r : WandRod.rods.values())
+		{
+			ItemStack i = r.getItem();
+			if (i != null && i.getItem() != null)
+			{
+				Map<Integer, WandRod> mapping = rodItems.get(r.getItem().getItem());
+				if (mapping == null)
+					mapping = new HashMap<Integer, WandRod>();
+				mapping.put(i.getItemDamage(), r);
+				rodItems.put(r.getItem().getItem(), mapping);
+			}
+		}
+	}
+	
+	public static void registerCapItems()
+	{
+		capItems = new HashMap<Item, Map<Integer, WandCap>>();
+		for (WandCap r : WandCap.caps.values())
+		{
+			ItemStack i = r.getItem();
+			if (i != null && i.getItem() != null)
+			{
+				Map<Integer, WandCap> mapping = capItems.get(r.getItem().getItem());
+				if (mapping == null)
+					mapping = new HashMap<Integer, WandCap>();
+				mapping.put(i.getItemDamage(), r);
+				capItems.put(r.getItem().getItem(), mapping);
+			}
+		}
+	}
+	
+	public static WandRod getRod(ItemStack stack)
+	{
+		if (stack != null && stack.getItem() != null)
+		{
+			Map<Integer, WandRod> mapping = rodItems.get(stack.getItem());
+			if (mapping != null)
+			{
+				return mapping.get(stack.getItemDamage());
+			}
+		}
+		
+		return null;
+	}
+	
+	public static WandCap getCap(ItemStack stack)
+	{
+		if (stack != null && stack.getItem() != null)
+		{
+			Map<Integer, WandCap> mapping = capItems.get(stack.getItem());
+			if (mapping != null)
+			{
+				return mapping.get(stack.getItemDamage());
+			}
+		}
+		
+		return null;
+	}
+	
 	public static ItemStack airshard = new ItemStack(ConfigItems.itemShard, 1, 0);
 	public static ItemStack watershard = new ItemStack(ConfigItems.itemShard, 1, 2);
 	public static ItemStack fireshard = new ItemStack(ConfigItems.itemShard, 1, 1);

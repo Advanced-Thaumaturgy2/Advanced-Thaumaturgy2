@@ -1,13 +1,13 @@
 package net.ixios.advancedthaumaturgy;
 
-import cpw.mods.fml.common.*;
-import net.ixios.advancedthaumaturgy.blocks.*;
-import net.ixios.advancedthaumaturgy.compat.computercraft.ComputerCraft;
-import net.ixios.advancedthaumaturgy.misc.*;
 import org.apache.logging.log4j.Logger;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -17,6 +17,20 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.ixios.advancedthaumaturgy.blocks.BlockAltarDeployer;
+import net.ixios.advancedthaumaturgy.blocks.BlockCreativeNode;
+import net.ixios.advancedthaumaturgy.blocks.BlockCrystalHolder;
+import net.ixios.advancedthaumaturgy.blocks.BlockEssentiaEngine;
+import net.ixios.advancedthaumaturgy.blocks.BlockEtherealJar;
+import net.ixios.advancedthaumaturgy.blocks.BlockMicrolith;
+import net.ixios.advancedthaumaturgy.blocks.BlockMicrolithModelMultiblock;
+import net.ixios.advancedthaumaturgy.blocks.BlockMicrolithMultiblock;
+import net.ixios.advancedthaumaturgy.blocks.BlockNodeModifier;
+import net.ixios.advancedthaumaturgy.blocks.BlockPlaceholder;
+import net.ixios.advancedthaumaturgy.blocks.BlockThaumicFertilizer;
+import net.ixios.advancedthaumaturgy.blocks.BlockThaumicVulcanizer;
+import net.ixios.advancedthaumaturgy.blocks.BlockWandbench;
+import net.ixios.advancedthaumaturgy.compat.computercraft.ComputerCraft;
 import net.ixios.advancedthaumaturgy.items.ItemAeroSphere;
 import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal;
 import net.ixios.advancedthaumaturgy.items.ItemEndstoneChunk;
@@ -26,6 +40,13 @@ import net.ixios.advancedthaumaturgy.items.ItemInfusedThaumium;
 import net.ixios.advancedthaumaturgy.items.ItemMercurialRod;
 import net.ixios.advancedthaumaturgy.items.ItemMercurialRodBase;
 import net.ixios.advancedthaumaturgy.items.ItemMercurialWand;
+import net.ixios.advancedthaumaturgy.items.TCItems;
+import net.ixios.advancedthaumaturgy.misc.ATCreativeTab;
+import net.ixios.advancedthaumaturgy.misc.ATEventHandler;
+import net.ixios.advancedthaumaturgy.misc.ATServerCommand;
+import net.ixios.advancedthaumaturgy.misc.ArcingDamageManager;
+import net.ixios.advancedthaumaturgy.misc.ChunkLoadingClass;
+import net.ixios.advancedthaumaturgy.misc.ConfigData;
 import net.ixios.advancedthaumaturgy.network.PacketStartNodeModification;
 import net.ixios.advancedthaumaturgy.proxies.CommonProxy;
 import net.ixios.advancedthaumaturgy.tileentities.TileEssentiaEngine;
@@ -279,6 +300,9 @@ public class AdvThaum
 
 	     registerStuff();
 	     proxy.register();
+	     
+	     TCItems.registerRodItems();
+	     TCItems.registerCapItems();
 		 
 		 //ThaumicInkwell.register();
 		 //ThaumicVulcanizer.register();

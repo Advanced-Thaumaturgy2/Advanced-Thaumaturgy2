@@ -8,6 +8,7 @@ import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal;
 import net.ixios.advancedthaumaturgy.items.ItemMercurialRod;
 import net.ixios.advancedthaumaturgy.items.ItemMercurialWand;
+import net.ixios.advancedthaumaturgy.items.TCItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -15,11 +16,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
-import thaumcraft.common.items.wands.ItemWandCap;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
-import thaumcraft.common.items.wands.ItemWandRod;
 
 public class TileWandbench extends TileEntity implements IInventory
 {
@@ -33,6 +34,7 @@ public class TileWandbench extends TileEntity implements IInventory
 		slots = new ItemStack[6];
 		Arrays.fill(slots, null);
 		used = new HashMap<Integer, Integer>();
+		cost = 0;
 	}
 	
 	/**
@@ -43,50 +45,84 @@ public class TileWandbench extends TileEntity implements IInventory
 		return used;
 	}
 	
-	public int getCost()
+	public AspectList getCost()
 	{
-		return cost;
+		AspectList rtn = new AspectList();
+		if (cost > 0)
+			for (Aspect a : Aspect.getPrimalAspects())
+				rtn.add(a, cost);
+		return rtn;
 	}
 	
-	public boolean canCraft()
+	public Map<Aspect, Float> getRealCost(EntityPlayer player)
 	{
-		return true;
-	}
-	
-	/**
-	 * @param in WandRod to apply
-	 * @param out Wand ItemStack that is to be modified, must be valid
-	 * @return whether this rod can be applied
-	 */
-	private boolean swapRod(ItemStack in, ItemStack out)
-	{
-		ItemWandCasting w = (ItemWandCasting) out.getItem();
+		AspectList base = getCost();
+		Map<Aspect, Float> rtn = new HashMap<Aspect, Float>();
 		
-		// Find the actual rod
-		WandRod rod = null;
-		for (WandRod r : WandRod.rods.values())
+		if (cost > 0)
 		{
-			if (r.getItem().getItem().equals(in.getItem()) &&
-					r.getItem().getItemDamage() == in.getItemDamage())
+			if (slots[5] != null)
 			{
-				rod = r;
-				break;
+				ItemWandCasting w = (ItemWandCasting) slots[5].getItem();
+			    for (Aspect a : base.getAspects())
+			    {
+			    	rtn.put(a, base.getAmount(a) * w.getConsumptionModifier(slots[5], player, a, true));
+			    }
+			}
+			else
+			{
+				for (Aspect a : base.getAspects())
+					rtn.put(a, (float) base.getAmount(a));
 			}
 		}
 		
+		return rtn;
+	}
+	
+	public boolean canCraft(EntityPlayer player)
+	{
+		if (slots[0] == null)
+			return false;
+		
+		if (cost > 0)
+		{
+			if (slots[5] == null || !(slots[5].getItem() instanceof ItemWandCasting))
+				return false;
+			
+			ItemWandCasting w = (ItemWandCasting) slots[5].getItem();
+			if (!w.consumeAllVisCrafting(slots[5], player, getCost(), false))
+				return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean swapRod()
+	{
+		ItemWandCasting w = (ItemWandCasting) slots[0].getItem();
+		WandRod rod = TCItems.getRod(slots[3]);
+		
 		if (rod != null)
 		{
-			if (!w.getRod(out).equals(rod))
+			if (!w.getRod(slots[0]).equals(rod))
 			{
-				w.setRod(out, rod);
+				w.setRod(slots[0], rod);
 				
 				// Transform into MercurialWand
 				if (rod instanceof ItemMercurialRod)
 				{
 					ItemStack mercWand = new ItemStack(AdvThaum.MercurialWand);
 					mercWand.setTagCompound(slots[0].getTagCompound());
-					out = mercWand;
+					slots[0] = mercWand;
 					w = (ItemWandCasting) mercWand.getItem();
+				}
+				// Downgrade
+				else if (w instanceof ItemMercurialWand)
+				{
+					ItemStack wand = new ItemStack(ConfigItems.itemWandCasting);
+					wand.setTagCompound(slots[0].getTagCompound());
+					slots[0] = wand;
+					w = (ItemWandCasting) wand.getItem();
 				}
 				
 				for (Aspect a : Aspect.getPrimalAspects())
@@ -96,6 +132,15 @@ public class TileWandbench extends TileEntity implements IInventory
 				}
 				
 				used.put(3, 1);
+				
+				if (w.getCap(slots[0]) != null)
+				{
+					cost = rod.getCraftCost() * w.getCap(slots[0]).getCraftCost();
+				}
+				else
+				{
+					cost = rod.getCraftCost();
+				}
 			}
 			
 			return true;
@@ -106,33 +151,26 @@ public class TileWandbench extends TileEntity implements IInventory
 		}
 	}
 	
-	/**
-	 * @param in WandCap to apply
-	 * @param out Wand ItemStack that is to be modified, must be valid
-	 * @return whether caps can be applied
-	 */
-	public boolean swapCaps(ItemStack in, ItemStack out)
+	public boolean swapCaps()
 	{
-		ItemWandCasting w = (ItemWandCasting) out.getItem();
-		
-		// Find the actual cap
-		WandCap cap = null;
-		for (WandCap c : WandCap.caps.values())
-		{
-			if (c.getItem().getItem().equals(in.getItem()) &&
-					c.getItem().getItemDamage() == in.getItemDamage())
-			{
-				cap = c;
-				break;
-			}
-		}
+		ItemWandCasting w = (ItemWandCasting) slots[0].getItem();
+		WandCap cap = TCItems.getCap(slots[4]);
 		
 		if (cap != null)
 		{
-			if (!w.getCap(out).equals(cap))
+			if (!w.getCap(slots[0]).equals(cap))
 			{
-				w.setCap(out, cap);
+				w.setCap(slots[0], cap);
 				used.put(4, 2);
+				
+				if (w.getRod(slots[0]) != null)
+				{
+					cost = cap.getCraftCost() * w.getRod(slots[0]).getCraftCost();
+				}
+				else
+				{
+					cost = cap.getCraftCost();
+				}
 			}
 			
 			return true;
@@ -143,18 +181,14 @@ public class TileWandbench extends TileEntity implements IInventory
 		}
 	}
 	
-	/**
-	 * @param in Crystal upgrade to apply
-	 * @param out Wand ItemStack that is to be modified, must be valid
-	 * @return whether upgrade can be applied
-	 */
-	public boolean applyUpgrades(ItemStack in, ItemStack out)
+	public boolean applyUpgrades()
 	{
 		ItemArcaneCrystal.Upgrades upgrade = ((ItemArcaneCrystal) slots[2].getItem()).getUpgradeFromStack(slots[2]);
 		if (!AdvThaum.MercurialWand.hasUpgrade(slots[0], upgrade))
 		{
 			AdvThaum.MercurialWand.addUpgrade(slots[0], upgrade);
 			used.put(2, 1);
+			cost += 42;
 		}
 		
 		return true;
@@ -164,6 +198,7 @@ public class TileWandbench extends TileEntity implements IInventory
 	{
 		used.clear();
 		slots[0] = null;
+		cost = 0;
 		
 		if (slots[1] != null && slots[1].getItem() instanceof ItemWandCasting)
 		{
@@ -172,18 +207,22 @@ public class TileWandbench extends TileEntity implements IInventory
 			
 			if (slots[3] != null)
 			{
-				if (!swapRod(slots[3], slots[0]))
+				if (!swapRod())
 				{
+					used.clear();
 					slots[0] = null;
+					cost = 0;
 					return;
 				}
 			}
 			
 			if (slots[4] != null && slots[4].stackSize >= 2)
 			{
-				if (!swapCaps(slots[4], slots[0]))
+				if (!swapCaps())
 				{
+					used.clear();
 					slots[0] = null;
+					cost = 0;
 					return;
 				}
 			}
@@ -192,7 +231,7 @@ public class TileWandbench extends TileEntity implements IInventory
 					&& slots[2] != null && slots[2].getItem() instanceof ItemArcaneCrystal
 					&& ((ItemArcaneCrystal) slots[2].getItem()).isWandUpgrade(slots[2]))
 			{
-				applyUpgrades(slots[2], slots[0]);
+				applyUpgrades();
 			}
 		}
 	}
@@ -314,9 +353,9 @@ public class TileWandbench extends TileEntity implements IInventory
 				case 2:
 					return stack.getItem() instanceof ItemArcaneCrystal;
 				case 3:
-					return stack.getItem() instanceof ItemWandRod;
+					return TCItems.getRod(stack) != null;
 				case 4:
-					return stack.getItem() instanceof ItemWandCap;
+					return TCItems.getCap(stack) != null;
 				}
 			}
 		}

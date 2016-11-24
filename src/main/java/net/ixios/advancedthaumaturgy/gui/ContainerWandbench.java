@@ -1,10 +1,14 @@
 package net.ixios.advancedthaumaturgy.gui;
 
+import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal;
 import net.ixios.advancedthaumaturgy.tileentities.TileWandbench;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import thaumcraft.common.items.wands.ItemWandCap;
+import thaumcraft.common.items.wands.ItemWandCasting;
+import thaumcraft.common.items.wands.ItemWandRod;
 
 public class ContainerWandbench extends Container
 {
@@ -56,7 +60,57 @@ public class ContainerWandbench extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer p, int i)
     {
-    	return null;
+        ItemStack previous = null;
+        Slot slot = (Slot) inventorySlots.get(i);
+
+        if (slot != null && slot.getHasStack()) 
+        {
+            ItemStack current = slot.getStack();
+            previous = current.copy();
+
+            if (i > 35)
+            {
+            	if (!mergeItemStack(current, 0, 36, false))
+            		return null;
+            }
+            else
+            {
+            	if (current.getItem() instanceof ItemWandCasting)
+            	{
+            		if (!mergeItemStack(current, 36 + 1, 36 + 2, false))
+            		{
+            			if (!mergeItemStack(current, 36 + 5, 36 + 6, false))
+            				return null;
+            		}
+            	}
+            	else if (current.getItem() instanceof ItemArcaneCrystal)
+            	{
+            		if (!mergeItemStack(current, 36 + 2, 36 + 3, false))
+            			return null;
+            	}
+            	else if (current.getItem() instanceof ItemWandRod)
+            	{
+            		if (!mergeItemStack(current, 36 + 3, 36 + 4, false))
+            			return null;
+            	}
+            	else if (current.getItem() instanceof ItemWandCap)
+            	{
+            		if (!mergeItemStack(current, 36 + 4, 36 + 5, false))
+            			return null;
+            	}
+            }
+
+            if (current.stackSize == 0)
+                slot.putStack((ItemStack) null);
+            else
+                slot.onSlotChanged();
+
+            if (current.stackSize == previous.stackSize)
+                return null;
+            slot.onPickupFromSlot(p, current);
+        }
+        
+        return previous;
     }
 	
 }
