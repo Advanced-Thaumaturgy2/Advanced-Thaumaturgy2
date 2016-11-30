@@ -1,17 +1,5 @@
 	package net.ixios.advancedthaumaturgy.blocks;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Items;
-import net.minecraft.util.IIcon;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.crafting.ShapedArcaneRecipe;
-import thaumcraft.api.research.ResearchPage;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.config.ConfigResearch;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -23,10 +11,19 @@ import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
 import net.ixios.advancedthaumaturgy.tileentities.TileThaumicFertilizer;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.crafting.ShapedArcaneRecipe;
+import thaumcraft.api.research.ResearchPage;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigResearch;
 
 public class BlockThaumicFertilizer extends BlockContainer
 {
@@ -57,9 +54,9 @@ public class BlockThaumicFertilizer extends BlockContainer
 	        
 	    ConfigResearch.recipes.put("Fertilizer", recipe);
 	        
-        ATResearchItem ri = new ATResearchItem("FERTILIZER", "ARTIFICE",
+        ATResearchItem ri = new ATResearchItem("FERTILIZER", "ADVTHAUM",
 				(new AspectList()).add(Aspect.PLANT, 1).add(Aspect.WATER, 1).add(Aspect.AIR, 1).add(Aspect.CROP, 1),
-				-7, 9, 3,
+				-3, -5, 3,
 				new ItemStack(this));
 		ri.setTitle("at.research.fertilizer.title");
 		ri.setInfo("at.research.fertilizer.desc");

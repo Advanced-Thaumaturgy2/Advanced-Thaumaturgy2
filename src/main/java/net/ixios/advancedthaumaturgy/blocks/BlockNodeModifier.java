@@ -72,17 +72,18 @@ public class BlockNodeModifier extends BlockContainer implements IWandable
 	       
 		 ItemStack empty = new ItemStack(ConfigBlocks.blockHole, 1, 15);
 		 
-		 ConfigResearch.recipes.put("NodeSetup", Arrays.asList(new Object[] {
-		            new AspectList(),
-		            Integer.valueOf(2), Integer.valueOf(1), Integer.valueOf(5),
-		            Arrays.asList(new ItemStack[] {
-		            empty, TCItems.arcanepedestal, TCItems.arcanepedestal, empty, empty, new ItemStack(this),
-		            TCItems.arcanepedestal, empty, empty, TCItems.arcanepedestal, empty, empty }) }));
-		                        
-		 List list = (List)ConfigResearch.recipes.get("NodeSetup");
+		 List<Object> list = Arrays.asList(new Object[] {
+			            new AspectList(),
+			            Integer.valueOf(2), Integer.valueOf(1), Integer.valueOf(5),
+			            Arrays.asList(new ItemStack[] {
+			            empty, TCItems.arcanepedestal, TCItems.arcanepedestal, empty, empty, new ItemStack(this),
+			            TCItems.arcanepedestal, empty, empty, TCItems.arcanepedestal, empty, empty }) 
+		            });
 
-	     ATResearchItem ri = new ATResearchItem("NODEMODIFIER", "BASICS", 
-	    		 new AspectList().add(Aspect.AURA, 16).add(Aspect.METAL, 16), -5, 6, 4, new ItemStack(this));
+		 ConfigResearch.recipes.put("NodeSetup", list);
+
+	     ATResearchItem ri = new ATResearchItem("NODEMODIFIER", "ADVTHAUM", 
+	    		 new AspectList().add(Aspect.AURA, 16).add(Aspect.METAL, 16), 0, -4, 4, new ItemStack(this));
 	     
 			ri.setTitle("at.research.nodemodifier.title");
 			ri.setInfo("at.research.nodemodifier.desc");
@@ -100,7 +101,6 @@ public class BlockNodeModifier extends BlockContainer implements IWandable
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block blockid)
 	{
 		super.onNeighborBlockChange(world, x, y, z, blockid);
-		Block id = world.getBlock(x,  y + 1,  z);
 		Block jarid = ConfigBlocks.blockJar;
 		
 		if ((blockid == jarid) && world.isAirBlock(x,y+1,z))

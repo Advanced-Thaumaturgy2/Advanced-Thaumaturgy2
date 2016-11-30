@@ -92,7 +92,7 @@ public class ItemArcaneCrystal extends Item
 		
 		 ATResearchItem ri = new ATResearchItem("ARCANECRYSTAL", "ADVTHAUM",
 					new AspectList().add(Aspect.CRYSTAL, 10).add(Aspect.MAGIC, 10).add(Aspect.ORDER, 10),
-					0, 5, 5,
+					-4, 2, 5,
 					new ItemStack(this, 1, 0));
 					 
 		 ri.setTitle("at.research.arcanecrystal.title");
@@ -207,7 +207,8 @@ public class ItemArcaneCrystal extends Item
 		 
 		ATResearchItem ri = new ATResearchItem("UPGRADERECHARGE", "ADVTHAUM",
 					new AspectList().add(Aspect.AIR, 20).add(Aspect.FIRE, 20).add(Aspect.WATER, 20).add(Aspect.EARTH, 20).add(Aspect.ORDER, 20).add(Aspect.ENTROPY, 20),
-					-2, 3, 5,
+					//-2, 0, 5,
+					-3, 0, 5,
 					recharge);
 					 
 		 ri.setTitle("item.at.arcanecrystal." + recharge.getItemDamage() + ".name");
@@ -257,7 +258,8 @@ public class ItemArcaneCrystal extends Item
 		 // drain multiplier
 		ATResearchItem ri = new ATResearchItem("UPGRADEDRAIN", "ADVTHAUM",
 					recipe.getAspects(),
-					-2, 7, 5,
+					//-6, 0, 5,
+					-6, 1, 5,
 					multiplier);
 					 
 		 ri.setTitle("item.at.arcanecrystal." + multiplier.getItemDamage() + ".name");
@@ -293,7 +295,8 @@ public class ItemArcaneCrystal extends Item
 		 
 		ATResearchItem ri = new ATResearchItem("UPGRADECOMPOUND", "ADVTHAUM",
 					new AspectList().add(Aspect.BEAST, 32).add(Aspect.DARKNESS,  32).add(Aspect.CLOTH, 16).add(Aspect.FLESH, 16).add(Aspect.POISON, 8).add(Aspect.SLIME, 8),
-					-3, 5, 5,
+					//-4, -1, 5,
+					-5, 0, 5,
 					compound);
 					 
 		 ri.setTitle("item.at.arcanecrystal." + compound.getItemDamage() + ".name");
@@ -331,7 +334,8 @@ public class ItemArcaneCrystal extends Item
 		 
 		ATResearchItem ri = new ATResearchItem("UPGRADEDISCOUNT", "ADVTHAUM",
 					recipe.getAspects(),
-					2, 3, 5,
+					//-2, 4, 5,
+					-3, 4, 5,
 					discount);
 					 
 		ri.setTitle("item.at.arcanecrystal." + discount.getItemDamage() + ".name");
@@ -367,7 +371,8 @@ public class ItemArcaneCrystal extends Item
 		 
 		ATResearchItem ri = new ATResearchItem("UPGRADESTABILIZER", "ADVTHAUM",
 					new AspectList().add(Aspect.ORDER, 16).add(Aspect.MAGIC, 16),
-					3, 5, 5,
+					//-4, 5, 5,
+					-5, 4, 5,
 					stabilizer);
 					 
 		 ri.setTitle("item.at.arcanecrystal." + stabilizer.getItemDamage() + ".name");
@@ -402,7 +407,8 @@ public class ItemArcaneCrystal extends Item
 		 
 		ATResearchItem ri = new ATResearchItem("UPGRADEPOTENCY", "ADVTHAUM",
 					new AspectList().add(Aspect.ENERGY, 32),
-					2, 7, 5,
+					//-6, 4, 5,
+					-6, 3, 5,
 					potency);
 					 
 		 ri.setTitle("item.at.arcanecrystal." + potency.getItemDamage() + ".name");

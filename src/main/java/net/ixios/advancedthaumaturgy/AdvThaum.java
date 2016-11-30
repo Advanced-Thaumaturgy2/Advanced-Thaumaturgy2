@@ -15,7 +15,6 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import net.ixios.advancedthaumaturgy.blocks.BlockAltarDeployer;
 import net.ixios.advancedthaumaturgy.blocks.BlockCreativeNode;
@@ -76,6 +75,7 @@ import thaumcraft.common.Thaumcraft;
 public class AdvThaum 
 {
 	public final static String MODID = "AdvancedThaumaturgy";
+	public final static boolean TESTVERSION = true;
 
 	@Instance
 	public static AdvThaum instance;
@@ -192,15 +192,10 @@ public class AdvThaum
 	     if (ConfigData.enableWandbench)
 	    	 Wandbench = new BlockWandbench();
 	  
-	     LanguageRegistry.instance().addStringLocalization("itemGroup.advthaum", "en_US", "Advanced Thaumaturgy");
-	     LanguageRegistry.instance().addStringLocalization("tc.research_category.ADVTHAUM", "en_US", "Advanced Thaumaturgy");
-	     
 	     MinecraftForge.EVENT_BUS.register(new ATEventHandler());
-	     
 	     MinecraftForge.EVENT_BUS.register(new ArcingDamageManager());
 	     
 	     ForgeChunkManager.setForcedChunkLoadingCallback(instance, new ChunkLoadingClass());
-	    
      }
 	
 	 private void registerStuff()
@@ -331,15 +326,17 @@ public class AdvThaum
 			 }
 		 }
 		 
-		 LanguageRegistry.instance().addStringLocalization("tc.research_name.TESTBUILD", "en_US",  "Test Build Notes");
-		 ResearchItem ri = new ResearchItem("TESTBUILD", "ADVTHAUM", new AspectList(), 0, -2, 0, new ItemStack(CreativeNode));
-		 
-		 ri.setAutoUnlock();
-		 ri.setRound();
-		 
-		 ri.setPages(new ResearchPage("This build is for testing only.  You should NOT be using this on a live server / map.  Doing so will likely kill your world save.\nAny Research with an unset localized name (eg at.research.something.name) is likely something I haven't quite finished but it will be in the public release build.\n\n- Lycaon"));
-		 
-		 ri.registerResearchItem();
+		 if (TESTVERSION)
+		 {
+			 ResearchItem ri = new ResearchItem("TESTBUILD", "ADVTHAUM", new AspectList(), 0, -3, 0, new ItemStack(CreativeNode));
+			 
+			 ri.setAutoUnlock();
+			 ri.setRound();
+			 
+			 ri.setPages(new ResearchPage("This build is for testing only.  You should NOT be using this on a live server / map.  Doing so will likely kill your world save.\nAny Research with an unset localized name (eg at.research.something.name) is likely something I haven't quite finished but it will be in the public release build.\n\n- Lycaon"));
+			 
+			 ri.registerResearchItem();
+		 }
 		 
 	     config.save();
 		 

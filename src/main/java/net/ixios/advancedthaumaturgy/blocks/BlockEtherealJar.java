@@ -8,7 +8,6 @@ import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.items.TCItems;
 import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
 import net.ixios.advancedthaumaturgy.tileentities.TileEtherealJar;
-import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -45,6 +44,7 @@ public class BlockEtherealJar extends BlockJar
         this.setBlockName("at.etherealjar");
     }
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		par3List.add(new ItemStack(par1, 1, 0));
@@ -83,9 +83,9 @@ public class BlockEtherealJar extends BlockJar
 	     ConfigResearch.recipes.put("EtherealJar", recipe);
 	 
 	     // add research
-	      ATResearchItem ri = new ATResearchItem("ETHEREALJAR", "ALCHEMY",
+	      ATResearchItem ri = new ATResearchItem("ETHEREALJAR", "ADVTHAUM",
 	    		  (new AspectList()).add(Aspect.AIR, 4).add(Aspect.ENTROPY, 4).add(Aspect.VOID, 8).add(Aspect.MAGIC, 8),
-	             7, -7, 3,
+	             3, -3, 3,
 	             new ItemStack(AdvThaum.itemEtherealJar, 1, 0));
 	     ri.setTitle("at.research.etherealjar.title");
 	     ri.setInfo("at.research.etherealjar.desc");

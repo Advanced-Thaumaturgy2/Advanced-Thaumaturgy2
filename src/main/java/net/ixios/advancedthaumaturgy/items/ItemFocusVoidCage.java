@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.ixios.advancedthaumaturgy.AdvThaum;
+import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.ItemWandCasting;
@@ -46,6 +48,18 @@ public class ItemFocusVoidCage extends ItemFocusBasic
 		// put where dislocation is
 		
 		// bestia, vacuos, praecantatio
+
+		ATResearchItem ri = new ATResearchItem("VOIDCAGE", "ADVTHAUM",
+				(new AspectList()).add(Aspect.BEAST, 1).add(Aspect.VOID, 1).add(Aspect.MAGIC, 1),
+				-3, -3, 2,
+				new ItemStack(this));
+		ri.setTitle("at.research.voidcage.title");
+		ri.setInfo("at.research.voidcage.desc");
+		ri.setPages(new ResearchPage("at.research.voidcage.pg1"));
+		ri.setConcealed();
+		ri.setParentsHidden("FOCUSFIRE");
+		
+		ri.registerResearchItem();
 		
 	}
 	

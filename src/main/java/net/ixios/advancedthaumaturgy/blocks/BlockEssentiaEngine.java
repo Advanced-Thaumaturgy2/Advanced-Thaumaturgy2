@@ -1,17 +1,5 @@
 package net.ixios.advancedthaumaturgy.blocks;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.research.ResearchCategories;
-import thaumcraft.api.research.ResearchCategoryList;
-import thaumcraft.api.research.ResearchPage;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.config.ConfigResearch;
-import thaumcraft.common.lib.research.ResearchManager;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -19,15 +7,23 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.items.ItemEngine;
 import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
-import net.ixios.advancedthaumaturgy.misc.Utilities;
 import net.ixios.advancedthaumaturgy.tileentities.TileEssentiaEngine;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.research.ResearchPage;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigResearch;
 
 public class BlockEssentiaEngine extends Block implements ITileEntityProvider
 {
@@ -60,9 +56,9 @@ public class BlockEssentiaEngine extends Block implements ITileEntityProvider
         ConfigResearch.recipes.put("EssentiaEngine", recipe);
     
         // add research
-         ATResearchItem ri = new ATResearchItem("ESSENTIAENGINE", "ARTIFICE",
+         ATResearchItem ri = new ATResearchItem("ESSENTIAENGINE", "ADVTHAUM",
                 (new AspectList()).add(Aspect.EARTH, 1).add(Aspect.FIRE, 1).add(Aspect.MAGIC, 1).add(Aspect.TREE, 1),
-                -5, 1, 2,
+                3, -5, 2,
                 new ItemStack(this));
         ri.setTitle("at.research.essentiaengine.title");
         ri.setInfo("at.research.essentiaengine.desc");

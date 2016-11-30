@@ -78,7 +78,7 @@ public class ItemMercurialWand extends ItemWandCasting
     	 
 		 ATResearchItem ri = new ATResearchItem("MERCURIALWAND", "ADVTHAUM",
 			new AspectList(),
-			0, 2, 5,
+			0, 0, 5,
 			iconItem);
 			 
 		 ri.setTitle("at.research.mercurialwand.title");

@@ -62,23 +62,23 @@ public class ItemMercurialRodBase extends Item
 		// add research
 		 ATResearchItem ri = new ATResearchItem("MERCURIALROD", "ADVTHAUM",
 				(new AspectList()).add(Aspect.METAL, 1).add(Aspect.CRYSTAL, 1).add(Aspect.POISON, 1).add(Aspect.TREE, 1),
-				0, 0, 5,
+				0, -2, 5,
 				new ItemStack(this));
 		ri.setTitle("at.research.mercurialcore.title");
 		ri.setInfo("at.research.mercurialcore.desc");
-		ri.setParents("ROD_silverwood");
-		ri.setParentsHidden("INFUSION");
-		ri.setSiblings("ROD_mercurial", "MERCURIALWAND");
+		ri.setParentsHidden("ROD_silverwood", "INFUSION");
+		ri.setSiblings("MERCURIALWAND");
+		//ri.setSiblings("ROD_mercurial", "MERCURIALWAND");
 		ri.setPages(new ResearchPage("at.research.mercurialcore.pg1"),
 				new ResearchPage("at.research.mercurialcore.pg2"),
 				new ResearchPage(recipe));
 		
 		ri.registerResearchItem();
 		
-		ResearchItem r = new ResearchItem("ROD_mercurial", "ADVTHAUM");
-		r.setParents("MERCURIALROD");
-		r.setStub();
-		r.registerResearchItem();
+		//ResearchItem r = new ResearchItem("ROD_mercurial", "ADVTHAUM");
+		//r.setParents("MERCURIALROD");
+		//r.setStub();
+		//r.registerResearchItem();
 		 
 		AspectList list = new AspectList();
         list.add(Aspect.WATER, 10);

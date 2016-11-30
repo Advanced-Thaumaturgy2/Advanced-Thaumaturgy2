@@ -1,10 +1,15 @@
 tc.research_category.ADVTHAUM=Advanced Thaumaturgy
 itemGroup.advthaum=Advanced Thaumaturgy
+tc.research_name.TESTBUILD=Test Build Notes
+tc.research_text.TESTBUILD=DISCLAIMER
 
 # block names
 tile.blockAltarDeployer.name=Altar Deployer
 
 tile.blockWandbench.name=Wandbench
+at.research.wandbench.title=Wandbench
+at.research.wandbench.desc=Tool Tinkering
+at.research.wandbench.pg1=Dummy
 
 tile.at.modifier.name=Node Modifier
 tile.at.modifier.desc=Allows you to slowly modify jarred|nodes using various essentia types.
