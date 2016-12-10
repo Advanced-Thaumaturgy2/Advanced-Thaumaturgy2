@@ -1,6 +1,7 @@
 package net.ixios.advancedthaumaturgy.gui;
 
 import net.ixios.advancedthaumaturgy.items.ItemArcaneCrystal;
+import net.ixios.advancedthaumaturgy.items.TCItems;
 import net.ixios.advancedthaumaturgy.tileentities.TileWandbench;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -34,7 +35,7 @@ public class ContainerWandbench extends Container
 		}
 		
 		// Output
-		addSlotToContainer(new SlotWandOutput(bench, 0, 113, 31));
+		addSlotToContainer(new SlotWandOutput(this, bench, 0, 113, 31));
 		
 		// wand input
 		addSlotToContainer(new Slot(bench, 1, 21, 31));
@@ -88,12 +89,12 @@ public class ContainerWandbench extends Container
             		if (!mergeItemStack(current, 36 + 2, 36 + 3, false))
             			return null;
             	}
-            	else if (current.getItem() instanceof ItemWandRod)
+            	else if (TCItems.getRod(current) != null)
             	{
             		if (!mergeItemStack(current, 36 + 3, 36 + 4, false))
             			return null;
             	}
-            	else if (current.getItem() instanceof ItemWandCap)
+            	else if (TCItems.getCap(current) != null)
             	{
             		if (!mergeItemStack(current, 36 + 4, 36 + 5, false))
             			return null;

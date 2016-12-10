@@ -4,6 +4,7 @@ import java.util.Map;
 
 import net.ixios.advancedthaumaturgy.tileentities.TileWandbench;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import thaumcraft.common.items.wands.ItemWandCasting;
@@ -11,12 +12,14 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 public class SlotWandOutput extends Slot
 {
 	private TileWandbench bench;
+	private Container cont;
 	
-	public SlotWandOutput(TileWandbench bench, int slot, int x, int y)
+	public SlotWandOutput(Container cont, TileWandbench bench, int slot, int x, int y)
 	{
 		super(bench, slot, x, y);
 
 		this.bench = bench;
+		this.cont = cont;
 	}
 	
 	@Override
@@ -39,7 +42,7 @@ public class SlotWandOutput extends Slot
 		{
 			ItemWandCasting w = (ItemWandCasting) inventory.getStackInSlot(5).getItem();
 			w.consumeAllVisCrafting(inventory.getStackInSlot(5), player, bench.getCost(), true);
-			// TODO: Update Wand
+			cont.detectAndSendChanges();
 		}
 		
 		// Clear used ingredients
