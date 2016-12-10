@@ -113,8 +113,8 @@ public class BlockEtherealJar extends BlockJar
     	TileEtherealJar jar = (TileEtherealJar)te;;
     		
     	boolean noitem = (helditem == null);
-    	boolean isLabel = !noitem && helditem.getItem() == ConfigItems.itemResource&& helditem.getItemDamage() == 13;
-    	boolean isPhial = !noitem && helditem.getItem() instanceof IEssentiaContainerItem; //itemID == ConfigItems.itemResource.itemID && helditem.getItemDamage() == 13;
+    	boolean isLabel = !noitem && helditem.getItem().equals(ConfigItems.itemResource) && helditem.getItemDamage() == 13;
+    	boolean isPhial = !noitem && helditem.getItem().equals(ConfigItems.itemEssence);
 
     	if (noitem)
     		handleEmptyHandClick(jar, player, side);
