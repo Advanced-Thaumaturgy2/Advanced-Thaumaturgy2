@@ -177,8 +177,8 @@ public class AdvThaum
 	     
 	     if (ConfigData.enableWandUpgrades)
 	     {
-	    	 ArcaneCrystal = new ItemArcaneCrystal();
 	    	 EndstoneChunk = new ItemEndstoneChunk();
+	    	 ArcaneCrystal = new ItemArcaneCrystal();
 	     }
 		
 	     Placeholder = new BlockPlaceholder(Material.air);
@@ -227,11 +227,13 @@ public class AdvThaum
 		 if (AeroSphere != null)
 			 AeroSphere.register();
 		 
-		 if (ArcaneCrystal != null)
-			 ArcaneCrystal.register();
-		 
 		 if (EndstoneChunk != null)
+		 {
 			 EndstoneChunk.register();
+		 
+			 if (ArcaneCrystal != null)
+				 ArcaneCrystal.register();
+		 }
 
 		 if (AltarDeployer != null)
 			 AltarDeployer.register();

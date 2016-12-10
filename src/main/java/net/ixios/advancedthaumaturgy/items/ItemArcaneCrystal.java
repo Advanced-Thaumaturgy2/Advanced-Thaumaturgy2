@@ -89,32 +89,35 @@ public class ItemArcaneCrystal extends Item
 	{
 		GameRegistry.registerItem(this, "upgradecrystal");
 		setCreativeTab(AdvThaum.tabAdvThaum);
+
+		GameRegistry.addSmelting(new ItemStack(AdvThaum.EndstoneChunk), new ItemStack(this, 1, 0), 0);
 		
-		 ATResearchItem ri = new ATResearchItem("ARCANECRYSTAL", "ADVTHAUM",
-					new AspectList().add(Aspect.CRYSTAL, 10).add(Aspect.MAGIC, 10).add(Aspect.ORDER, 10),
-					-4, 2, 5,
-					new ItemStack(this, 1, 0));
-					 
-		 ri.setTitle("at.research.arcanecrystal.title");
-		 ri.setInfo("at.research.arcanecrystal.desc");
-		 
-		 ri.setParents("MERCURIALWAND");
-		 
-		 ri.setPages(new ResearchPage("at.research.arcanecrystal.pg1"));
-		 
-		 ri.setStub();
-		 ri.setConcealed();
-		 
-		 ri.registerResearchItem();
-		 
-		 // these are wand upgrade researches
-		 
-		 registerRechargeUpgrade();
-		 registerDrainMultiplier();
-		 registerCompoundDrain();
-		 registerVisDiscount();
-		 registerStabilizer();
-		 registerPotency();
+		ATResearchItem ri = new ATResearchItem("ARCANECRYSTAL", "ADVTHAUM",
+				new AspectList().add(Aspect.CRYSTAL, 10).add(Aspect.MAGIC, 10).add(Aspect.ORDER, 10),
+				-4, 2, 5,
+				new ItemStack(this, 1, 0));
+				 
+		ri.setTitle("at.research.arcanecrystal.title");
+		ri.setInfo("at.research.arcanecrystal.desc");
+		
+		ri.setParents("MERCURIALWAND");
+		
+		ri.setPages(new ResearchPage("at.research.arcanecrystal.pg1"), new ResearchPage(AdvThaum.EndstoneChunk.getRecipe()),
+			 new ResearchPage(new ItemStack(AdvThaum.EndstoneChunk)));
+		
+		ri.setStub();
+		ri.setConcealed();
+		
+		ri.registerResearchItem();
+		
+		// these are wand upgrade researches
+		
+		registerRechargeUpgrade();
+		registerDrainMultiplier();
+		registerCompoundDrain();
+		registerVisDiscount();
+		registerStabilizer();
+		registerPotency();
 	}
 
 

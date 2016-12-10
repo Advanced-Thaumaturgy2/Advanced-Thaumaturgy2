@@ -2,15 +2,17 @@ package net.ixios.advancedthaumaturgy.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.ixios.advancedthaumaturgy.AdvThaum;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
 
 public class ItemEndstoneChunk extends Item
 {
+	private IRecipe recipe;
 
 	public ItemEndstoneChunk()
     {
@@ -18,6 +20,11 @@ public class ItemEndstoneChunk extends Item
 	    setUnlocalizedName("at.endstonechunk");
 	    setTextureName("endstonechunk");
     }
+	
+	public IRecipe getRecipe()
+	{
+		return recipe;
+	}
 	
 	@Override
 	public void registerIcons(IIconRegister ir)
@@ -31,11 +38,16 @@ public class ItemEndstoneChunk extends Item
 		setCreativeTab(AdvThaum.tabAdvThaum);
 		
 		ItemStack endstone = new ItemStack(Blocks.end_stone);
+		ItemStack emerald = new ItemStack(Items.emerald);
 		
-		GameRegistry.addRecipe(new ItemStack(this, 4, 0), new Object[] 
-				{ "ESE", "SCS", "ESE", 'S', endstone, 'C', TCItems.anyshard, 'E', Items.emerald });
+		ItemStack[] ingredients = new ItemStack[]{ emerald, endstone, emerald, 
+													endstone, TCItems.anyshard, endstone, 
+													emerald, endstone, emerald };
+		recipe = new ShapedRecipes(3, 3, ingredients, new ItemStack(this));
+		GameRegistry.addRecipe(recipe);
 		
-		GameRegistry.addSmelting(this, new ItemStack(AdvThaum.ArcaneCrystal, 1, 0), 0);
+		//GameRegistry.addRecipe(new ItemStack(this, 4, 0), new Object[] 
+		//		{ "ESE", "SCS", "ESE", 'S', endstone, 'C', TCItems.anyshard, 'E', Items.emerald });
 		
 	}
 }

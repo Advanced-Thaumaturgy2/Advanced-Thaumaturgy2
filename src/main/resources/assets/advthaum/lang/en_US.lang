@@ -39,7 +39,7 @@ item.at.arcanecrystal.6.name=Potency Crystal
 item.at.arcanecrystal.20.name=Flux Dissipation Crystal
 item.at.arcanecrystal.21.name=Watchful Crystal
 item.at.arcanecrystal.22.name=Healing Crystal
-item.at.arcanecrystal.22.name=Shocking Crystal
+item.at.arcanecrystal.23.name=Shocking Crystal
 item.at.arcanecrystal.24.name=Burning Crystal
 item.at.arcanecrystal.25.name=Frosty Crystal
 
@@ -69,8 +69,8 @@ item.at.voidcage.name=Wand Focus: Void Cage
 
 at.research.mercurialcore.title=Mercurial Wand Core
 at.research.mercurialcore.desc=Five, five, five rods in one!
-at.research.mercurialcore.pg1=You've discovered a way to infuse a nether star, liquid quicksilver and the essence of multiple silverwood wand cores into a new core that can hold much larger amounts of vis.<BR><LINE><BR>"What a delightful find!  The Wither had in it's possession (I avoid thinking about what it's made of, exactly) an intricate, beautiful crystal of some sort.  After peering through  my Thaumometer at this jewel for days on end, I discovered a way to infuse the crystal and several silverwood cores, along with some quicksilver, into a remarkable"
-at.research.mercurialcore.pg2="wand core capable of storing vast amounts of vis.<BR>This will certainly make node collecting easier, as well as clear up some room in my already-crowded satchel.<BR>The creation process is marvelously complex; the infusion altar shuddered and nearly exploded upon my first attempt to craft this beauty.  The essentia required to stabilize the infusion is quite excessive; I must restock my supplies posthaste..."<BR><BR>"Addendum:  It appears that the fluid nature of the mercurial quicksilver allows this core to adapt its capacity to that of any wand core you've discovered, to a point.  Absolutely amazing, this thing is."
+at.research.mercurialcore.pg1=You've discovered a way to infuse a nether star, liquid quicksilver and the essence of multiple silverwood wand cores into a new core that can hold much larger amounts of vis.<BR><LINE><BR>"What a delightful find!  The Wither had in it's possession (I avoid thinking about what it's made of, exactly) an intricate, beautiful crystal of some sort.  After peering through  my Thaumometer at this jewel for days on end, I discovered a way to infuse the crystal and several silverwood cores, along with some quicksilver, into a remarkable
+at.research.mercurialcore.pg2=wand core capable of storing vast amounts of vis.<BR>This will certainly make node collecting easier, as well as clear up some room in my already-crowded satchel.<BR>The creation process is marvelously complex; the infusion altar shuddered and nearly exploded upon my first attempt to craft this beauty.  The essentia required to stabilize the infusion is quite excessive; I must restock my supplies posthaste..."<BR><BR>"Addendum:  It appears that the fluid nature of the mercurial quicksilver allows this core to adapt its capacity to that of any wand core you've discovered, to a point.  Absolutely amazing, this thing is."
 
 at.research.mercurialwand.title=Mercurial Crystal Wand
 at.research.mercurialwand.desc=(Almost) all the vis!
