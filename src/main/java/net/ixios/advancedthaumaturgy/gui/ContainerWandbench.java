@@ -7,9 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import thaumcraft.common.items.wands.ItemWandCap;
+import thaumcraft.common.container.SlotLimitedByClass;
+import thaumcraft.common.container.SlotLimitedByWand;
 import thaumcraft.common.items.wands.ItemWandCasting;
-import thaumcraft.common.items.wands.ItemWandRod;
 
 public class ContainerWandbench extends Container
 {
@@ -38,18 +38,31 @@ public class ContainerWandbench extends Container
 		addSlotToContainer(new SlotWandOutput(this, bench, 0, 113, 31));
 		
 		// wand input
-		addSlotToContainer(new Slot(bench, 1, 21, 31));
+		addSlotToContainer(new SlotLimitedByWand(bench, 1, 21, 31));
 
 		// crystal upgrade input
-		addSlotToContainer(new Slot(bench, 2, 42, 13));
+		addSlotToContainer(new SlotLimitedByClass(ItemArcaneCrystal.class, bench, 2, 42, 13));
+		
 		// rod input
-		addSlotToContainer(new Slot(bench, 3, 42, 31));
+		addSlotToContainer(new Slot(bench, 3, 42, 31) { 
+								@Override
+								public boolean isItemValid(ItemStack stack)
+								{
+									return TCItems.getRod(stack) != null;
+								}
+							});
 		// caps input
-		addSlotToContainer(new Slot(bench, 4, 42, 49));
+		addSlotToContainer(new Slot(bench, 4, 42, 49){ 
+								@Override
+								public boolean isItemValid(ItemStack stack)
+								{
+									return TCItems.getCap(stack) != null;
+								}
+							});
 		
 
 		// vis supply wand slot
-		addSlotToContainer(new Slot(bench, 5, 150, 31));
+		addSlotToContainer(new SlotLimitedByWand(bench, 5, 150, 31));
 	}
 	
 	@Override

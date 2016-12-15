@@ -37,8 +37,10 @@ public class SlotWandOutput extends Slot
 	@Override
 	public void onPickupFromSlot(EntityPlayer player, ItemStack stack)
 	{
+		stack.onCrafting(player.worldObj, player, 1);
+		
 		// Crafting cost
-		if (bench.getCost().size() > 0 && inventory.getStackInSlot(5) != null)
+		if (bench.getCost().size() > 0 && inventory.getStackInSlot(5) != null && inventory.getStackInSlot(5).getItem() instanceof ItemWandCasting)
 		{
 			ItemWandCasting w = (ItemWandCasting) inventory.getStackInSlot(5).getItem();
 			w.consumeAllVisCrafting(inventory.getStackInSlot(5), player, bench.getCost(), true);
