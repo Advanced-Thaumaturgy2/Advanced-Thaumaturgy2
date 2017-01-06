@@ -1,4 +1,4 @@
-package net.ixios.advancedthaumaturgy.tileentities;
+package net.ixios.advancedthaumaturgy.tileentities.microlith;
 
 import java.awt.Color;
 
@@ -17,6 +17,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 @Optional.InterfaceList({
@@ -26,20 +28,21 @@ import net.minecraft.world.World;
 
 public abstract class TileMicrolithBase extends TileEntity implements IPeripheral,SimpleComponent
 {
-
-	private Color color = null;
-	private boolean active=false;
+	private Color color;
+	private boolean canToggleActive;
 	
-	public TileMicrolithBase(Color color)
+	private boolean active = false;
+	
+	public TileMicrolithBase(Color color, boolean canToggleActive)
 	{
 		this.color = new Color(color.getRed(), color.getGreen(), color.getBlue(), 255);
+		this.canToggleActive = canToggleActive;
 	}
 	
 	public Color getColor()
 	{
 		return color;
 	}
-
 
 	public boolean getActive()
 	{
@@ -48,9 +51,28 @@ public abstract class TileMicrolithBase extends TileEntity implements IPeriphera
 
 	public void setActive(boolean active)
 	{
-		this.active=active;
+		if (canToggleActive)
+			this.active = active;
+	}
+	
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+			 float hitY, float hitZ)
+	{
+		if (canToggleActive && player.getHeldItem() == null)
+		{
+			setActive(!getActive());
+			if (world.isRemote)
+			{
+				String name = StatCollector.translateToLocal("at.microlith." + world.getBlockMetadata(x, y, z) + ".name");
+				player.addChatMessage(new ChatComponentTranslation(getActive() ? "chat.microlith.activated" : "chat.microlith.deactivated", name));
+			}
+			return true;
+		}
+		
+		return false;
 	}
 
+	public abstract String getMicrolithType();
 
 	@Override
 	public void readFromNBT(NBTTagCompound p_145839_1_) {
@@ -85,7 +107,10 @@ public abstract class TileMicrolithBase extends TileEntity implements IPeriphera
 		super.onDataPacket(net, pkt);
 		readExtraNBT(pkt.func_148857_g());
 	}
-
+	
+	/*
+	 * ComputerCraft Integration
+	 */
 
 
 	@Optional.Method(modid = "ComputerCraft")
@@ -118,6 +143,10 @@ public abstract class TileMicrolithBase extends TileEntity implements IPeriphera
 		}
 		return new Object[]{};
 	}
+	
+	/*
+	 * OpenComputers Integration
+	 */
 
 	@Optional.Method(modid = "ComputerCraft")
 	@Override
@@ -136,10 +165,6 @@ public abstract class TileMicrolithBase extends TileEntity implements IPeriphera
 	public boolean equals(IPeripheral other) {
 		return super.equals(other);
 	}
-	public abstract boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-											 float hitY, float hitZ);
-
-	public abstract String getMicrolithType();
 
 	@Override
 	@Optional.Method(modid = "OpenComputers")

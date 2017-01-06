@@ -2,7 +2,7 @@ package net.ixios.advancedthaumaturgy.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.ixios.advancedthaumaturgy.AdvThaum;
-import net.ixios.advancedthaumaturgy.tileentities.TileCrystalHolder;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileCrystalHolder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

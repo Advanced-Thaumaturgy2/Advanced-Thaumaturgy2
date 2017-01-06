@@ -1,4 +1,4 @@
-package net.ixios.advancedthaumaturgy.tileentities;
+package net.ixios.advancedthaumaturgy.tileentities.microlith;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;

@@ -1,4 +1,4 @@
-package net.ixios.advancedthaumaturgy.tileentities;
+package net.ixios.advancedthaumaturgy.tileentities.microlith;
 
 import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.blocks.BlockMicrolith;
@@ -22,21 +22,12 @@ public class TileExcavator extends TileMicrolithBase
 	
 	public TileExcavator(Color color)
     {
-	    super(color);
+	    super(color, false);
     }
 
 	@Override
 	public String getMicrolithType() {
 		return "excavator";
-	}
-
-	@Override
-	public boolean getActive() {
-		return false;
-	}
-
-	@Override
-	public void setActive(boolean active) {
 	}
 
 	@Override

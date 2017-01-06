@@ -1,4 +1,4 @@
-package net.ixios.advancedthaumaturgy.tileentities;
+package net.ixios.advancedthaumaturgy.tileentities.microlith;
 
 import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.minecraft.block.Block;

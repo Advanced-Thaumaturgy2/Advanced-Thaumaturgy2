@@ -1,4 +1,4 @@
-package net.ixios.advancedthaumaturgy.tileentities;
+package net.ixios.advancedthaumaturgy.tileentities.microlith;
 
 import java.awt.Color;
 
@@ -19,7 +19,7 @@ public class TileWatchfulMicrolith extends TileMicrolithBase
 	
 	public TileWatchfulMicrolith()
     {
-	    super(new Color(0, 0, 128));
+	    super(new Color(0, 0, 128), true);
     }
 
 	@Override
@@ -38,15 +38,6 @@ public class TileWatchfulMicrolith extends TileMicrolithBase
 	    if (worldObj.rand.nextBoolean())
 	    	AdvThaum.proxy.createCustomParticle(worldObj, xCoord + worldObj.rand.nextFloat(), yCoord, zCoord + worldObj.rand.nextFloat(), 0, worldObj.rand.nextGaussian() / 10, 0, 0xFF000099);
 	}
-	
-	@Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-            EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-    {
-		setActive(!getActive());
-        return true;
-    }
-
 
     @Override
     public void setActive(boolean active) {

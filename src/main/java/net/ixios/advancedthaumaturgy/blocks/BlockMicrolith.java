@@ -8,9 +8,10 @@ import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.items.ItemMicrolith;
 import net.ixios.advancedthaumaturgy.items.TCItems;
 import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
-import net.ixios.advancedthaumaturgy.tileentities.TileFluxDissipator;
-import net.ixios.advancedthaumaturgy.tileentities.TileMicrolithBase;
-import net.ixios.advancedthaumaturgy.tileentities.TileWatchfulMicrolith;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileFluxDissipator;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileMicrolithBase;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileMicrolithHealing;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileWatchfulMicrolith;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -20,7 +21,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import thaumcraft.api.ThaumcraftApi;
@@ -52,7 +52,7 @@ public class BlockMicrolith extends BlockContainer
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		list.add(new ItemStack(this, 1, 1)); // flux dissipator
 		list.add(new ItemStack(this, 1, 2)); // chunk loader
-		//list.add(new ItemStack(this, 1, 3)); // burning
+		list.add(new ItemStack(this, 1, 3)); // healing
 		list.add(new ItemStack(this, 1, 10)); // excavator
 	}
 
@@ -68,9 +68,9 @@ public class BlockMicrolith extends BlockContainer
 		 		return new TileFluxDissipator();
 		 	case 2:
 		 		return new TileWatchfulMicrolith();
-		 	//case 3:
-		 		//return new TileBurningSentry();
-			 default:
+		 	case 3:
+		 		return new TileMicrolithHealing();
+			default:
 				 return null;
 		 }
 	 }
@@ -81,6 +81,7 @@ public class BlockMicrolith extends BlockContainer
     	
     	GameRegistry.registerTileEntity(TileFluxDissipator.class, "tileFluxDissipator");
     	GameRegistry.registerTileEntity(TileWatchfulMicrolith.class, "tileWatchfulMicrolith");
+    	GameRegistry.registerTileEntity(TileMicrolithHealing.class, "tileHealingMicrolith");
     	//GameRegistry.registerTileEntity(TileBurningSentry.class, "tileBurningSentry");
     	
         ShapedArcaneRecipe recipe = ThaumcraftApi.addArcaneCraftingRecipe("MINILITHBASE", new ItemStack(this, 1, 0), 
@@ -235,7 +236,6 @@ public class BlockMicrolith extends BlockContainer
 	        float hitY, float hitZ)
 	{
 		TileEntity te = world.getTileEntity(x, y, z);
-		player.addChatMessage(new ChatComponentTranslation("microlith.metadata",world.getBlockMetadata(x, y, z)));
 		if (te == null)
 			return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 		

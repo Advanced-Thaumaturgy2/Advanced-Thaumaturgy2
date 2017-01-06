@@ -1,7 +1,7 @@
 package net.ixios.advancedthaumaturgy.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.ixios.advancedthaumaturgy.tileentities.TileMicrolithModelMultiblock;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileMicrolithModelMultiblock;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;

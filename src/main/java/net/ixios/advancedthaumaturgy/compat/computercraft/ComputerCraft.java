@@ -3,7 +3,7 @@ package net.ixios.advancedthaumaturgy.compat.computercraft;
 import dan200.computercraft.api.ComputerCraftAPI;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.peripheral.IPeripheralProvider;
-import net.ixios.advancedthaumaturgy.tileentities.TileWatchfulMicrolith;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileWatchfulMicrolith;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 

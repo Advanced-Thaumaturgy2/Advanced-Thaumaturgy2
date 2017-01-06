@@ -4,7 +4,7 @@ import java.awt.Color;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.ReadableColor;
 
-import net.ixios.advancedthaumaturgy.tileentities.TileMicrolithBase;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileMicrolithBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;

@@ -1,9 +1,16 @@
 package net.ixios.advancedthaumaturgy.misc;
 
+import net.minecraft.util.Vec3;
+
 public class Vector3F
 {
 
 	public float x, y, z;
+	
+	public Vector3F(Vec3 v)
+	{
+		x = (float)v.xCoord; y = (float)v.yCoord; z = (float)v.zCoord;
+	}
 	
 	public Vector3F(float x, float y, float z)
 	{

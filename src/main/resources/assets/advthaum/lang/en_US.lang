@@ -51,6 +51,9 @@ at.microlith.4.name=Electrocution Sentry [WIP]
 at.microlith.5.name=Burning Sentry [WIP]
 at.microlith.6.name=Packed Ice Sentry [WIP]
 
+chat.microlith.activated=%s activated
+chat.microlith.deactivated=%s deactivated
+
 
 at.research.microlithflux.pg1=Drawing on the properties of both Entropy and Ordo, you've affixed a crystal that will evaporate nearby flux goo and gas.  When evaporating gas, there is a chance it will recover some of the taint in the form of Vitium.
 at.research.microlithwatcher.pg1=Imbuing a crystal with Sensus has created a crystal that will keep an eye on chunks around it, chunkloading them.  It will load a 3x3 area around the chunk it is placed in.  Right click the Microlith to toggle a border outlining the loaded chunks.
