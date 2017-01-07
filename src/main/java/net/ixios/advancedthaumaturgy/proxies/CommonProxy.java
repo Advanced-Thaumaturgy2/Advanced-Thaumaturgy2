@@ -15,6 +15,7 @@ import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier.Operation;
 import net.ixios.advancedthaumaturgy.tileentities.TileWandbench;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
@@ -79,7 +80,9 @@ public class CommonProxy implements IGuiHandler
     
     public void createFloatyLine(World world, Vector3F src, Vector3F dst, int color, int age, boolean random) { }
     
-    public void shootFireInDirection(World world, Vec3 direction) { }
+    public void shootFireInDirection(World world, Vec3 src, Vec3 direction) { }
+    
+    public void createHealBeam(World world, Vec3 src, Entity target, int age) { }
     
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z) { return null; }

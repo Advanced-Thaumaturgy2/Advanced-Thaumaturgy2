@@ -28,12 +28,13 @@ import net.ixios.advancedthaumaturgy.tileentities.TileEssentiaEngine;
 import net.ixios.advancedthaumaturgy.tileentities.TileEtherealJar;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier;
 import net.ixios.advancedthaumaturgy.tileentities.TileNodeModifier.Operation;
-import net.ixios.advancedthaumaturgy.tileentities.microlith.TileMicrolithBase;
 import net.ixios.advancedthaumaturgy.tileentities.TilePlaceholder;
 import net.ixios.advancedthaumaturgy.tileentities.TileThaumicFertilizer;
 import net.ixios.advancedthaumaturgy.tileentities.TileVulcanizer;
 import net.ixios.advancedthaumaturgy.tileentities.TileWandbench;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileMicrolithBase;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -41,6 +42,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.client.fx.beams.FXBeam;
 import thaumcraft.client.fx.particles.FXEssentiaTrail;
 import thaumcraft.client.fx.particles.FXScorch;
 import thaumcraft.client.renderers.item.ItemWandRenderer;
@@ -239,27 +241,20 @@ public class ClientProxy extends CommonProxy
     }
 
     @Override
-    public void shootFireInDirection(World world, Vec3 direction)
+    public void shootFireInDirection(World world, Vec3 src, Vec3 direction)
 	{
-		Vec3 dir = direction.normalize();
-	
-		if (!world.isRemote)
-			return;
-		
         for(int q = 0; q < 3; q++)
         {
-            FXScorch ef = new FXScorch(world, direction.xCoord, direction.yCoord, direction.zCoord, dir, 17,false);
-            ef.posX += direction.xCoord * 0.30000001192092896D;
-            ef.posY += direction.yCoord * 0.30000001192092896D;
-            ef.posZ += direction.zCoord * 0.30000001192092896D;
-            ef.prevPosX = ef.posX;
-            ef.prevPosY = ef.posY;
-            ef.prevPosZ = ef.posZ;
-            ef.posX += direction.xCoord * 0.30000001192092896D;
-            ef.posY += direction.yCoord * 0.30000001192092896D;
-            ef.posZ += direction.zCoord * 0.30000001192092896D;
+            FXScorch ef = new FXScorch(world, src.xCoord, src.yCoord, src.zCoord, direction, 17,false);
+            ef.setRBGColorF(1.0f, 0.5f, 0.0f);
             FMLClientHandler.instance().getClient().effectRenderer.addEffect(ef);
         }
 	}
     
+    @Override
+    public void createHealBeam(World world, Vec3 src, Entity target, int age)
+    {
+    	FXBeam beam = new FXBeam(world, src.xCoord, src.yCoord, src.zCoord, target, 1.0f, 0.0f, 0.0f, age);
+    	FMLClientHandler.instance().getClient().effectRenderer.addEffect(beam);
+    }
 }

@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Vec3;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
@@ -21,7 +22,7 @@ public class TileMicrolithHealing extends TileMicrolithEssentiaBase
 
 	public TileMicrolithHealing() 
 	{
-		super(new Color(0, 128, 0), true, true, false, 
+		super(new Color(128, 0, 0), true, true, false, 
 				new AspectList().add(Aspect.HEAL, 64));
 	}
 	
@@ -43,7 +44,14 @@ public class TileMicrolithHealing extends TileMicrolithEssentiaBase
 			return;
 		
 		@SuppressWarnings("unchecked")
-		List<EntityLivingBase> targets = (List<EntityLivingBase>) worldObj.getEntitiesWithinAABB(EntityPlayer.class, area);
+		List<EntityLivingBase> targets = (List<EntityLivingBase>) worldObj.getEntitiesWithinAABB(EntityPlayer.class, 
+				AxisAlignedBB.getBoundingBox(
+				xCoord - 5,
+				yCoord - 5,
+				zCoord - 5,
+				xCoord + 6,
+				yCoord + 6,
+				zCoord + 6));
 		
 		for (EntityLivingBase target : targets)
 		{
@@ -52,42 +60,17 @@ public class TileMicrolithHealing extends TileMicrolithEssentiaBase
 				target.heal(1);
 				if (worldObj.isRemote)
 				{
-					AdvThaum.proxy.createFloatyLine(worldObj, 
-							new Vector3F(xCoord + 0.5f, yCoord + 0.9f, zCoord + 0.5f), 
-							new Vector3F(target.getPosition(1.0f)), 
-							Aspect.HEAL.getColor());
+					AdvThaum.proxy.createHealBeam(worldObj, 
+							Vec3.createVectorHelper(xCoord + 0.5f, yCoord + 1.05f, zCoord + 0.5f), 
+							target, 20);
+					AdvThaum.proxy.createHealBeam(worldObj, 
+							Vec3.createVectorHelper(xCoord + 0.5f, yCoord + 1.05f, zCoord + 0.5f), 
+							target, 10);
 				}
 				takeEssentia(Aspect.HEAL, 1);
 				return;
 			}
 		}
-	}
-	
-	@Override
-    public void readFromNBT(NBTTagCompound p_145839_1_)
-    {
-		super.readFromNBT(p_145839_1_);
-
-		area = AxisAlignedBB.getBoundingBox(
-		xCoord - 5,
-		yCoord - 5,
-		zCoord - 5,
-		xCoord + 6,
-		yCoord + 6,
-		zCoord + 6);
-    }
-	
-	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		super.onDataPacket(net, pkt);
-		
-		area = AxisAlignedBB.getBoundingBox(
-		xCoord - 5,
-		yCoord - 5,
-		zCoord - 5,
-		xCoord + 6,
-		yCoord + 6,
-		zCoord + 6);
 	}
 	
 	@Override

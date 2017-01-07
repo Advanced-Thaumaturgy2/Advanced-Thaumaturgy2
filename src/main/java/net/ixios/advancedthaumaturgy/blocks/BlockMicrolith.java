@@ -8,6 +8,7 @@ import net.ixios.advancedthaumaturgy.AdvThaum;
 import net.ixios.advancedthaumaturgy.items.ItemMicrolith;
 import net.ixios.advancedthaumaturgy.items.TCItems;
 import net.ixios.advancedthaumaturgy.misc.ATResearchItem;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileBurningSentry;
 import net.ixios.advancedthaumaturgy.tileentities.microlith.TileFluxDissipator;
 import net.ixios.advancedthaumaturgy.tileentities.microlith.TileMicrolithBase;
 import net.ixios.advancedthaumaturgy.tileentities.microlith.TileMicrolithHealing;
@@ -53,6 +54,7 @@ public class BlockMicrolith extends BlockContainer
 		list.add(new ItemStack(this, 1, 1)); // flux dissipator
 		list.add(new ItemStack(this, 1, 2)); // chunk loader
 		list.add(new ItemStack(this, 1, 3)); // healing
+		list.add(new ItemStack(this, 1, 5)); // fire
 		list.add(new ItemStack(this, 1, 10)); // excavator
 	}
 
@@ -70,6 +72,8 @@ public class BlockMicrolith extends BlockContainer
 		 		return new TileWatchfulMicrolith();
 		 	case 3:
 		 		return new TileMicrolithHealing();
+		 	case 5:
+		 		return new TileBurningSentry();
 			default:
 				 return null;
 		 }
@@ -82,7 +86,7 @@ public class BlockMicrolith extends BlockContainer
     	GameRegistry.registerTileEntity(TileFluxDissipator.class, "tileFluxDissipator");
     	GameRegistry.registerTileEntity(TileWatchfulMicrolith.class, "tileWatchfulMicrolith");
     	GameRegistry.registerTileEntity(TileMicrolithHealing.class, "tileHealingMicrolith");
-    	//GameRegistry.registerTileEntity(TileBurningSentry.class, "tileBurningSentry");
+    	GameRegistry.registerTileEntity(TileBurningSentry.class, "tileBurningSentry");
     	
         ShapedArcaneRecipe recipe = ThaumcraftApi.addArcaneCraftingRecipe("MINILITHBASE", new ItemStack(this, 1, 0), 
         		new AspectList().add(Aspect.ENTROPY, 250), 
