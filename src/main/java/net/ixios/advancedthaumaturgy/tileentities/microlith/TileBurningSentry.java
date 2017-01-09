@@ -25,6 +25,7 @@ public class TileBurningSentry extends TileMicrolithEssentiaBase
 	@Override
 	public void updateEntity()
 	{
+		super.updateEntity();
 	    if (!getActive())
 	    	return;
 	    
@@ -66,12 +67,6 @@ public class TileBurningSentry extends TileMicrolithEssentiaBase
         if (worldObj.isRemote)
         	AdvThaum.proxy.shootFireInDirection(worldObj, src, vector);
         
-	}
-	
-	@Override
-	public boolean canUpdate()
-	{
-		return true;
 	}
 	
 	@Override

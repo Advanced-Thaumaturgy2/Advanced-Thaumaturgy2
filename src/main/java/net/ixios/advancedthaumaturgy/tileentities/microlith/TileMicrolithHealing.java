@@ -4,12 +4,8 @@ import java.awt.Color;
 import java.util.List;
 
 import net.ixios.advancedthaumaturgy.AdvThaum;
-import net.ixios.advancedthaumaturgy.misc.Vector3F;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import thaumcraft.api.aspects.Aspect;
@@ -18,7 +14,6 @@ import thaumcraft.api.aspects.AspectList;
 public class TileMicrolithHealing extends TileMicrolithEssentiaBase 
 {
 	private int tickCounter = 0;
-	private AxisAlignedBB area;
 
 	public TileMicrolithHealing() 
 	{
@@ -29,6 +24,7 @@ public class TileMicrolithHealing extends TileMicrolithEssentiaBase
 	@Override
 	public void updateEntity()
 	{
+		super.updateEntity();
 		if (!getActive())
 			return;
 		
@@ -78,12 +74,6 @@ public class TileMicrolithHealing extends TileMicrolithEssentiaBase
 	{
 		tickCounter = 0;
 		super.setActive(active);
-	}
-	
-	@Override
-	public boolean canUpdate()
-	{
-		return true;
 	}
 
 	@Override
