@@ -328,7 +328,7 @@ public class AdvThaum
 			 }
 		 }
 		 
-		 if (TESTVERSION)
+		 /*if (TESTVERSION)
 		 {
 			 ResearchItem ri = new ResearchItem("TESTBUILD", "ADVTHAUM", new AspectList(), 0, -3, 0, new ItemStack(CreativeNode));
 			 
@@ -338,7 +338,7 @@ public class AdvThaum
 			 ri.setPages(new ResearchPage("This build is for testing only.  You should NOT be using this on a live server / map.  Doing so will likely kill your world save.\nAny Research with an unset localized name (eg at.research.something.name) is likely something I haven't quite finished but it will be in the public release build.\n\n- Lycaon"));
 			 
 			 ri.registerResearchItem();
-		 }
+		 }*/
 		 
 	     config.save();
 		 
