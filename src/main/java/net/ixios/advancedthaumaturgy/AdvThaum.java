@@ -302,7 +302,7 @@ public class AdvThaum
 				 ThaumcraftApi.registerObjectTag(new ItemStack(Items.bone), new int[]{}, list);
 			 }
 		 }
-		 
+		 //Normally lines 306 through 314 are commented out, but this is an unstable build!
 		 LanguageRegistry.instance().addStringLocalization("tc.research_name.TESTBUILD", "en_US",  "Test Build Notes");
 		 ResearchItem ri = new ResearchItem("TESTBUILD", "ADVTHAUM", new AspectList(), 0, -2, 0, new ItemStack(CreativeNode));
 		 
