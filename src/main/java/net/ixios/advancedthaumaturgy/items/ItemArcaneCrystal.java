@@ -172,7 +172,7 @@ public class ItemArcaneCrystal extends Item
 	    	case 21: // watchful crystal
 	    		return 0xFF0000FF;
 	    	case 22: // heal
-	    		return Aspect.PLANT.getColor();
+	    		return Aspect.HEAL.getColor();
 	    	case 23: // lightning
 	    		return Aspect.AIR.getColor();
 	    	case 24: // fire

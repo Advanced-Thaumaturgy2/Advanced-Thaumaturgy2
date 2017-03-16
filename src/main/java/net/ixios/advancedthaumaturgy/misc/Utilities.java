@@ -17,6 +17,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Property;
@@ -88,6 +90,12 @@ public class Utilities
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean raytraceUnobstructed(World world, Vec3 source, Vec3 target)
+	{
+	    MovingObjectPosition mop = world.rayTraceBlocks(source, target);
+		return mop.blockX == (int)target.xCoord && mop.blockY == (int)target.yCoord && mop.blockZ == (int)target.zCoord;
 	}
 	
 	public static TileJarFillable findEssentiaJar(World world, Aspect aspect, int srcx, int srcy, int srcz, int xrange, int yrange, int zrange)

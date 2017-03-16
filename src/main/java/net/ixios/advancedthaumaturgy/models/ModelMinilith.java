@@ -1,16 +1,17 @@
 package net.ixios.advancedthaumaturgy.models;
 
 import java.awt.Color;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.ReadableColor;
 
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
+import net.ixios.advancedthaumaturgy.tileentities.microlith.TileBurningSentry;
 import net.ixios.advancedthaumaturgy.tileentities.microlith.TileMicrolithBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class ModelMinilith implements IModelContainer
 {
@@ -42,7 +43,20 @@ public class ModelMinilith implements IModelContainer
 		{
 			TileMicrolithBase base = (TileMicrolithBase)te;
 			Color clr = base.getColor();
-			GL11.glColor4f(clr.getRed() / 255F, clr.getGreen() / 255F, clr.getBlue() / 255F, clr.getAlpha() / 255F);
+			if (base.getActive())
+				GL11.glColor4f(clr.getRed() / 255F, clr.getGreen() / 255F, clr.getBlue() / 255F, clr.getAlpha() / 255F);
+			else
+				GL11.glColor4f(clr.getRed() / 510F, clr.getGreen() / 510F, clr.getBlue() / 510F, clr.getAlpha() / 255F);
+			
+			if (te instanceof TileBurningSentry)
+			{
+				TileBurningSentry bs = (TileBurningSentry)te;
+				if (bs.getActive() && bs.isLoaded())
+				{
+					GL11.glColor4f(1.0F, 0.F, 0.F, 1.F);
+				}
+			}
+			
 			model.renderOnly("Sphere");
 		}
 		
