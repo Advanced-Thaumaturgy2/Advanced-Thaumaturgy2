@@ -122,4 +122,34 @@ at.research.microlith.pg2="They make me sick, and send chills down my spine, but
 
 
 
-at.nodeModifier.start=start
+at.nodeModifier.start=Start
+at.nodeModifier.beginText=Begin modification by placing a jarred node on the Node Modifier.
+at.nodeModifier.invalidBeginText=Invalid modification target.  Begin modification by placing a jarred node on the Node Modifier.
+at.nodeModifier.idle.name=Idle
+at.nodeModifier.addPure.name=Add Pure
+at.nodeModifier.addAspect.name=Add Aspect
+at.nodeModifier.addBright.name=Add Bright
+at.nodeModifier.addHungry.name=Add Hungry
+at.nodeModifier.addSinister.name=Add Sinister
+at.nodeModifier.addTaint.name=Add Tainted
+at.nodeModifier.removePale.name=Remove Pale
+at.nodeModifier.increaseAspect.name=Increase Aspect
+at.nodeModifier.removeFade.name=Remove Fading
+at.nodeModifier.removeHunger.name=Remove Hungry
+at.nodeModifier.removeTaint.name=Remove Tainted
+at.nodeModifier.makeStable.name=Remove Unstable
+at.nodeModifier.removeSinister.name=Remove Sinister
+at.nodeModifier.idle.desc=Idle
+at.nodeModifier.addPure.desc=Allows you to infuse a node with <something>, transforming it to a Pure node.
+at.nodeModifier.addAspect.desc=Allows you to infuse a node with a brand new aspect.
+at.nodeModifier.addBright.desc=Allows you to boost a node's brightness, increasing it's rate of regeneration.
+at.nodeModifier.addHungry.desc=Allows you to corrupt a node, causing it to consume anything in it's vicinity.
+at.nodeModifier.addSinister.desc=Infuses a node with Exanimus, weaving darkness into it and causing it to become Sinister.
+at.nodeModifier.addTaint.desc=Allows you to corrupt a node with Vitium, causing it to become tainted.
+at.nodeModifier.removePale.desc=Allows you to strengthen a node with Auram, causing it to become normal, and thus increasing it's regeneration rate.
+at.nodeModifier.increaseAspect.desc=Allows you to strengthen a node's existing aspects with Auram, causing it to incrase the node's maximum capacity by one.
+at.nodeModifier.removeFade.desc=Allows you to infuse a node with Auram, causing it to become stronger, and able to regenerate it's aspects.
+at.nodeModifier.removeHunger.desc=Allows you to imbue a node with Granum, sating it's violent hunger and returning it to normal functionality.
+at.nodeModifier.removeTaint.desc=Allows you to corrupt a node with Ordo, filtering the tainted essence from the node.
+at.nodeModifier.makeStable.desc=Allows you to corrupt a node with Ordo, stabilizing the weak node..
+at.nodeModifier.removeSinister.desc=Removes the dark energies from a node, canceling out it's Sinister quality.

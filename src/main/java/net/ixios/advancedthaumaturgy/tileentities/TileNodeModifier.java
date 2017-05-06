@@ -204,25 +204,27 @@ public class TileNodeModifier extends TileEntity implements IAspectContainer
 	
 	public enum Operation
 	{
-	    Idle (0),
-	    RemoveUnstable(1),
-	    RemoveSinister(2),
-	    RemoveTainted(3),
-	    AddBright(4),
-        RemoveHungry(5),
-        RemovePale(6),
-        RemoveFading(7),
-        AddAspect(8),
-        IncreaseAspect(9),
-        AddHungry(10),
-        AddTainted(11),
-        AddSinister(12),
-        AddPure(13);
+	    Idle (0,"at.nodeModifier.idle"),
+	    RemoveUnstable(1,"at.nodeModifier.makeStable"),
+	    RemoveSinister(2,"at.nodeModifier.removeSinister"),
+	    RemoveTainted(3,"at.nodeModifier.removeTaint"),
+	    AddBright(4,"at.nodeModifier.addBright"),
+        RemoveHungry(5,"at.nodeModifier.removeHunger"),
+        RemovePale(6,"at.nodeModifier.removePale"),
+        RemoveFading(7,"at.nodeModifier.removeFade"),
+        AddAspect(8,"at.nodeModifier.addAspect"),
+        IncreaseAspect(9,"at.nodeModifier.increaseAspect"),
+        AddHungry(10,"at.nodeModifier.addHungry"),
+        AddTainted(11,"at.nodeModifier.addTaint"),
+        AddSinister(12,"at.nodeModifier.addSinister"),
+        AddPure(13,"at.nodeModifier.addPure");
         
         byte id;
-        Operation(int id)
+        String name;
+        Operation(int id,String name)
 	    {
 	        this.id = (byte)id;
+	        this.name=name;
 	    }
         public byte getId()
         {
@@ -240,40 +242,12 @@ public class TileNodeModifier extends TileEntity implements IAspectContainer
         @Override
         public String toString()
         {
-        	switch (id)
-        	{
-        	case 0:
-        		 return "Idle";
-        	case 1:
-        		 return "Remove Unstable";
-        	case 2:
-        		 return "Remove Sinister";
-        	case 3:
-        		return "Remove Tainted";
-        	case 4:
-        		return "Add Bright";
-        	case 5:
-        		return "Remove Hungry";
-        	case 6:
-        		return "Remove Pale";
-        	case 7:
-        	    return "Remove Fading";
-        	case 8:
-        	     return "Add Aspect";
-        	case 9:
-        	     return "Increase Aspect";
-        	case 10:
-        	     return "Add Hungry";
-        	case 11:
-        	     return "Add Tainted";
-        	case 12:
-        	     return "Add Sinister";
-        	case 13:
-        		return "Add Pure";
-        	default:
-        	    return "Unknown (" + id + ")";
-        	}
+        	return name+".name";
         }
+        public String getDescription()
+		{
+			return name+".desc";
+		}
 	}
 	
 	private static HashMap<Operation, Requirements> requirementlist = null;

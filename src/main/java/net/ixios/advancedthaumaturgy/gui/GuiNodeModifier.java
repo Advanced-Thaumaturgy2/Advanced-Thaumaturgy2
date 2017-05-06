@@ -134,12 +134,12 @@ public class GuiNodeModifier extends GuiContainer
 		if (te == null)
 		{
 
-			fontRendererObj.drawSplitString("Begin modification by placing a jarred node on the Node Modifier.", 5, 5, 150, Color.WHITE.getRGB());
+			fontRendererObj.drawSplitString(StatCollector.translateToLocal("at.nodeModifier.beginText"), 5, 5, 150, Color.WHITE.getRGB());
 			return;
 		}
 		else if (!(te instanceof TileJarNode))
 		{
-			fontRendererObj.drawSplitString("Invalid modification target.  Begin modification by placing a jarred node on the Node Modifier.", 20, ySize - 45, xSize - 30, Color.WHITE.getRGB());
+			fontRendererObj.drawSplitString(StatCollector.translateToLocal("at.nodeModifier.invalidBeginText"), 20, ySize - 45, xSize - 30, Color.WHITE.getRGB());
 			return;
 		}
 		
@@ -148,7 +148,7 @@ public class GuiNodeModifier extends GuiContainer
 			for (int i = 0; i < nm.availableOperations.size(); i++)
 			{
 				Operation op = nm.availableOperations.get(i);
-				drawString(fontRendererObj,  (i == selectedop ? "\u00a7n" : "") + op.toString(), 20, 15 + (i * 12), Color.WHITE.getRGB());
+				drawString(fontRendererObj,  (i == selectedop ? "\u00a7n" : "") + StatCollector.translateToLocal(op.toString()), 20, 15 + (i * 12), Color.WHITE.getRGB());
 			}
 		}
 	
@@ -158,90 +158,7 @@ public class GuiNodeModifier extends GuiContainer
 			Requirements reqs = nm.getRequirements(op);
 			
 			String todraw = "";
-			
-			switch (op)
-			{
-				case Idle:
-					break;
-					
-				case AddPure:
-				{
-					todraw = "Allows you to infuse a node with <something>, transforming it to a Pure node.";	
-				}
-				break;
-				
-				case AddAspect:
-				{
-					todraw = "Allows you to infuse a node with a brand new aspect.";
-				}
-				break;
-				
-				case AddBright:
-				{
-					todraw = "Allows you to boost a node's brightness, increasing it's rate of regeneration.";
-				}
-				break;
-				
-				case AddHungry:
-				{
-					todraw = "Allows you to corrupt a node, causing it to consume anything in it's vicinity.";
-				}
-				break;
-			
-				case AddSinister:
-				{
-					todraw = "Infuses a node with Exanimus, weaving darkness into it and causing it to become Sinister.";
-				}
-				break;
-				
-				case AddTainted:
-				{
-					todraw = "Allows you to corrupt a node with Vitium, causing it to become tainted.";
-				}
-				break;
-				
-				case RemovePale:
-				{
-					todraw = "Allows you to strengthen a node with Auram, causing it to become normal, and thus increasing it's regeneration rate.";
-				}
-				break;
-				
-				case IncreaseAspect:
-				{
-					todraw = "Allows you to strengthen a node's existing aspects with Auram, causing it to incrase the node's maximum capacity by one.";
-				}
-				break;
-				
-				case RemoveFading:
-				{
-					todraw = "Allows you to infuse a node with Auram, causing it to become stronger, and able to regenerate it's aspects.";
-				}
-				break;
-				
-				case RemoveHungry:
-				{
-					todraw = "Allows you to imbue a node with Granum, sating it's violent hunger and returning it to normal functionality.";
-				}
-				break;
-				
-				case RemoveTainted:
-				{
-					todraw = "Allows you to corrupt a node with Ordo, filtering the tainted essence from the node.";
-				}
-				break;
-				
-				case RemoveUnstable:
-				{
-					todraw = "Allows you to corrupt a node with Ordo, stabilizing the weak node..";
-				}
-				break;
-				
-				case RemoveSinister:
-				{
-					todraw = "Removes the dark energies from a node, canceling out it's Sinister quality.";
-				}
-				break;
-			}
+			todraw=StatCollector.translateToLocal(op.getDescription());
 			
 			// draw string
 			fontRendererObj.drawSplitString(todraw, 20, ySize - 45, xSize - 30, Color.WHITE.getRGB());
