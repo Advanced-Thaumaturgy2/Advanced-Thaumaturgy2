@@ -106,13 +106,24 @@ public class BlockMicrolith extends BlockContainer
         ri.setPages(new ResearchPage("at.research.microlith.pg1"), new ResearchPage("at.research.microlith.pg2"),
         		new ResearchPage(recipe));
         
-       ri.registerResearchItem();
+        ri.registerResearchItem();
 
-       // flux dissipator
-       InfusionRecipe ir = addCrystalRecipe("CRYSTALFLUX", "MINILITHFLUX", 20, 
-    		   new AspectList().add(Aspect.ORDER, 64).add(Aspect.TAINT, 16), new ItemStack[] { TCItems.ordocluster, TCItems.tendril });
-       
-       addMicrolith("MINILITHFLUX", 20, 1, 0, 6, "microlithflux", ir);
+        // flux dissipator
+        InfusionRecipe ir = addCrystalRecipe("CRYSTALFLUX", "MINILITHFLUX", 20, 
+    			new AspectList().add(Aspect.ORDER, 64).add(Aspect.TAINT, 16), new ItemStack[] { TCItems.ordocluster, TCItems.tendril });
+
+	/*addMicrolith("MINILITHFLUX", 20,
+			new AspectList().add(Aspect.ORDER, 16).add(Aspect.TAINT, 16),
+			1, 0, 6,
+			"microlithflux", ir);*/
+
+        ConfigResearch.recipes.put("MINILITHFLUX", recipe);
+		 
+	ATResearchItem ri = new ATResearchItem("MINILITHFLUX", "ADVTHAUM",
+			new AspectList().add(Aspect.TAINT, 16).add(Aspect.ORDER, 16),
+			//-4, 5, 5,
+			1, 0, 6,
+			dissipator);
               
        //Watchful Microlith - Chunkloader 3x3
        ItemStack eye = new ItemStack(Items.ender_eye);
