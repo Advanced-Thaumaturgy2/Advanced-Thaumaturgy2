@@ -110,40 +110,40 @@ public class BlockMicrolith extends BlockContainer
 
         // flux dissipator
         InfusionRecipe ir = addCrystalRecipe("CRYSTALFLUX", "MINILITHFLUX", 20, 
-    			new AspectList().add(Aspect.ORDER, 64).add(Aspect.TAINT, 16), new ItemStack[] { TCItems.ordocluster, TCItems.tendril });
+    			new AspectList().add(Aspect.VOID, 64).add(Aspect.TAINT, 16), new ItemStack[] { TCItems.ordocluster, TCItems.tendril });
 
-			addMicrolith("MINILITHFLUX", 20, 1, 0, 6, "microlithflux", ir);
+			addMicrolith("MINILITHFLUX", 20, 1, 0, 6, "microlithflux", ir, new AspectList().add(Aspect.VOID, 6).add(Aspect.TAINT, 10));
               
        //Watchful Microlith - Chunkloader 3x3
        ItemStack eye = new ItemStack(Items.ender_eye);
        ir = addCrystalRecipe("CRYSTALLOADER", "MINILITHWATCHFUL", 21, 
     		   new AspectList().add(Aspect.SENSES, 64).add(Aspect.MAGIC, 32), new ItemStack[] { eye, eye, eye, eye });
        
-       addMicrolith("MINILITHWATCHFUL", 21, 2, 3, 3, "microlithwatch", ir);
+       addMicrolith("MINILITHWATCHFUL", 21, 2, 3, 3, "microlithwatch", ir, new AspectList().add(Aspect.SENSES, 4).add(Aspect.MAGIC, 12));
             
        //Healing Microlith
        ir = addCrystalRecipe("CRYSTALHEAL", "MINILITHHEAL", 22, 
     		   new AspectList().add(Aspect.HEAL, 32).add(Aspect.LIFE, 64), new ItemStack[] { new ItemStack(Items.golden_apple) });
        
-       addMicrolith("MINILITHHEAL", 22, 3, 3, 7, "microlithheal", ir);
+       addMicrolith("MINILITHHEAL", 22, 3, 3, 7, "microlithheal", ir, new AspectList().add(Aspect.HEAL, 8).add(Aspect.LIFE, 8));
 
        //Lightning microlith
        ir = addCrystalRecipe("CRYSTALZAP", "MINILITHZAP", 23, 
-    		   new AspectList().add(Aspect.WEAPON, 32).add(Aspect.AIR, 64), new ItemStack[] { new ItemStack(ConfigItems.itemFocusShock) });
+    		   new AspectList().add(Aspect.WEAPON, 32).add(Aspect.AIR, 64).add(Aspect.ENERGY, 32), new ItemStack[] { new ItemStack(ConfigItems.itemFocusShock) });
        
-       addMicrolith("MINILITHZAP", 23, 4, 4, 6, "microlithlightning", ir);
+       addMicrolith("MINILITHZAP", 23, 4, 4, 6, "microlithlightning", ir, new AspectList().add(Aspect.WEAPON, 4).add(Aspect.AIR, 8).add(Aspect.ENERGY, 10));
 
        //Flame Minimith
        ir = addCrystalRecipe("CRYSTALFIRE", "MINILITHFIRE", 24, 
-    		   new AspectList().add(Aspect.FIRE, 64).add(Aspect.AIR, 64), new ItemStack[] { new ItemStack(ConfigItems.itemFocusFire) });
+    		   new AspectList().add(Aspect.WEAPON, 32).add(Aspect.FIRE, 64).add(Aspect.AIR, 64), new ItemStack[] { new ItemStack(ConfigItems.itemFocusFire) });
 
-       addMicrolith("MINILITHFIRE", 24, 5, 4, 4, "microlithfire", ir);
+       addMicrolith("MINILITHFIRE", 24, 5, 4, 4, "microlithfire", ir, new AspectList().add(Aspect.WEAPON, 4).add(Aspect.AIR, 8).add(Aspect.FIRE, 10));
 
        //Icy Microlith - tosses frost at mobs
        ir = addCrystalRecipe("CRYSTALICE", "MINILITHFROST", 25, 
-    		   new AspectList().add(Aspect.AIR, 64), new ItemStack[] { new ItemStack(ConfigItems.itemFocusFrost) });
+    		   new AspectList().add(Aspect.WEAPON, 32).add(Aspect.COLD, 64), new ItemStack[] { new ItemStack(ConfigItems.itemFocusFrost) });
 
-       addMicrolith("MINILITHFROST", 25, 6, 1, 7, "microlithfrost", ir);
+       addMicrolith("MINILITHFROST", 25, 6, 1, 7, "microlithfrost", ir, new AspectList().add(Aspect.WEAPON, 4).add(Aspect.COLD, 10));
        
        
        //Gusty Microlith - repels mobs
@@ -164,7 +164,7 @@ public class BlockMicrolith extends BlockContainer
               
     }
     
-    private void addMicrolith(String research, int crystalmeta, int microlithmeta, int col, int row, String name, InfusionRecipe crystalRecipe)
+    private void addMicrolith(String research, int crystalmeta, int microlithmeta, int col, int row, String name, InfusionRecipe crystalRecipe, AspectList researchCost)
     {
         ItemStack orb = new ItemStack(AdvThaum.ArcaneCrystal, 1, crystalmeta);
         ItemStack base = new ItemStack(this, 1, 0);
@@ -173,7 +173,7 @@ public class BlockMicrolith extends BlockContainer
         ShapedArcaneRecipe recipe = ThaumcraftApi.addArcaneCraftingRecipe(research, new ItemStack(this, 1, microlithmeta), new AspectList().add(Aspect.ENTROPY,  50),
      		   new Object[] { "   ", " O ", " B ", 'O', orb, 'B', base });
         ConfigResearch.recipes.put(research, recipe);
-        ATResearchItem ri = new ATResearchItem(research, "ADVTHAUM", new AspectList(), col, row, 0, orb);
+        ATResearchItem ri = new ATResearchItem(research, "ADVTHAUM", researchCost, col, row, 0, orb);
         ri.setTitle("at.microlith." + microlithmeta + ".name");
         ri.setInfo("at." + name + ".desc");
         ri.setParents("MINILITHBASE");
