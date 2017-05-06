@@ -119,3 +119,7 @@ at.research.microlith.title=The Microlith
 at.research.microlith.desc=?
 at.research.microlith.pg1=They randomly dot the landscape, a coalesced knot of dark energy tainting the nearby land.  To those who have access to other worlds, they occasionally loom over the landscape, a much larger version that lacks the corrupt node inside.  Through diligent study and hard work, you have uncovered a way to both purify and harness these malignant energies, and repurpose them for dozens of uses.<LINE>Don't worry.  Many, MANY fun things to come! - Lycaon
 at.research.microlith.pg2="They make me sick, and send chills down my spine, but the energy they contain is immense.  Whipping out my trusty Pickaxe of the Core, I harvest the dark totem, careful to jar the node in the top for purification in the Node Modifier.  The totems and tiles... they can be repurposed.  While I cannot directly cleanse their taint, a properly fashioned crystal on the top should replace the old sinister node and redirect some of that awesome power."<BR>"For a while, I debated calling them microliths, but a fellow thaumaturge suggested Microliths, which seems less silly.  I did reply, though, 'You sure know how to kill a joke.'"
+
+
+
+at.nodeModifier.start=start

@@ -2,6 +2,9 @@ package net.ixios.advancedthaumaturgy.gui;
 
 import java.awt.Color;
 
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.util.StatCollector;
+import net.minecraft.util.StringTranslate;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Rectangle;
@@ -27,6 +30,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemWispEssence;
 import thaumcraft.common.tiles.TileJarNode;
@@ -62,11 +66,17 @@ public class GuiNodeModifier extends GuiContainer
 		this.ySize = 150;
 		
 		if (node == null)
-			node = new ItemStack(AdvThaum.CreativeNode);
+			if(AdvThaum.CreativeNode!=null)
+				node = new ItemStack(AdvThaum.CreativeNode);
 		
 		IItemRenderer r = MinecraftForgeClient.getItemRenderer(node, ItemRenderType.INVENTORY);
-		if (r == null)
-			node = new ItemStack(AdvThaum.ArcaneCrystal);
+		if (r == null) {
+			if (AdvThaum.ArcaneCrystal != null)
+				node = new ItemStack(AdvThaum.ArcaneCrystal);
+			else {
+				node = new ItemStack(ConfigItems.itemResource, 1, 3);
+			}
+		}
 		
 		nm = (TileNodeModifier)world.getTileEntity(blockX, blockY, blockZ);
 		
@@ -98,7 +108,7 @@ public class GuiNodeModifier extends GuiContainer
 	{
 		buttonpos.setBounds((guiLeft + xSize) - 60, (guiTop + ySize) - 20, 50, 20);
 		drawTexture(buttonup, buttonpos.getX(), buttonpos.getY(), 0, 0, 1, 1);
-		drawString(mc.fontRenderer, "Start", buttonpos.getX() +  20, buttonpos.getY() + 4, (selectedop == -1 ? Color.gray.getRGB() : Color.white.getRGB()));
+		drawString(mc.fontRenderer, StatCollector.translateToLocal("at.nodeModifier.start"), buttonpos.getX() +  20, buttonpos.getY() + 4, (selectedop == -1 ? Color.gray.getRGB() : Color.white.getRGB()));
 		
 		itemRenderer.renderItemAndEffectIntoGUI(super.mc.fontRenderer, super.mc.renderEngine, node, buttonpos.getX() + 5, buttonpos.getY());
 		
